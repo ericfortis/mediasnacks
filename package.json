@@ -1,0 +1,14 @@
+{
+  "name": "mediasnacks",
+  "version": "0.0.1",
+  "description": "Utilities for preparing videos, images, and audio for the web",
+  "license": "MIT",
+  "author": "Eric Fortis",
+  "type": "module",
+	"bin": {
+		"mediasnacks": "src/cli.js"
+	},
+	"scripts": {
+		"test": "node --test"
+	}
+}
