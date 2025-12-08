@@ -1,7 +1,7 @@
 import { parseArgs } from 'node:util'
 import { unlink, rename } from 'node:fs/promises'
 
-import { glob, makeTempFile } from './utils/fs-utils.js'
+import { glob, uniqueFilenameFor } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -39,7 +39,7 @@ async function moov2front(file) {
 	}
 
 	console.log(file)
-	const tmp = makeTempFile(file)
+	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([
 		'-hide_banner',
 		'-i', file,

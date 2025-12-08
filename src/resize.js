@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 import { parseArgs } from 'node:util'
 
-import { glob, isFile, makeTempFile } from './utils/fs-utils.js'
+import { glob, isFile, uniqueFilenameFor } from './utils/fs-utils.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -81,7 +81,7 @@ async function resize({ file, outFile, overwrite, width, height }) {
 	}
 
 	console.log(file)
-	const tmp = makeTempFile(file)
+	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([
 		'-i', file,
 		'-vf', `scale=${width}:${height}`,

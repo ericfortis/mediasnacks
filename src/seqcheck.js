@@ -1,6 +1,7 @@
 import { resolve } from 'node:path'
 import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 
 const USAGE = `
@@ -40,7 +41,7 @@ function main() {
 		console.log('Missing:', missing)
 }
 
-function extractSeqNums(names, leftDelimiter, rightDelimiter) {
+export function extractSeqNums(names, leftDelimiter, rightDelimiter) {
 	const pattern = new RegExp(escapeRegex(leftDelimiter) + '(\\d+)' + escapeRegex(rightDelimiter))
 	const seq = []
 	for (const name of names) {
@@ -51,7 +52,7 @@ function extractSeqNums(names, leftDelimiter, rightDelimiter) {
 	return seq.sort()
 }
 
-function findMissingNumbers(seq) {
+export function findMissingNumbers(seq) {
 	if (seq.length < 2)
 		return []
 	const missing = []
@@ -65,4 +66,6 @@ function escapeRegex(str) {
 	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-main()
+
+if (fileURLToPath(import.meta.url) === process.argv[1])
+	main()
