@@ -3,6 +3,7 @@ import { parseArgs } from 'node:util'
 import { resolve, join } from 'node:path'
 import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
 import { isFile } from './utils/fs-utils.js'
+import { fileURLToPath } from 'node:url'
 
 
 const USAGE = `
@@ -35,7 +36,7 @@ async function main() {
 }
 
 
-async function queueDir(dir, pollIntervalMs = 10_000) {
+export async function queueDir(dir, pollIntervalMs = 10_000) {
 	const lock = join(dir, '.lock')
 
 	if (isFile(lock))
@@ -56,10 +57,9 @@ async function queueDir(dir, pollIntervalMs = 10_000) {
 
 		try {
 			const exitCode = await runShell(job)
-			if (exitCode === 0)
-				await rename(job, job.replace(/\.sh$/, '.done'))
-			else
-				await rename(job, job + `.failed.${exitCode}`)
+			await rename(job, job + (exitCode === 0
+				? '.done'
+				: `.failed.${exitCode}`))
 		}
 		finally {
 			await unlink(lock).catch(() => {})
@@ -73,8 +73,8 @@ async function getNextJob(dir) {
 		.filter(d => d.isFile() && d.name.endsWith('.sh'))
 		.map(d => d.name)
 		.sort()
-	return scripts.length 
-		? join(dir, scripts[0]) 
+	return scripts.length
+		? join(dir, scripts[0])
 		: null
 }
 
@@ -91,7 +91,9 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-main().catch(err => {
-	console.error(err.message || err)
-	process.exit(1)
-})
+
+if (fileURLToPath(import.meta.url) === process.argv[1])
+	main().catch(err => {
+		console.error(err.message || err)
+		process.exit(1)
+	})
