@@ -13,6 +13,7 @@ const COMMANDS = {
 	dropdups: join(import.meta.dirname, 'dropdups.js'),
 	seqcheck: join(import.meta.dirname, 'seqcheck.js'),
 	queuedir: join(import.meta.dirname, 'queuedir.js'),
+	hev1tohvc1: join(import.meta.dirname, 'hev1tohvc1.js'),
 }
 
 const USAGE = `
@@ -26,6 +27,7 @@ Commands:
     dropdups: Removes duplicate frames in a video
     seqcheck: Finds missing sequence number
     queuedir: Sequentially runs all *.sh files in a folder
+    hev1tohvc1: Fixes video thumbnails not rendering in macOS Finder 
 `.trim()
 
 

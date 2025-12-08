@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 import { parseArgs } from 'node:util'
 
-import { glob, isFile, makeTempDir, makeDirFor } from './utils/fs-utils.js'
+import { glob, isFile, makeTempFile } from './utils/fs-utils.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -81,10 +81,7 @@ async function resize({ file, outFile, overwrite, width, height }) {
 	}
 
 	console.log(file)
-	const tmp = join(await makeTempDir(), file) // FFmpeg can’t edit in-place
-	await makeDirFor(tmp)
-	await makeDirFor(outFile)
-
+	const tmp = makeTempFile(file)
 	await ffmpeg([
 		'-i', file,
 		'-vf', `scale=${width}:${height}`,

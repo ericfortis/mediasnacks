@@ -1,8 +1,7 @@
-import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 import { unlink, rename } from 'node:fs/promises'
 
-import { glob, makeTempDir, makeDirFor } from './utils/fs-utils.js'
+import { glob, makeTempFile } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -40,9 +39,7 @@ async function moov2front(file) {
 	}
 
 	console.log(file)
-	const tmp = join(await makeTempDir(), file) // FFmpeg can’t edit in-place
-	await makeDirFor(tmp)
-
+	const tmp = makeTempFile(file)
 	await ffmpeg([
 		'-hide_banner',
 		'-i', file,
