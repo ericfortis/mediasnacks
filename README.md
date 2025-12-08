@@ -14,7 +14,9 @@ Commands:
 - `avif` Converts images to AVIF
 - `resize` Resizes videos or images
 - `moov2front` Rearranges .mov and .mp4 metadata for fast-start streaming
-
+- `dropdups` Removes duplicate frames in a video
+- `seqcheck` Finds missing sequence number
+- `queuedir` Sequentially runs all *.sh files in a folder
 <br/>
 
 ### Converting Images to AVIF

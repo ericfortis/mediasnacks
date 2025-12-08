@@ -1,11 +1,9 @@
-#!/usr/bin/env node
-
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 import { parseArgs } from 'node:util'
 
-import { glob, isFile, makeTempDir, makeDirFor } from './fs-utils.js'
-import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './ffmpeg.js'
+import { glob, isFile, makeTempDir, makeDirFor } from './utils/fs-utils.js'
+import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
 

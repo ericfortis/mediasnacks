@@ -1,11 +1,9 @@
-#!/usr/bin/env node
-
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 import { unlink, rename } from 'node:fs/promises'
 
-import { glob, makeTempDir, makeDirFor } from './fs-utils.js'
-import { ffmpeg, assertUserHasFFmpeg } from './ffmpeg.js'
+import { glob, makeTempDir, makeDirFor } from './utils/fs-utils.js'
+import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
 const USAGE = `

@@ -1,10 +1,8 @@
-#!/usr/bin/env node
-
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 
-import { glob, replaceExt, lstat } from './fs-utils.js'
-import { ffmpeg, assertUserHasFFmpeg } from './ffmpeg.js'
+import { glob, replaceExt, lstat } from './utils/fs-utils.js'
+import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
 const USAGE = `

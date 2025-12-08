@@ -2,13 +2,13 @@ import { spawn } from 'node:child_process'
 
 
 export async function ffmpeg(args) {
-	return run('ffmpeg', args)
+	return runSilently('ffmpeg', args)
 }
 
 export async function assertUserHasFFmpeg() {
 	try {
-		await run('ffmpeg', ['-version'])
-		await run('ffprobe', ['-version'])
+		await runSilently('ffmpeg', ['-version'])
+		await runSilently('ffprobe', ['-version'])
 	}
 	catch {
 		throw new Error('ffmpeg not found. Please install ffmpeg.')
@@ -16,7 +16,7 @@ export async function assertUserHasFFmpeg() {
 }
 
 export async function videoAttrs(v, ...props) {
-	const { stdout } = await run('ffprobe', [
+	const { stdout } = await runSilently('ffprobe', [
 		'-v', 'error',
 		'-select_streams', 'v:0',
 		'-show_entries', `stream=${props.join(',')}`,
@@ -27,7 +27,7 @@ export async function videoAttrs(v, ...props) {
 }
 
 
-async function run(program, args) {
+async function runSilently(program, args) {
 	return new Promise((resolve, reject) => {
 		const stdout = []
 		const stderr = []
@@ -48,4 +48,21 @@ async function run(program, args) {
 		})
 	})
 }
+
+export async function run(program, args) {
+	return new Promise((resolve, reject) => {
+		const p = spawn(program, args)
+		p.stdout.on('data', data => process.stdout.write(data))
+		p.stderr.on('data', chunk => process.stderr.write(chunk))
+
+		p.on('error', reject)
+		p.on('close', code => {
+			if (code === 0)
+				resolve()
+			else
+				reject(new Error(`${program} failed with code ${code}`))
+		})
+	})
+}
+
 

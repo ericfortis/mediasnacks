@@ -6,9 +6,13 @@ import pkgJSON from '../package.json' with { type: 'json' }
 
 
 const COMMANDS = {
-	avif: join(import.meta.dirname, 'cli-avif.js'),
-	resize: join(import.meta.dirname, 'cli-resize.js'),
-	moov2front: join(import.meta.dirname, 'cli-moov2front.js')
+	avif: join(import.meta.dirname, 'avif.js'),
+	resize: join(import.meta.dirname, 'resize.js'),
+	moov2front: join(import.meta.dirname, 'moov2front.js'),
+	
+	dropdups: join(import.meta.dirname, 'dropdups.js'),
+	seqcheck: join(import.meta.dirname, 'seqcheck.js'),
+	queuedir: join(import.meta.dirname, 'queuedir.js'),
 }
 
 const USAGE = `
@@ -18,6 +22,10 @@ Commands:
     avif: Converts images to AVIF
     resize: Resizes videos or images
     moov2front: Rearranges .mov and .mp4 metadata for fast-start streaming
+    
+    dropdups: Removes duplicate frames in a video
+    seqcheck: Finds missing sequence number
+    queuedir: Sequentially runs all *.sh files in a folder
 `.trim()
 
 
