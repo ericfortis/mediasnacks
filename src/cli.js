@@ -17,13 +17,15 @@ const COMMANDS = {
 
 	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
 	videodiff: ['videodiff.sh', 'Plays a video with the difference of two videos'],
+	
+	vconcat: ['vconcat.sh', 'Concatenates videos'],
 }
 
 const USAGE = `
 Usage: npx mediasnacks <command> <args>
 
 Commands:
-${Object.entries(COMMANDS).map(([cmd, [,title]]) =>
+${Object.entries(COMMANDS).map(([cmd, [, title]]) =>
 	`    ${cmd}\t${title}`).join('\n')}
 `.trim()
 
@@ -51,8 +53,9 @@ if (!Object.hasOwn(COMMANDS, opt)) {
 }
 
 const cmd = join(import.meta.dirname, COMMANDS[opt][0])
-const executable = cmd.endsWith('.sh')
-	? 'sh'
-	: process.execPath
-spawn(executable, [cmd, ...args], { stdio: 'inherit' })
-	.on('exit', process.exit)
+const isShellScript = cmd.endsWith('.sh')
+spawn(
+	isShellScript ? cmd : process.execPath,
+	isShellScript ? args : [cmd, ...args],
+	{ stdio: 'inherit' }
+).on('exit', process.exit)

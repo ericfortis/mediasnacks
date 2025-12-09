@@ -10,6 +10,7 @@ _mediasnacks_commands=(
   'hev1tohvc1:Fixes video thumbnails not rendering in macOS Finder'
   'framediff:ffplay with a filter for diffing adjacent frames'
   'videodiff:Plays a video with the difference of two videos'
+  'vconcat:Concatenates videos'
 )
 
 _mediasnacks() {
@@ -20,7 +21,7 @@ _mediasnacks() {
 
   local cmd="$words[2]"
   case "$cmd" in
-    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff)
+    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat)
       _files
       ;;
     qdir)

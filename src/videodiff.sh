@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Diffs two video files
 # The videos must have the same resolution and ideally the same framerate.
 video1="$1"

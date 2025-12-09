@@ -21,6 +21,8 @@ Commands:
 
 - `framediff`: Plays a video of adjacent frames diff
 - `videodiff`: Plays a video with the difference of two videos
+- 
+- `vconcat`: Concatenates videos
 <br/>
 
 ### Converting Images to AVIF
