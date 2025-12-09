@@ -3,7 +3,11 @@
 video1="$1"
 video2="$2"
 
-ffplay -f lavfi "movie=$video1 [a]; movie=$video2 [b]; [a][b] blend=all_mode=difference128"
+ffprobe -v error "$video1" || exit 1
+ffprobe -v error "$video2" || exit 1
+
+ffplay -hide_banner \
+	-f lavfi "movie=$video1 [a]; movie=$video2 [b]; [a][b] blend=all_mode=difference128"
 
 #all_mode=difference: absolute diff (ideal for detecting visual changes)
 #all_mode=subtract: raw subtraction (can go <0, may appear darker)

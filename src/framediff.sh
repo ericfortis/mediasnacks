@@ -4,7 +4,7 @@
 
 # The frame number is rendered at the top-left.
 
-ffplay -hide_banner "$1" -vf "
+ffplay -hide_banner -xerror "$1" -vf "
     tblend=all_mode=difference,
     format=gray,
     drawtext=text='%{n}':x=20:y=20:fontcolor=white:fontsize=48

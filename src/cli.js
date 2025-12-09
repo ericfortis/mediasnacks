@@ -46,7 +46,7 @@ if (!opt) {
 }
 
 if (!Object.hasOwn(COMMANDS, opt)) {
-	console.error(`'${opt}' is not a mediasnacks command. See npx mediasnacks --help\n`)
+	console.error(`'${opt}' is not a command. See npx mediasnacks --help\n`)
 	process.exit(1)
 }
 
@@ -55,4 +55,4 @@ const executable = cmd.endsWith('.sh')
 	? 'sh'
 	: process.execPath
 spawn(executable, [cmd, ...args], { stdio: 'inherit' })
-	.on('exit', code => process.exit(code))
+	.on('exit', process.exit)
