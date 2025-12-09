@@ -6,34 +6,25 @@ import pkgJSON from '../package.json' with { type: 'json' }
 
 
 const COMMANDS = {
-	avif: join(import.meta.dirname, 'avif.js'),
-	resize: join(import.meta.dirname, 'resize.js'),
-	moov2front: join(import.meta.dirname, 'moov2front.js'),
-	
-	dropdups: join(import.meta.dirname, 'dropdups.js'),
-	seqcheck: join(import.meta.dirname, 'seqcheck.js'),
-	qdir: join(import.meta.dirname, 'qdir.js'),
-	hev1tohvc1: join(import.meta.dirname, 'hev1tohvc1.js'),
-	
-	framediff: join(import.meta.dirname, 'framediff.sh'),
-	videodiff: join(import.meta.dirname, 'videodiff.sh'),
+	avif: ['avif.js', 'Converts images to AVIF'],
+	resize: ['resize.js', 'Resizes videos or images'],
+	moov2front: ['moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
+
+	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
+	seqcheck: ['seqcheck.js', 'Finds missing sequence number'],
+	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
+	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering in macOS Finder '],
+
+	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
+	videodiff: ['videodiff.sh', 'Plays a video with the difference of two videos'],
 }
 
 const USAGE = `
 Usage: npx mediasnacks <command> <args>
 
 Commands:
-    avif: Converts images to AVIF
-    resize: Resizes videos or images
-    moov2front: Rearranges .mov and .mp4 metadata for fast-start streaming
-    
-    dropdups: Removes duplicate frames in a video
-    seqcheck: Finds missing sequence number
-    qdir: Sequentially runs all *.sh files in a folder
-    hev1tohvc1: Fixes video thumbnails not rendering in macOS Finder 
-    
-    framediff: Plays a video of adjacent frames diff
-    videodiff: Plays a video with the difference of two videos
+${Object.entries(COMMANDS).map(([cmd, [,title]]) =>
+	`    ${cmd}\t${title}`).join('\n')}
 `.trim()
 
 
@@ -59,9 +50,9 @@ if (!Object.hasOwn(COMMANDS, opt)) {
 	process.exit(1)
 }
 
-const cmd = COMMANDS[opt]
-const executable = cmd.endsWith('.sh') 
-	? 'sh' 
+const cmd = join(import.meta.dirname, COMMANDS[opt][0])
+const executable = cmd.endsWith('.sh')
+	? 'sh'
 	: process.execPath
 spawn(executable, [cmd, ...args], { stdio: 'inherit' })
 	.on('exit', code => process.exit(code))
