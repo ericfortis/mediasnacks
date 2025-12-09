@@ -19,6 +19,9 @@ const COMMANDS = {
 	videodiff: ['videodiff.sh', 'Plays a video with the difference of two videos'],
 	
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
+	
+	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
+	dlvideo: ['dlvideo.sh', 'yt-dlp best video'],
 }
 
 const USAGE = `
