@@ -16,6 +16,7 @@ const COMMANDS = {
 	hev1tohvc1: join(import.meta.dirname, 'hev1tohvc1.js'),
 	
 	framediff: join(import.meta.dirname, 'framediff.sh'),
+	videodiff: join(import.meta.dirname, 'videodiff.sh'),
 }
 
 const USAGE = `
@@ -31,7 +32,8 @@ Commands:
     qdir: Sequentially runs all *.sh files in a folder
     hev1tohvc1: Fixes video thumbnails not rendering in macOS Finder 
     
-    framediff: Plays a video of adjacent frames diff. 
+    framediff: Plays a video of adjacent frames diff
+    videodiff: Plays a video of the difference of two videos
 `.trim()
 
 

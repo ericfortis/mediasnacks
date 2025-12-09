@@ -9,6 +9,7 @@ _mediasnacks_commands=(
   'qdir:Sequentially runs all *.sh files in a folder'
   'hev1tohvc1:Fixes video thumbnails not rendering in macOS Finder'
   'framediff:ffplay with a filter for diffing adjacent frames'
+  'videodiff:Plays a video of the difference of two videos'
 )
 
 _mediasnacks() {
@@ -19,7 +20,7 @@ _mediasnacks() {
 
   local cmd="$words[2]"
   case "$cmd" in
-    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff)
+    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff)
       _files
       ;;
     qdir)
