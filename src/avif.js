@@ -55,7 +55,6 @@ async function toAvif({ file, outFile, overwrite }) {
 		return
 	}
 
-	// TODO test on linux
 	console.log(file)
 	await ffmpeg([
 		'-y', // overwrites

@@ -33,7 +33,7 @@ Commands:
     hev1tohvc1: Fixes video thumbnails not rendering in macOS Finder 
     
     framediff: Plays a video of adjacent frames diff
-    videodiff: Plays a video of the difference of two videos
+    videodiff: Plays a video with the difference of two videos
 `.trim()
 
 
