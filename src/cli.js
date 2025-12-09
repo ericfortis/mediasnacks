@@ -14,6 +14,8 @@ const COMMANDS = {
 	seqcheck: join(import.meta.dirname, 'seqcheck.js'),
 	qdir: join(import.meta.dirname, 'qdir.js'),
 	hev1tohvc1: join(import.meta.dirname, 'hev1tohvc1.js'),
+	
+	framediff: join(import.meta.dirname, 'framediff.sh'),
 }
 
 const USAGE = `
@@ -28,6 +30,8 @@ Commands:
     seqcheck: Finds missing sequence number
     qdir: Sequentially runs all *.sh files in a folder
     hev1tohvc1: Fixes video thumbnails not rendering in macOS Finder 
+    
+    framediff: Plays a video of adjacent frames diff. 
 `.trim()
 
 
@@ -53,5 +57,9 @@ if (!Object.hasOwn(COMMANDS, opt)) {
 	process.exit(1)
 }
 
-spawn(process.execPath, [COMMANDS[opt], ...args], { stdio: 'inherit' })
+const cmd = COMMANDS[opt]
+const executable = cmd.endsWith('.sh') 
+	? 'sh' 
+	: process.execPath
+spawn(executable, [cmd, ...args], { stdio: 'inherit' })
 	.on('exit', code => process.exit(code))
