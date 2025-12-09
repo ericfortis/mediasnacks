@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url'
 
 
 const USAGE = `
-Usage: npx mediasnacks queuedir [folder]
+Usage: npx mediasnacks qdir [folder]
 
 Sequentially runs all *.sh files in a folder. 
 It uses the current working directory by default.
@@ -30,13 +30,13 @@ async function main() {
 	}
 
 	const dir = positionals[0] || process.cwd()
-	const err = await queueDir(dir)
+	const err = await qdir(dir)
 	if (err)
 		throw new Error(err)
 }
 
 
-export async function queueDir(dir, pollIntervalMs = 10_000) {
+export async function qdir(dir, pollIntervalMs = 10_000) {
 	const lock = join(dir, '.lock')
 
 	if (isFile(lock))

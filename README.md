@@ -16,7 +16,9 @@ Commands:
 - `moov2front` Rearranges .mov and .mp4 metadata for fast-start streaming
 - `dropdups` Removes duplicate frames in a video
 - `seqcheck` Finds missing sequence number
-- `queuedir` Sequentially runs all *.sh files in a folder
+- `qdir` Sequentially runs all *.sh files in a folder
+- `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder 
+ 
 <br/>
 
 ### Converting Images to AVIF
