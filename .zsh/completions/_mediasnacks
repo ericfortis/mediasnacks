@@ -13,6 +13,8 @@ _mediasnacks_commands=(
   'vconcat:Concatenates videos',
   'dlaudio: yt-dlp best audio',
   'dlvideo: yt-dlp best video',
+  'unemoji:Removes emojis from filenames'
+  'rmcover:Removes cover art'
 )
 
 _mediasnacks() {
@@ -23,7 +25,7 @@ _mediasnacks() {
 
   local cmd="$words[2]"
   case "$cmd" in
-    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat)
+    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover)
       _files
       ;;
     qdir)

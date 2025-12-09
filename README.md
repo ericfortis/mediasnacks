@@ -22,8 +22,12 @@ Commands:
 - `framediff`: Plays a video of adjacent frames diff
 - `videodiff`: Plays a video with the difference of two videos
 - `vconcat`: Concatenates videos
+ 
 - `dlaudio`: yt-dlp best audio
 - `dlvideo`: yt-dlp best video
+ 
+- `unemoji`: Removes emojis from filenames
+- `rmcover`: Removes cover art 
 
 <br/>
 
