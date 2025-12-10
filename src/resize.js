@@ -69,7 +69,7 @@ async function main() {
 
 
 async function resize({ file, outFile, overwrite, width, height }) {
-	const v = await videoAttrs(file, 'width', 'height')
+	const v = await videoAttrs(file)
 	if (width === v.width && height === v.height
 		|| width < 0 && height === v.height
 		|| height < 0 && width === v.width) {

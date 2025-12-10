@@ -28,7 +28,7 @@ async function main() {
 }
 
 async function toHvc1(file) {
-	const v = await videoAttrs(file, 'codec_tag_string')
+	const v = await videoAttrs(file)
 	if (v.codec_tag_string !== 'hev1') {
 		console.log('(skipped: non hev1)', file)
 		return
