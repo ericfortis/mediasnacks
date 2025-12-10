@@ -28,7 +28,7 @@ const COMMANDS = {
 	
 	curltime: ['curltime.sh', 'Measures request response timings'],
 	gif: ['gif.sh', 'Video to GIF'],
-	flattendir: ['flattendir.py', 'Moves all files to top dir and deletes dirs']
+	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs']
 }
 
 const USAGE = `

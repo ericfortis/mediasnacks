@@ -32,7 +32,7 @@ Commands:
 - `curltime`: Measures request response timings
 - `gif`: Video to GIF
  
-- `flattendir`: Moves all files to top dir and deletes dirs
+- `flattendir`: Moves unique files to the top dir and deletes empty dirs
 <br/>
 
 ### Converting Images to AVIF
