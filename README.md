@@ -28,7 +28,8 @@ Commands:
  
 - `unemoji`: Removes emojis from filenames
 - `rmcover`: Removes cover art 
-
+ 
+- `curltime`: Measures request response timings
 <br/>
 
 ### Converting Images to AVIF

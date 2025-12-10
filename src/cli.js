@@ -25,6 +25,8 @@ const COMMANDS = {
 
 	unemoji: ['unemoji.sh', 'Removes emojis from filenames'],
 	rmcover: ['rmcover.sh', 'Removes cover art'],
+	
+	curltime: ['curltime.sh', 'Measures request response timings'],
 }
 
 const USAGE = `
