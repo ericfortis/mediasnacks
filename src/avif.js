@@ -3,7 +3,7 @@
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 
-import { glob, replaceExt, lstat } from './utils/fs-utils.js'
+import { replaceExt, lstat, globAll } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -16,7 +16,7 @@ Converts images to AVIF.
 
 async function main() {
 	await assertUserHasFFmpeg()
-	
+
 	const { values, positionals } = parseArgs({
 		options: {
 			'output-dir': { type: 'string', default: '' },
@@ -33,21 +33,20 @@ async function main() {
 
 	if (!positionals.length)
 		throw new Error('No images specified. See npx mediasnacks avif --help')
-	
+
 	console.log('AVIF…')
-	for (const g of positionals)
-		for (const file of await glob(g))
-			await toAvif({
-				file,
-				outFile: join(values['output-dir'], replaceExt(file, 'avif')),
-				overwrite: values.overwrite
-			})
+	for (const file of await globAll(positionals))
+		await toAvif({
+			file,
+			outFile: join(values['output-dir'], replaceExt(file, 'avif')),
+			overwrite: values.overwrite
+		})
 }
 
 async function toAvif({ file, outFile, overwrite }) {
 	const stImg = lstat(file)
 	const stAvif = lstat(outFile)
-	
+
 	if (!overwrite && stAvif?.isFile()) {
 		console.log('(skipped: output file exists but --overwrite=false)', file)
 		return

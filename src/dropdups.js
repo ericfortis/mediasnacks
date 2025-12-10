@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import { spawn } from 'node:child_process'
 import { parseArgs } from 'node:util'
 import { resolve, parse, format } from 'node:path'
 
-import { glob } from './utils/fs-utils.js'
+import { globAll } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg, run } from './utils/ffmpeg.js'
 
 
@@ -57,9 +56,8 @@ async function main() {
 	await assertUserHasFFmpeg()
 
 	console.log('Dropping Duplicate Frames…')
-	for (const g of positionals)
-		for (const file of await glob(g))
-			await drop(resolve(file), nBadFrame)
+	for (const file of await globAll(positionals))
+		await drop(resolve(file), nBadFrame)
 }
 
 async function drop(video, nBadFrame) {

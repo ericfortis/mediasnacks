@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 import { parseArgs } from 'node:util'
 
-import { glob, isFile, uniqueFilenameFor } from './utils/fs-utils.js'
+import { isFile, uniqueFilenameFor, globAll } from './utils/fs-utils.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -29,7 +29,7 @@ Details:
 
 async function main() {
 	await assertUserHasFFmpeg()
-	
+
 	const { values, positionals } = parseArgs({
 		options: {
 			width: { type: 'string', default: '-2' },
@@ -57,15 +57,14 @@ async function main() {
 
 
 	console.log('Resizing…')
-	for (const g of positionals)
-		for (const file of await glob(g))
-			await resize({
-				file,
-				outFile: join(values['output-dir'], file),
-				overwrite: values.overwrite,
-				width,
-				height,
-			})
+	for (const file of await globAll(positionals))
+		await resize({
+			file,
+			outFile: join(values['output-dir'], file),
+			overwrite: values.overwrite,
+			width,
+			height,
+		})
 }
 
 

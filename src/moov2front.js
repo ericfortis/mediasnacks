@@ -3,7 +3,7 @@
 import { parseArgs } from 'node:util'
 
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
-import { glob, uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
+import { uniqueFilenameFor, overwrite, globAll } from './utils/fs-utils.js'
 
 
 const USAGE = `
@@ -16,15 +16,14 @@ Files are overwritten.
 
 async function main() {
 	await assertUserHasFFmpeg()
-	
+
 	const { positionals } = parseArgs({ allowPositionals: true })
 	if (!positionals.length)
 		throw new Error(USAGE)
 
 	console.log('Optimizing video for progressive download…')
-	for (const g of positionals)
-		for (const file of await glob(g))
-			await moov2front(file)
+	for (const file of await globAll(positionals))
+		await moov2front(file)
 }
 
 async function moov2front(file) {
