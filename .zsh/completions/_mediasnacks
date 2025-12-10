@@ -15,7 +15,8 @@ _mediasnacks_commands=(
   'dlvideo: yt-dlp best video',
   'unemoji:Removes emojis from filenames'
   'rmcover:Removes cover art'
-  'curltime:Measures request response timings'
+  'curltime:Measures request response timings',
+  'gif:Video to GIF'
 )
 
 _mediasnacks() {
@@ -26,7 +27,7 @@ _mediasnacks() {
 
   local cmd="$words[2]"
   case "$cmd" in
-    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime)
+    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif)
       _files
       ;;
     qdir)

@@ -27,6 +27,7 @@ const COMMANDS = {
 	rmcover: ['rmcover.sh', 'Removes cover art'],
 	
 	curltime: ['curltime.sh', 'Measures request response timings'],
+	gif: ['gif.sh', 'Video to GIF'],
 }
 
 const USAGE = `

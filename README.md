@@ -30,6 +30,7 @@ Commands:
 - `rmcover`: Removes cover art 
  
 - `curltime`: Measures request response timings
+- `gif`: Video to GIF
 <br/>
 
 ### Converting Images to AVIF
