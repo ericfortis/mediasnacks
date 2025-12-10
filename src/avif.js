@@ -15,6 +15,8 @@ Converts images to AVIF.
 
 
 async function main() {
+	await assertUserHasFFmpeg()
+	
 	const { values, positionals } = parseArgs({
 		options: {
 			'output-dir': { type: 'string', default: '' },
@@ -31,8 +33,6 @@ async function main() {
 
 	if (!positionals.length)
 		throw new Error('No images specified. See npx mediasnacks avif --help')
-
-	await assertUserHasFFmpeg()
 	
 	console.log('AVIF…')
 	for (const g of positionals)

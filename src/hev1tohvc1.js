@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 import { parseArgs } from 'node:util'
-import { unlink, rename } from 'node:fs/promises'
 
-import { glob, uniqueFilenameFor } from './utils/fs-utils.js'
+import { glob, uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -17,12 +16,11 @@ by changing the container’s sample entry code from HEV1 to HVC1.
 
 
 async function main() {
+	await assertUserHasFFmpeg()
+	
 	const { positionals } = parseArgs({ allowPositionals: true })
-
 	if (!positionals.length)
 		throw new Error(USAGE)
-
-	await assertUserHasFFmpeg()
 
 	console.log('HEV1 to HVC1…')
 	for (const g of positionals)
@@ -45,8 +43,7 @@ async function toHvc1(file) {
 		'-tag:v', 'hvc1',
 		tmp
 	])
-	await unlink(file)
-	await rename(tmp, file)
+	await overwrite(tmp, file)
 }
 
 

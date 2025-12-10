@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
 import { parseArgs } from 'node:util'
-import { unlink, rename } from 'node:fs/promises'
 
-import { glob, uniqueFilenameFor } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
+import { glob, uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 
 
 const USAGE = `
@@ -16,19 +15,17 @@ Files are overwritten.
 `.trim()
 
 async function main() {
+	await assertUserHasFFmpeg()
+	
 	const { positionals } = parseArgs({ allowPositionals: true })
-
 	if (!positionals.length)
 		throw new Error(USAGE)
 
-	await assertUserHasFFmpeg()
 	console.log('Optimizing video for progressive download…')
-
 	for (const g of positionals)
 		for (const file of await glob(g))
 			await moov2front(file)
 }
-
 
 async function moov2front(file) {
 	if (!/\.(mp4|mov)$/i.test(file)) {
@@ -48,8 +45,7 @@ async function moov2front(file) {
 		'-movflags', '+faststart',
 		tmp
 	])
-	await unlink(file)
-	await rename(tmp, file)
+	await overwrite(tmp, file)
 }
 
 async function moovIsBeforeMdat(file) {

@@ -28,6 +28,8 @@ Details:
 
 
 async function main() {
+	await assertUserHasFFmpeg()
+	
 	const { values, positionals } = parseArgs({
 		options: {
 			width: { type: 'string', default: '-2' },
@@ -53,7 +55,6 @@ async function main() {
 	if (!positionals.length)
 		throw new Error('No video files specified')
 
-	await assertUserHasFFmpeg()
 
 	console.log('Resizing…')
 	for (const g of positionals)

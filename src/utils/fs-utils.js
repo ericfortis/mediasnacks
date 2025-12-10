@@ -1,5 +1,6 @@
 import { promisify } from 'node:util'
 import { randomUUID } from 'node:crypto'
+import { unlink, rename } from 'node:fs/promises'
 import { dirname, extname, join } from 'node:path'
 import { lstatSync, glob as _glob } from 'node:fs'
 
@@ -19,3 +20,9 @@ export const replaceExt = (f, ext) => {
 
 export const uniqueFilenameFor = file => 
 	join(dirname(file), randomUUID() + extname(file))
+
+
+export async function overwrite(src, target) {
+	await unlink(target)
+	await rename(src, target)
+}
