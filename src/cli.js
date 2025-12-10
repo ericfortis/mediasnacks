@@ -17,12 +17,12 @@ const COMMANDS = {
 
 	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
 	videodiff: ['videodiff.sh', 'Plays a video with the difference of two videos'],
-	
+
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
-	
+
 	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
 	dlvideo: ['dlvideo.sh', 'yt-dlp best video'],
-	
+
 	unemoji: ['unemoji.sh', 'Removes emojis from filenames'],
 	rmcover: ['rmcover.sh', 'Removes cover art'],
 }
@@ -42,7 +42,6 @@ if (opt === '-v' || opt === '--version') {
 	console.log(pkgJSON.version)
 	process.exit(0)
 }
-
 if (opt === '-h' || opt === '--help') {
 	console.log(USAGE)
 	process.exit(0)
@@ -52,16 +51,11 @@ if (!opt) {
 	console.log(USAGE)
 	process.exit(1)
 }
-
 if (!Object.hasOwn(COMMANDS, opt)) {
 	console.error(`'${opt}' is not a command. See npx mediasnacks --help\n`)
 	process.exit(1)
 }
 
 const cmd = join(import.meta.dirname, COMMANDS[opt][0])
-const isShellScript = cmd.endsWith('.sh')
-spawn(
-	isShellScript ? cmd : process.execPath,
-	isShellScript ? args : [cmd, ...args],
-	{ stdio: 'inherit' }
-).on('exit', process.exit)
+spawn(cmd, args, { stdio: 'inherit' })
+	.on('exit', process.exit)

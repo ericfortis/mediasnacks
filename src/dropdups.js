@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { spawn } from 'node:child_process'
 import { parseArgs } from 'node:util'
 import { resolve, parse, format } from 'node:path'

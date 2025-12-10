@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { parseArgs } from 'node:util'
 import { unlink, rename } from 'node:fs/promises'
 

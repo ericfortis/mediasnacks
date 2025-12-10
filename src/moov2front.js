@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { parseArgs } from 'node:util'
 import { unlink, rename } from 'node:fs/promises'
 
@@ -20,7 +22,7 @@ async function main() {
 		throw new Error(USAGE)
 
 	await assertUserHasFFmpeg()
-	console.log('Optimizing videos for progressive download…')
+	console.log('Optimizing video for progressive download…')
 
 	for (const g of positionals)
 		for (const file of await glob(g))
