@@ -15,6 +15,12 @@ export async function assertUserHasFFmpeg() {
 	}
 }
 
+/**
+ * @template {readonly string[]} K
+ * @param {string} video
+ * @param {K} props
+ * @returns {Promise<{ [P in K[number]]: any }>}
+ */
 export async function videoAttrs(v, ...props) {
 	const { stdout } = await runSilently('ffprobe', [
 		'-v', 'error',

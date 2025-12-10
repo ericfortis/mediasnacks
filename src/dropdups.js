@@ -33,6 +33,8 @@ Options:
 
 
 async function main() {
+	await assertUserHasFFmpeg()
+	
 	const { values, positionals } = parseArgs({
 		options: {
 			'bad-frame-number': { short: 'n', type: 'string', default: '' },
@@ -52,8 +54,6 @@ async function main() {
 	let nBadFrame = values['bad-frame-number']
 	if (nBadFrame && /^\d+$/.test(nBadFrame))
 		throw new Error('Invalid --bad-frame-number. It must be a positive integer.')
-
-	await assertUserHasFFmpeg()
 
 	console.log('Dropping Duplicate Frames…')
 	for (const file of await globAll(positionals))
