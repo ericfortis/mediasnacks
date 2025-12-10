@@ -16,7 +16,8 @@ _mediasnacks_commands=(
   'unemoji:Removes emojis from filenames'
   'rmcover:Removes cover art'
   'curltime:Measures request response timings',
-  'gif:Video to GIF'
+  'gif:Video to GIF',
+  'flattendir:Moves all files to top dir and deletes dirs'
 )
 
 _mediasnacks() {
@@ -27,7 +28,7 @@ _mediasnacks() {
 
   local cmd="$words[2]"
   case "$cmd" in
-    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif)
+    avif|resize|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|flattendir)
       _files
       ;;
     qdir)
