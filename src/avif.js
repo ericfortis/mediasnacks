@@ -44,21 +44,20 @@ async function main() {
 }
 
 async function toAvif({ file, outFile, overwrite }) {
-	const stImg = lstat(file)
 	const stAvif = lstat(outFile)
 
 	if (!overwrite && stAvif?.isFile()) {
 		console.log('(skipped: output file exists but --overwrite=false)', file)
 		return
 	}
-	if (stAvif?.mtimeMs > stImg?.mtimeMs) {
+	if (stAvif?.mtimeMs > lstat(file)?.mtimeMs) {
 		console.log('(skipped: avif is newer)', file)
 		return
 	}
 
 	console.log(file)
 	await ffmpeg([
-		'-y', // overwrites
+		'-y',
 		'-i', file,
 		'-c:v', 'libsvtav1',
 		'-svtav1-params', 'avif=1',

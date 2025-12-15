@@ -52,7 +52,7 @@ async function main() {
 		throw new Error('No video specified. See npx mediasnacks dropdups --help')
 
 	let nBadFrame = values['bad-frame-number']
-	if (nBadFrame && /^\d+$/.test(nBadFrame))
+	if (nBadFrame && !/^\d+$/.test(nBadFrame))
 		throw new Error('Invalid --bad-frame-number. It must be a positive integer.')
 
 	console.log('Dropping Duplicate Frames…')
