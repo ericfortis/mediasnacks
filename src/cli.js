@@ -8,6 +8,7 @@ import pkgJSON from '../package.json' with { type: 'json' }
 const COMMANDS = {
 	avif: ['avif.js', 'Converts images to AVIF'],
 	resize: ['resize.js', 'Resizes videos or images'],
+	sqcrop: ['sqcrop.js', 'Square crops images'],
 	moov2front: ['moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
 
 	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
