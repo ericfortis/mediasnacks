@@ -55,6 +55,7 @@ async function toAvif({ file, outFile, overwrite }) {
 		return
 	}
 
+	// TODO fix transparent PNGs
 	console.log(file)
 	await ffmpeg([
 		'-y',

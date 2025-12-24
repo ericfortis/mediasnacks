@@ -18,6 +18,7 @@ _mediasnacks_commands=(
   'rmcover:Removes cover art'
   'curltime:Measures request response timings',
   'gif:Video to GIF',
+  'vcut:Split video in two parts by time',
   'flattendir:Moves unique files to the top dir and deletes empty dirs'
 )
 
@@ -29,7 +30,7 @@ _mediasnacks() {
 
   local cmd="$words[2]"
   case "$cmd" in
-    avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|flattendir)
+    avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|vcut|flattendir)
       _files
       ;;
     qdir)

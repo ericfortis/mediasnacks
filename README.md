@@ -32,6 +32,7 @@ Commands:
  
 - `curltime`: Measures request response timings
 - `gif`: Video to GIF
+- `vcut`: Split video in two parts at a given time
  
 - `flattendir`: Moves unique files to the top dir and deletes empty dirs
 <br/>
