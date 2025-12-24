@@ -17,7 +17,7 @@ const COMMANDS = {
 	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering in macOS Finder '],
 
 	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
-	videodiff: ['videodiff.sh', 'Plays a video with the difference of two videos'],
+	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
 
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
 

@@ -21,7 +21,7 @@ Commands:
 - `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder 
 
 - `framediff`: Plays a video of adjacent frames diff
-- `videodiff`: Plays a video with the difference of two videos
+- `vdiff`: Plays a video with the difference of two videos
 - `vconcat`: Concatenates videos
  
 - `dlaudio`: yt-dlp best audio

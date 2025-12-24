@@ -10,7 +10,7 @@ _mediasnacks_commands=(
   'qdir:Sequentially runs all *.sh files in a folder'
   'hev1tohvc1:Fixes video thumbnails not rendering in macOS Finder'
   'framediff:ffplay with a filter for diffing adjacent frames'
-  'videodiff:Plays a video with the difference of two videos'
+  'vdiff:Plays a video with the difference of two videos'
   'vconcat:Concatenates videos',
   'dlaudio: yt-dlp best audio',
   'dlvideo: yt-dlp best video',
@@ -30,7 +30,7 @@ _mediasnacks() {
 
   local cmd="$words[2]"
   case "$cmd" in
-    avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|videodiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|vcut|flattendir)
+    avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|vdiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|vcut|flattendir)
       _files
       ;;
     qdir)
