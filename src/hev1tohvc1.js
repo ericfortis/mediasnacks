@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-import { parseArgs } from 'node:util'
-
-import { uniqueFilenameFor, overwrite, globAll } from './utils/fs-utils.js'
+import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -18,12 +17,13 @@ by changing the container’s sample entry code from HEV1 to HVC1.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { positionals } = parseArgs({ allowPositionals: true })
-	if (!positionals.length)
+	const { files } = await parseArgsWithGlobs({})
+
+	if (!files.length)
 		throw new Error(USAGE)
 
 	console.log('HEV1 to HVC1…')
-	for (const file of await globAll(positionals))
+	for (const file of files)
 		await toHvc1(file)
 }
 

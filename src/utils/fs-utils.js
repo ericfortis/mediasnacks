@@ -1,19 +1,8 @@
-import { promisify } from 'node:util'
 import { randomUUID } from 'node:crypto'
 import { unlink, rename } from 'node:fs/promises'
 import { dirname, extname, join } from 'node:path'
-import { lstatSync, glob as _glob } from 'node:fs'
+import { lstatSync } from 'node:fs'
 
-
-const glob = promisify(_glob)
-
-export async function globAll(arr) {
-	const set = new Set()
-	for (const g of arr)
-		for (const file of await glob(g))
-			set.add(file)
-	return Array.from(set)
-}
 
 export const lstat = f => lstatSync(f, { throwIfNoEntry: false })
 export const isFile = path => lstat(path)?.isFile()
@@ -26,7 +15,7 @@ export const replaceExt = (f, ext) => {
 	return parts.join('.')
 }
 
-export const uniqueFilenameFor = file => 
+export const uniqueFilenameFor = file =>
 	join(dirname(file), randomUUID() + extname(file))
 
 

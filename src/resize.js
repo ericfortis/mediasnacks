@@ -2,9 +2,9 @@
 
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
-import { parseArgs } from 'node:util'
 
-import { isFile, uniqueFilenameFor, globAll } from './utils/fs-utils.js'
+import { isFile, uniqueFilenameFor } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -30,15 +30,14 @@ Details:
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, positionals } = parseArgs({
+	const { values, files } = await parseArgsWithGlobs({
 		options: {
 			width: { type: 'string', default: '-2' },
 			height: { type: 'string', default: '-2' },
 			'output-dir': { type: 'string', default: '' },
 			overwrite: { short: 'y', type: 'boolean', default: false },
 			help: { short: 'h', type: 'boolean', default: false },
-		},
-		allowPositionals: true
+		}
 	})
 
 	if (values.help) {
@@ -52,12 +51,12 @@ async function main() {
 	if (width <= 0 && height <= 0)
 		throw new Error('--width or --height need to be greater than 0')
 
-	if (!positionals.length)
+	if (!files.length)
 		throw new Error('No video files specified')
 
 
 	console.log('Resizing…')
-	for (const file of await globAll(positionals))
+	for (const file of files)
 		await resize({
 			file,
 			outFile: join(values['output-dir'], file),

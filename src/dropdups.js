@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-import { parseArgs } from 'node:util'
 import { resolve, parse, format } from 'node:path'
 
-import { globAll } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { ffmpeg, assertUserHasFFmpeg, run } from './utils/ffmpeg.js'
 
 
@@ -34,13 +33,12 @@ Options:
 
 async function main() {
 	await assertUserHasFFmpeg()
-	
-	const { values, positionals } = parseArgs({
+
+	const { values, files } = await parseArgsWithGlobs({
 		options: {
 			'bad-frame-number': { short: 'n', type: 'string', default: '' },
 			help: { short: 'h', type: 'boolean', default: false },
-		},
-		allowPositionals: true
+		}
 	})
 
 	if (values.help) {
@@ -48,7 +46,7 @@ async function main() {
 		process.exit(0)
 	}
 
-	if (!positionals.length)
+	if (!files.length)
 		throw new Error('No video specified. See npx mediasnacks dropdups --help')
 
 	let nBadFrame = values['bad-frame-number']
@@ -56,7 +54,7 @@ async function main() {
 		throw new Error('Invalid --bad-frame-number. It must be a positive integer.')
 
 	console.log('Dropping Duplicate Frames…')
-	for (const file of await globAll(positionals))
+	for (const file of files)
 		await drop(resolve(file), nBadFrame)
 }
 
