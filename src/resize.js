@@ -30,7 +30,7 @@ Details:
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, positionals } = parseArgs({
+	const { values, positionals, tokens } = parseArgs({
 		options: {
 			width: { type: 'string', default: '-2' },
 			height: { type: 'string', default: '-2' },
@@ -38,7 +38,8 @@ async function main() {
 			overwrite: { short: 'y', type: 'boolean', default: false },
 			help: { short: 'h', type: 'boolean', default: false },
 		},
-		allowPositionals: true
+		allowPositionals: true,
+		tokens: true
 	})
 
 	if (values.help) {
