@@ -38,8 +38,7 @@ async function main() {
 		options: {
 			'bad-frame-number': { short: 'n', type: 'string', default: '' },
 			help: { short: 'h', type: 'boolean', default: false },
-		},
-		allowPositionals: true
+		}
 	})
 
 	if (values.help) {
