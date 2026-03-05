@@ -1,28 +1,27 @@
-import { promisify } from 'node:util'
-import { parseArgs } from 'node:util'
+import { promisify, parseArgs } from 'node:util'
 import { glob as _glob } from 'node:fs'
 
 
 const glob = promisify(_glob)
 
-export async function parseArgsWithGlobs(config) {
+export async function parseOptions(options = {}, config) {
 	const { values, positionals, tokens } = parseArgs({
 		allowPositionals: true,
+		options,
 		...config,
 		tokens: true
 	})
-
-	const files = await globAll(positionals, tokens)
-
-	return { values, positionals, tokens, files }
+	return {
+		values,
+		files: await globAll(positionals, tokens)
+	}
 }
 
 export async function globAll(arr, tokens) {
 	const terminatorIndex = findTerminatorIndex(tokens)
 	const set = new Set()
 
-	if (terminatorIndex >= 0) {
-		// Glob arguments before the terminator
+	if (terminatorIndex >= 0) { // Glob arguments before the terminator
 		const beforeTerminator = arr.slice(0, terminatorIndex)
 		const afterTerminator = arr.slice(terminatorIndex)
 
@@ -30,22 +29,21 @@ export async function globAll(arr, tokens) {
 			for (const file of await glob(g))
 				set.add(file)
 
-		// Add arguments after terminator as literal strings
+		// Add arguments after the terminator as literal strings
 		for (const literal of afterTerminator)
 			set.add(literal)
-	} else {
-		// No terminator, glob everything (current behavior)
+	}
+	else // No terminator, glob everything
 		for (const g of arr)
 			for (const file of await glob(g))
 				set.add(file)
-	}
 
 	return Array.from(set)
 }
 
 function findTerminatorIndex(tokens) {
 	if (!tokens) return -1
-	for (const token of tokens) {
+	for (const token of tokens)
 		if (token.kind === 'option-terminator') {
 			// Find the position in the positionals array
 			// The terminator itself is not in positionals, so we count preceding positionals
@@ -56,6 +54,5 @@ function findTerminatorIndex(tokens) {
 			}
 			return positionalCount
 		}
-	}
 	return -1
 }

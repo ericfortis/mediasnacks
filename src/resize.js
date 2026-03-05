@@ -3,8 +3,8 @@
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 
+import { parseOptions } from './utils/parseOptions.js'
 import { isFile, uniqueFilenameFor } from './utils/fs-utils.js'
-import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -30,14 +30,12 @@ Details:
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseArgsWithGlobs({
-		options: {
-			width: { type: 'string', default: '-2' },
-			height: { type: 'string', default: '-2' },
-			'output-dir': { type: 'string', default: '' },
-			overwrite: { short: 'y', type: 'boolean', default: false },
-			help: { short: 'h', type: 'boolean', default: false },
-		}
+	const { values, files } = await parseOptions({
+		width: { type: 'string', default: '-2' },
+		height: { type: 'string', default: '-2' },
+		'output-dir': { type: 'string', default: '' },
+		overwrite: { short: 'y', type: 'boolean', default: false },
+		help: { short: 'h', type: 'boolean', default: false },
 	})
 
 	if (values.help) {

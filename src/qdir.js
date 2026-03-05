@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
+import { join } from 'node:path'
 import { spawn } from 'node:child_process'
 import { parseArgs } from 'node:util'
-import { resolve, join } from 'node:path'
-import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
-import { isFile } from './utils/fs-utils.js'
 import { fileURLToPath } from 'node:url'
+import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
+
+import { isFile } from './utils/fs-utils.js'
 
 
 const USAGE = `

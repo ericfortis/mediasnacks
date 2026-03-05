@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
+import { parseOptions } from './utils/parseOptions.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
-import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -17,7 +17,7 @@ by changing the container’s sample entry code from HEV1 to HVC1.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { files } = await parseArgsWithGlobs({})
+	const { files } = await parseOptions()
 
 	if (!files.length)
 		throw new Error(USAGE)

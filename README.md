@@ -38,25 +38,22 @@ Commands:
 
 ### Glob Patterns and Literal Filenames
 
-Most commands accept glob patterns (like `*.png` or `file[234].png`) to match multiple files. By default, these patterns are expanded by Node.js to match existing files.
+Most commands accept glob patterns (like `*.png` or `file[234].png`) to match multiple
+files. By default, these patterns are expanded by Node.js to match existing files.
 
-To treat arguments as literal filenames instead of glob patterns, use the `--` (double dash) separator:
+To treat arguments as literal filenames instead of
+glob patterns, use the `--` (double dash) separator:
 
 ```shell
-# This expands the pattern to match files: file2.png, file3.png, file4.png
+# Expands to: file2.png, file3.png, file4.png
 npx mediasnacks avif file[234].png
 
-# This treats the argument as a literal filename: "file[234].png"
+# Literal filename: "file[234].png"
 npx mediasnacks avif -- file[234].png
 
-# You can mix both: expand first pattern, treat second as literal
+# Mixed: expand first pattern, treat second as literal
 npx mediasnacks avif file2.png -- file[234].png
 ```
-
-This follows the standard POSIX convention where `--` stops option/pattern processing. Arguments after `--` are treated exactly as written, which is useful when:
-- Filenames contain special glob characters like `[`, `]`, `*`, or `?`
-- You want to pass a pattern to be processed later
-- Working with filenames that haven't been created yet
 
 <br/>
 
@@ -98,7 +95,7 @@ Rearranges .mov and .mp4 metadata to the start of the file for fast-start stream
 ```shell
 npx mediasnacks moov2front <videos>
 ```
-hat is Fast Start?
+What is Fast Start?
 - https://wiki.avblocks.com/avblocks-for-cpp/muxer-parameters/mp4
 - https://trac.ffmpeg.org/wiki/HowToCheckIfFaststartIsEnabledForPlayback
 

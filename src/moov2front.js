@@ -2,7 +2,7 @@
 
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
-import { parseArgsWithGlobs } from './utils/args-with-globs.js'
+import { parseOptions } from './utils/parseOptions.js'
 
 
 const USAGE = `
@@ -16,7 +16,7 @@ Files are overwritten.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { files } = await parseArgsWithGlobs({})
+	const { files } = await parseOptions()
 
 	if (!files.length)
 		throw new Error(USAGE)

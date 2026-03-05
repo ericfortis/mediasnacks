@@ -2,7 +2,7 @@
 
 import { resolve, parse, format } from 'node:path'
 
-import { parseArgsWithGlobs } from './utils/args-with-globs.js'
+import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg, run } from './utils/ffmpeg.js'
 
 
@@ -34,11 +34,9 @@ Options:
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseArgsWithGlobs({
-		options: {
-			'bad-frame-number': { short: 'n', type: 'string', default: '' },
-			help: { short: 'h', type: 'boolean', default: false },
-		}
+	const { values, files } = await parseOptions({
+		'bad-frame-number': { short: 'n', type: 'string', default: '' },
+		help: { short: 'h', type: 'boolean', default: false },
 	})
 
 	if (values.help) {

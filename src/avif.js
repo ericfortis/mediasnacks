@@ -2,8 +2,8 @@
 
 import { join } from 'node:path'
 
+import { parseOptions } from './utils/parseOptions.js'
 import { replaceExt, lstat } from './utils/fs-utils.js'
-import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
@@ -17,12 +17,10 @@ Converts images to AVIF.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseArgsWithGlobs({
-		options: {
-			'output-dir': { type: 'string', default: '' },
-			overwrite: { short: 'y', type: 'boolean', default: false },
-			help: { short: 'h', type: 'boolean', default: false },
-		}
+	const { values, files } = await parseOptions({
+		'output-dir': { type: 'string', default: '' },
+		overwrite: { short: 'y', type: 'boolean', default: false },
+		help: { short: 'h', type: 'boolean', default: false },
 	})
 
 	if (values.help) {

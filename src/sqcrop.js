@@ -4,8 +4,8 @@ import { join } from 'node:path'
 
 import { rename } from 'node:fs/promises'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
-import { replaceExt, lstat, uniqueFilenameFor } from './utils/fs-utils.js'
-import { parseArgsWithGlobs } from './utils/args-with-globs.js'
+import { lstat, uniqueFilenameFor } from './utils/fs-utils.js'
+import { parseOptions } from './utils/parseOptions.js'
 
 
 const USAGE = `
@@ -18,12 +18,10 @@ Square crops images
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseArgsWithGlobs({
-		options: {
-			'output-dir': { type: 'string', default: '' },
-			overwrite: { short: 'y', type: 'boolean', default: false },
-			help: { short: 'h', type: 'boolean', default: false },
-		}
+	const { values, files } = await parseOptions({
+		'output-dir': { type: 'string', default: '' },
+		overwrite: { short: 'y', type: 'boolean', default: false },
+		help: { short: 'h', type: 'boolean', default: false },
 	})
 
 	if (values.help) {
