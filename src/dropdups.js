@@ -2,7 +2,7 @@
 
 import { resolve, parse, format } from 'node:path'
 
-import { parseArgsWithGlobs } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { ffmpeg, assertUserHasFFmpeg, run } from './utils/ffmpeg.js'
 
 
