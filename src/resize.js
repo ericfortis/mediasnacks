@@ -57,7 +57,7 @@ async function main() {
 	for (const file of files)
 		await resize({
 			file,
-			outFile: join(values['output-dir'], file),
+			outFile: join(values['output-dir'], file), // TODO basename ?
 			overwrite: values.overwrite,
 			width,
 			height,

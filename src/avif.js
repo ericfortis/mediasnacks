@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { join } from 'node:path'
+import { join, basename } from 'node:path'
 
 import { parseOptions } from './utils/parseOptions.js'
 import { replaceExt, lstat } from './utils/fs-utils.js'
@@ -35,7 +35,7 @@ async function main() {
 	for (const file of files)
 		await toAvif({
 			file,
-			outFile: join(values['output-dir'], replaceExt(file, 'avif')),
+			outFile: join(values['output-dir'], replaceExt(basename(file), 'avif')),
 			overwrite: values.overwrite
 		})
 }
