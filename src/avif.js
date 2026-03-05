@@ -36,7 +36,7 @@ async function main() {
 		throw new Error('No images specified. See npx mediasnacks avif --help')
 
 	console.log('AVIF…')
-	for (const file of await globAll(positionals))
+	for (const file of await globAll(positionals, tokens))
 		await toAvif({
 			file,
 			outFile: join(values['output-dir'], replaceExt(file, 'avif')),
