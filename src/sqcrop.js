@@ -37,7 +37,7 @@ async function main() {
 		throw new Error('No images specified. See npx mediasnacks sqcrop --help')
 
 	console.log('Cropping…')
-	for (const file of await globAll(positionals))
+	for (const file of await globAll(positionals, tokens))
 		await sqcrop({
 			file,
 			outFile: join(values['output-dir'], file),
