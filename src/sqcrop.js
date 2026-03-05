@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
 import { join } from 'node:path'
-import { parseArgs } from 'node:util'
 
 import { rename } from 'node:fs/promises'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
-import { replaceExt, lstat, globAll, uniqueFilenameFor } from './utils/fs-utils.js'
+import { replaceExt, lstat, parseArgsWithGlobs, uniqueFilenameFor } from './utils/fs-utils.js'
 
 
 const USAGE = `
@@ -18,14 +17,13 @@ Square crops images
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, positionals, tokens } = parseArgs({
+	const { values, files } = await parseArgsWithGlobs({
 		options: {
 			'output-dir': { type: 'string', default: '' },
 			overwrite: { short: 'y', type: 'boolean', default: false },
 			help: { short: 'h', type: 'boolean', default: false },
 		},
-		allowPositionals: true,
-		tokens: true
+		allowPositionals: true
 	})
 
 	if (values.help) {
@@ -33,11 +31,11 @@ async function main() {
 		process.exit(0)
 	}
 
-	if (!positionals.length)
+	if (!files.length)
 		throw new Error('No images specified. See npx mediasnacks sqcrop --help')
 
 	console.log('Cropping…')
-	for (const file of await globAll(positionals, tokens))
+	for (const file of files)
 		await sqcrop({
 			file,
 			outFile: join(values['output-dir'], file),
