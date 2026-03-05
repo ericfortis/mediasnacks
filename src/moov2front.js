@@ -15,15 +15,15 @@ Files are overwritten.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { positionals, tokens } = parseArgs({
-		allowPositionals: true,
-		tokens: true
+	const { files } = await parseArgsWithGlobs({
+		allowPositionals: true
 	})
-	if (!positionals.length)
+
+	if (!files.length)
 		throw new Error(USAGE)
 
 	console.log('Optimizing video for progressive download…')
-	for (const file of await globAll(positionals, tokens))
+	for (const file of files)
 		await moov2front(file)
 }
 
