@@ -1,4 +1,5 @@
 import { promisify } from 'node:util'
+import { parseArgs as _parseArgs } from 'node:util'
 import { randomUUID } from 'node:crypto'
 import { unlink, rename } from 'node:fs/promises'
 import { dirname, extname, join } from 'node:path'
