@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 import { join } from 'node:path'
-import { parseArgs } from 'node:util'
 
-import { replaceExt, lstat, globAll } from './utils/fs-utils.js'
+import { replaceExt, lstat, parseArgsWithGlobs } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
