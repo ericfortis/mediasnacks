@@ -3,7 +3,8 @@
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 
-import { isFile, uniqueFilenameFor, parseArgsWithGlobs } from './utils/fs-utils.js'
+import { isFile, uniqueFilenameFor } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 

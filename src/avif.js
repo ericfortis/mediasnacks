@@ -2,7 +2,8 @@
 
 import { join } from 'node:path'
 
-import { replaceExt, lstat, parseArgsWithGlobs } from './utils/fs-utils.js'
+import { replaceExt, lstat } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
