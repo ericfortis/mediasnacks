@@ -1,12 +1,12 @@
 import { promisify } from 'node:util'
-import { parseArgs as _parseArgs } from 'node:util'
+import { parseArgs } from 'node:util'
 import { glob as _glob } from 'node:fs'
 
 
 const glob = promisify(_glob)
 
 export async function parseArgsWithGlobs(config) {
-	const { values, positionals, tokens } = _parseArgs({
+	const { values, positionals, tokens } = parseArgs({
 		allowPositionals: true,
 		...config,
 		tokens: true
