@@ -4,7 +4,7 @@ import { glob as _glob } from 'node:fs'
 
 const glob = promisify(_glob)
 
-export async function parseOptions(options = {}, config) {
+export async function parseOptions(options = {}, config = {}) {
 	const { values, positionals, tokens } = parseArgs({
 		allowPositionals: true,
 		options,
@@ -13,46 +13,30 @@ export async function parseOptions(options = {}, config) {
 	})
 	return {
 		values,
-		files: await globAll(positionals, tokens)
+		files: await resolveGlobs(positionals, tokens)
 	}
 }
 
-export async function globAll(arr, tokens) {
+async function resolveGlobs(arr, tokens) {
 	const terminatorIndex = findTerminatorIndex(tokens)
 	const set = new Set()
 
-	if (terminatorIndex >= 0) { // Glob arguments before the terminator
-		const beforeTerminator = arr.slice(0, terminatorIndex)
-		const afterTerminator = arr.slice(terminatorIndex)
+	const globable = terminatorIndex === -1
+		? arr
+		: arr.slice(0, terminatorIndex)
 
-		for (const g of beforeTerminator)
-			for (const file of await glob(g))
-				set.add(file)
+	for (const g of globable)
+		for (const file of await glob(g))
+			set.add(file)
 
-		// Add arguments after the terminator as literal strings
-		for (const literal of afterTerminator)
+
+	if (terminatorIndex !== -1)
+		for (const literal of arr.slice(terminatorIndex))
 			set.add(literal)
-	}
-	else // No terminator, glob everything
-		for (const g of arr)
-			for (const file of await glob(g))
-				set.add(file)
 
 	return Array.from(set)
 }
 
 function findTerminatorIndex(tokens) {
-	if (!tokens) return -1
-	for (const token of tokens)
-		if (token.kind === 'option-terminator') {
-			// Find the position in the positionals array
-			// The terminator itself is not in positionals, so we count preceding positionals
-			let positionalCount = 0
-			for (const t of tokens) {
-				if (t === token) break
-				if (t.kind === 'positional') positionalCount++
-			}
-			return positionalCount
-		}
-	return -1
+	return (tokens || []).find(t => t.kind === 'option-terminator')?.index ?? -1
 }
