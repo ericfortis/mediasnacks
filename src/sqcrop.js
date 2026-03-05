@@ -22,8 +22,7 @@ async function main() {
 			'output-dir': { type: 'string', default: '' },
 			overwrite: { short: 'y', type: 'boolean', default: false },
 			help: { short: 'h', type: 'boolean', default: false },
-		},
-		allowPositionals: true
+		}
 	})
 
 	if (values.help) {
