@@ -51,6 +51,17 @@ export async function globAll(arr, tokens) {
 	return Array.from(set)
 }
 
+export async function parseArgsWithGlobs(config) {
+	const { values, positionals, tokens } = _parseArgs({
+		...config,
+		tokens: true
+	})
+
+	const files = await globAll(positionals, tokens)
+
+	return { values, positionals, tokens, files }
+}
+
 export const lstat = f => lstatSync(f, { throwIfNoEntry: false })
 export const isFile = path => lstat(path)?.isFile()
 
