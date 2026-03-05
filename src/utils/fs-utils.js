@@ -53,6 +53,7 @@ export async function globAll(arr, tokens) {
 
 export async function parseArgsWithGlobs(config) {
 	const { values, positionals, tokens } = _parseArgs({
+		allowPositionals: true,
 		...config,
 		tokens: true
 	})
