@@ -18,23 +18,46 @@ Commands:
 - `dropdups` Removes duplicate frames in a video
 - `seqcheck` Finds missing sequence number
 - `qdir` Sequentially runs all *.sh files in a folder
-- `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder 
+- `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder
 
 - `framediff`: Plays a video of adjacent frames diff
 - `vdiff`: Plays a video with the difference of two videos
 - `vconcat`: Concatenates videos
- 
+
 - `dlaudio`: yt-dlp best audio
 - `dlvideo`: yt-dlp best video
- 
+
 - `unemoji`: Removes emojis from filenames
-- `rmcover`: Removes cover art 
- 
+- `rmcover`: Removes cover art
+
 - `curltime`: Measures request response timings
 - `gif`: Video to GIF
 - `vcut`: Split video in two parts at a given time
- 
+
 - `flattendir`: Moves unique files to the top dir and deletes empty dirs
+
+### Glob Patterns and Literal Filenames
+
+Most commands accept glob patterns (like `*.png` or `file[234].png`) to match multiple files. By default, these patterns are expanded by Node.js to match existing files.
+
+To treat arguments as literal filenames instead of glob patterns, use the `--` (double dash) separator:
+
+```shell
+# This expands the pattern to match files: file2.png, file3.png, file4.png
+npx mediasnacks avif file[234].png
+
+# This treats the argument as a literal filename: "file[234].png"
+npx mediasnacks avif -- file[234].png
+
+# You can mix both: expand first pattern, treat second as literal
+npx mediasnacks avif file2.png -- file[234].png
+```
+
+This follows the standard POSIX convention where `--` stops option/pattern processing. Arguments after `--` are treated exactly as written, which is useful when:
+- Filenames contain special glob characters like `[`, `]`, `*`, or `?`
+- You want to pass a pattern to be processed later
+- Working with filenames that haven't been created yet
+
 <br/>
 
 ### Converting Images to AVIF
