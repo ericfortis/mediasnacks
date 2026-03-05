@@ -15,9 +15,7 @@ Files are overwritten.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { files } = await parseArgsWithGlobs({
-		allowPositionals: true
-	})
+	const { files } = await parseArgsWithGlobs({})
 
 	if (!files.length)
 		throw new Error(USAGE)

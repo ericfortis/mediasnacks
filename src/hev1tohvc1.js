@@ -16,9 +16,7 @@ by changing the container’s sample entry code from HEV1 to HVC1.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { files } = await parseArgsWithGlobs({
-		allowPositionals: true
-	})
+	const { files } = await parseArgsWithGlobs({})
 
 	if (!files.length)
 		throw new Error(USAGE)
