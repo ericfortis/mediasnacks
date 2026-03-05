@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { uniqueFilenameFor, overwrite, parseArgsWithGlobs } from './utils/fs-utils.js'
+import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
