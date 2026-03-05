@@ -57,7 +57,7 @@ async function main() {
 		throw new Error('Invalid --bad-frame-number. It must be a positive integer.')
 
 	console.log('Dropping Duplicate Frames…')
-	for (const file of await globAll(positionals))
+	for (const file of await globAll(positionals, tokens))
 		await drop(resolve(file), nBadFrame)
 }
 
