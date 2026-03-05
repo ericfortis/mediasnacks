@@ -58,7 +58,7 @@ async function main() {
 
 
 	console.log('Resizing…')
-	for (const file of await globAll(positionals))
+	for (const file of await globAll(positionals, tokens))
 		await resize({
 			file,
 			outFile: join(values['output-dir'], file),
