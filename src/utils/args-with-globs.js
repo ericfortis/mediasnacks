@@ -5,21 +5,16 @@ import { glob as _glob } from 'node:fs'
 
 const glob = promisify(_glob)
 
-function findTerminatorIndex(tokens) {
-	if (!tokens) return -1
-	for (const token of tokens) {
-		if (token.kind === 'option-terminator') {
-			// Find the position in the positionals array
-			// The terminator itself is not in positionals, so we count preceding positionals
-			let positionalCount = 0
-			for (const t of tokens) {
-				if (t === token) break
-				if (t.kind === 'positional') positionalCount++
-			}
-			return positionalCount
-		}
-	}
-	return -1
+export async function parseArgsWithGlobs(config) {
+	const { values, positionals, tokens } = _parseArgs({
+		allowPositionals: true,
+		...config,
+		tokens: true
+	})
+
+	const files = await globAll(positionals, tokens)
+
+	return { values, positionals, tokens, files }
 }
 
 export async function globAll(arr, tokens) {
@@ -48,14 +43,19 @@ export async function globAll(arr, tokens) {
 	return Array.from(set)
 }
 
-export async function parseArgsWithGlobs(config) {
-	const { values, positionals, tokens } = _parseArgs({
-		allowPositionals: true,
-		...config,
-		tokens: true
-	})
-
-	const files = await globAll(positionals, tokens)
-
-	return { values, positionals, tokens, files }
+function findTerminatorIndex(tokens) {
+	if (!tokens) return -1
+	for (const token of tokens) {
+		if (token.kind === 'option-terminator') {
+			// Find the position in the positionals array
+			// The terminator itself is not in positionals, so we count preceding positionals
+			let positionalCount = 0
+			for (const t of tokens) {
+				if (t === token) break
+				if (t.kind === 'positional') positionalCount++
+			}
+			return positionalCount
+		}
+	}
+	return -1
 }
