@@ -1,5 +1,5 @@
 import { equal, deepEqual } from 'node:assert/strict'
-import test, { describe } from 'node:test'
+import test, { describe, before, after } from 'node:test'
 import { mkdtemp, writeFile, rm } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
@@ -10,14 +10,14 @@ describe('globAll with token terminator', () => {
 	let testDir
 	const testFiles = ['test-file2.png', 'test-file3.png', 'test-file4.png', 'other-file.png']
 
-	test.before(async () => {
+	before(async () => {
 		testDir = await mkdtemp(join(tmpdir(), 'glob-test-'))
 		for (const file of testFiles) {
 			await writeFile(join(testDir, file), '')
 		}
 	})
 
-	test.after(async () => {
+	after(async () => {
 		await rm(testDir, { recursive: true, force: true })
 	})
 
