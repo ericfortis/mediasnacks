@@ -2,7 +2,7 @@ import { equal, deepEqual } from 'node:assert/strict'
 import test, { describe } from 'node:test'
 import { writeFile, unlink, mkdir, rm } from 'node:fs/promises'
 import { join } from 'node:path'
-import { replaceExt, globAll } from './fs-utils.js'
+import { replaceExt, globAll, parseArgsWithGlobs } from './fs-utils.js'
 
 
 describe('replaceExt', () => {
