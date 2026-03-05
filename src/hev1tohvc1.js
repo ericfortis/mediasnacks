@@ -18,12 +18,15 @@ by changing the container’s sample entry code from HEV1 to HVC1.
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { positionals } = parseArgs({ allowPositionals: true })
+	const { positionals, tokens } = parseArgs({
+		allowPositionals: true,
+		tokens: true
+	})
 	if (!positionals.length)
 		throw new Error(USAGE)
 
 	console.log('HEV1 to HVC1…')
-	for (const file of await globAll(positionals))
+	for (const file of await globAll(positionals, tokens))
 		await toHvc1(file)
 }
 
