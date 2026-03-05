@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-import { parseArgs } from 'node:util'
-
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
-import { uniqueFilenameFor, overwrite, globAll } from './utils/fs-utils.js'
+import { uniqueFilenameFor, overwrite, parseArgsWithGlobs } from './utils/fs-utils.js'
 
 
 const USAGE = `
