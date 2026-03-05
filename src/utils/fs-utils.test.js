@@ -109,3 +109,64 @@ describe('globAll with token terminator', () => {
 		deepEqual(result, [join(testDir, 'test-file2.png')])
 	})
 })
+
+describe('parseArgsWithGlobs', () => {
+	const testDir = join(process.cwd(), 'test-parse-args-tmp')
+	const testFiles = ['file1.png', 'file2.png', 'file3.png']
+
+	test.before(async () => {
+		await mkdir(testDir, { recursive: true })
+		for (const file of testFiles) {
+			await writeFile(join(testDir, file), '')
+		}
+	})
+
+	test.after(async () => {
+		await rm(testDir, { recursive: true, force: true })
+	})
+
+	test('parses args and globs files in one call', async () => {
+		const pattern = join(testDir, 'file[12].png')
+		const { values, files } = await parseArgsWithGlobs({
+			args: ['--output-dir', '/tmp', pattern],
+			options: {
+				'output-dir': { type: 'string' }
+			},
+			allowPositionals: true
+		})
+
+		equal(values['output-dir'], '/tmp')
+		deepEqual(files.sort(), [
+			join(testDir, 'file1.png'),
+			join(testDir, 'file2.png')
+		].sort())
+	})
+
+	test('respects verbatim token in parseArgsWithGlobs', async () => {
+		const pattern = join(testDir, 'file[12].png')
+		const literal = 'literal-file[99].png'
+		const { files } = await parseArgsWithGlobs({
+			args: [pattern, '--', literal],
+			allowPositionals: true
+		})
+
+		deepEqual(files.sort(), [
+			join(testDir, 'file1.png'),
+			join(testDir, 'file2.png'),
+			literal
+		].sort())
+	})
+
+	test('returns empty files array when no positionals', async () => {
+		const { files, values } = await parseArgsWithGlobs({
+			args: ['--flag'],
+			options: {
+				flag: { type: 'boolean' }
+			},
+			allowPositionals: true
+		})
+
+		equal(values.flag, true)
+		deepEqual(files, [])
+	})
+})
