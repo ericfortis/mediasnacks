@@ -98,14 +98,14 @@ describe('parseArgsWithGlobs', () => {
 	let testDir
 	const testFiles = ['file1.png', 'file2.png', 'file3.png']
 
-	test.before(async () => {
+	before(async () => {
 		testDir = await mkdtemp(join(tmpdir(), 'parse-args-test-'))
 		for (const file of testFiles) {
 			await writeFile(join(testDir, file), '')
 		}
 	})
 
-	test.after(async () => {
+	after(async () => {
 		await rm(testDir, { recursive: true, force: true })
 	})
 
