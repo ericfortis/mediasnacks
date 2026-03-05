@@ -4,7 +4,8 @@ import { join } from 'node:path'
 
 import { rename } from 'node:fs/promises'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
-import { replaceExt, lstat, parseArgsWithGlobs, uniqueFilenameFor } from './utils/fs-utils.js'
+import { replaceExt, lstat, uniqueFilenameFor } from './utils/fs-utils.js'
+import { parseArgsWithGlobs } from './utils/args-with-globs.js'
 
 
 const USAGE = `
