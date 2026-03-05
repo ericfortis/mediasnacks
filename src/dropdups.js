@@ -35,12 +35,13 @@ Options:
 async function main() {
 	await assertUserHasFFmpeg()
 	
-	const { values, positionals } = parseArgs({
+	const { values, positionals, tokens } = parseArgs({
 		options: {
 			'bad-frame-number': { short: 'n', type: 'string', default: '' },
 			help: { short: 'h', type: 'boolean', default: false },
 		},
-		allowPositionals: true
+		allowPositionals: true,
+		tokens: true
 	})
 
 	if (values.help) {
