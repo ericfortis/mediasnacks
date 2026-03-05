@@ -18,13 +18,14 @@ Square crops images
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, positionals } = parseArgs({
+	const { values, positionals, tokens } = parseArgs({
 		options: {
 			'output-dir': { type: 'string', default: '' },
 			overwrite: { short: 'y', type: 'boolean', default: false },
 			help: { short: 'h', type: 'boolean', default: false },
 		},
-		allowPositionals: true
+		allowPositionals: true,
+		tokens: true
 	})
 
 	if (values.help) {
