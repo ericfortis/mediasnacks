@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
+import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-
-import { parseOptions } from './utils/parseOptions.js'
 
 
 const USAGE = `
@@ -19,10 +18,13 @@ Options:
 
 
 function main() {
-	const { values, positionals } = parseOptions({
-		'left-delimiter': { type: 'string', default: '_' },
-		'right-delimiter': { type: 'string', default: '.' },
-		help: { short: 'h', type: 'boolean', default: false },
+	const { values, positionals } = parseArgs({
+		options: {
+			'left-delimiter': { type: 'string', default: '_' },
+			'right-delimiter': { type: 'string', default: '.' },
+			help: { short: 'h', type: 'boolean', default: false },
+		},
+		allowPositionals: true,
 	})
 
 	if (values.help) {
