@@ -1,7 +1,7 @@
+import { lstatSync } from 'node:fs'
 import { randomUUID } from 'node:crypto'
 import { unlink, rename } from 'node:fs/promises'
 import { dirname, extname, join } from 'node:path'
-import { lstatSync } from 'node:fs'
 
 
 export const lstat = f => lstatSync(f, { throwIfNoEntry: false })

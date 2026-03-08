@@ -17,8 +17,8 @@ export async function parseOptions(options = {}, config = {}) {
 	}
 }
 
-async function resolveGlobs(arr, tokens) {
-	const terminatorIndex = findTerminatorIndex(tokens)
+async function resolveGlobs(arr, tokens = []) {
+	const terminatorIndex = tokens.find(t => t.kind === 'option-terminator')?.index ?? -1
 	const set = new Set()
 
 	const globable = terminatorIndex === -1
@@ -37,6 +37,3 @@ async function resolveGlobs(arr, tokens) {
 	return Array.from(set)
 }
 
-function findTerminatorIndex(tokens) {
-	return (tokens || []).find(t => t.kind === 'option-terminator')?.index ?? -1
-}
