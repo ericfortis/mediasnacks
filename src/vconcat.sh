@@ -11,7 +11,7 @@ fi
 
 list_file=$(mktemp -p .)
 for file in "$@"; do
-  echo "file '$file'" >> "$list_file"
+  printf "file %q\n" "$file" >> "$list_file"
 done
 
 first_video="$1"
