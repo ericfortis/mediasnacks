@@ -2,7 +2,7 @@
 set -e
 
 echo "========================================="
-echo "Generating Linux-based video fixtures"
+echo "Generating Linux-based fixtures"
 echo "========================================="
 echo ""
 
@@ -16,8 +16,9 @@ TEMP_DIR=$(mktemp -d)
 echo "2. Using temp directory: $TEMP_DIR"
 echo ""
 
-# Copy source video to temp dir
+# Copy source files to temp dir
 cp tests/fixtures/60fps.mp4 "$TEMP_DIR/"
+cp tests/fixtures/lenna.png "$TEMP_DIR/"
 
 # Run fixture generation in Docker
 echo "3. Generating fixtures in Docker container..."
@@ -31,17 +32,22 @@ docker run --rm \
     /workspace/src/cli.js vsplit 5 10 15 20 25 60fps.mp4
 
     echo ''
+    echo 'Generating AVIF fixture...'
+    /workspace/src/cli.js avif lenna.png
+
+    echo ''
     echo 'Generated files:'
-    ls -lh 60fps_*.mp4
+    ls -lh 60fps_*.mp4 lenna.avif
 
     echo ''
     echo 'SHA1 hashes (Linux):'
-    sha1sum 60fps_*.mp4
+    sha1sum 60fps_*.mp4 lenna.avif
   "
 
 echo ""
 echo "4. Copying fixtures to tests/fixtures/..."
 cp "$TEMP_DIR"/60fps_*.mp4 tests/fixtures/
+cp "$TEMP_DIR"/lenna.avif tests/fixtures/
 
 echo ""
 echo "5. Cleanup temp directory..."
@@ -53,7 +59,7 @@ echo "✓ Fixtures generated successfully!"
 echo "========================================="
 echo ""
 echo "New fixture hashes (Linux):"
-sha1sum tests/fixtures/60fps_*.mp4
+sha1sum tests/fixtures/60fps_*.mp4 tests/fixtures/lenna.avif
 
 echo ""
 echo "Next steps:"
