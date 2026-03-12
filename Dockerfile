@@ -6,6 +6,10 @@ RUN apt-get update && \
     zsh \
     ffmpeg \
     curl \
+    && echo "=== FFmpeg version installed ===" \
+    && ffmpeg -version | head -5 \
+    && echo "=== FFmpeg package version ===" \
+    && dpkg -l | grep ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
