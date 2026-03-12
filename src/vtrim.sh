@@ -13,9 +13,9 @@ EOF
     exit 1
 fi
 
-INPUT="$1"
-START="$2"
-END="$3"
+START="$1"
+END="$2"
+INPUT="$3"
 
 if [ ! -f "$INPUT" ]; then
     echo "Error: file not found: $INPUT"
