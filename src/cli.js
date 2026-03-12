@@ -30,7 +30,7 @@ const COMMANDS = {
 	
 	curltime: ['curltime.sh', 'Measures request response timings'],
 	gif: ['gif.sh', 'Video to GIF'],
-	vcut: ['vcut.sh', 'Split video in two parts at a given time'],
+	vsplit: ['vsplit.sh', 'Split video at multiple time points'],
 	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs']
 }
 
