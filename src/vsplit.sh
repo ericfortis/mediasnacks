@@ -26,10 +26,8 @@ DIRNAME=$(dirname "$VIDEO")
 EXT="${BASENAME##*.}"
 NAME="${BASENAME%.*}"
 
-# Number of segments = number of splits + 1
 SEGMENT_COUNT=$((${#SPLITS[@]} + 1))
 
-# Generate each segment
 for (( i=1; i<=$SEGMENT_COUNT; i++ )); do
     OUTFILE="$DIRNAME/${NAME}_${i}.$EXT"
 
