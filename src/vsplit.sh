@@ -35,12 +35,12 @@ for (( i=1; i<=$N_CLIPS; i++ )); do
 		ffmpeg -v error -y -i "$VIDEO" \
 			-t "${SPLITS[1]}" \
 			-c copy "$outfile"
-		
+
 	elif [ $i -eq $N_CLIPS ]; then # Last clip: [last_split, end]
 		ffmpeg -v error -y -i "$VIDEO" \
 			-ss "${SPLITS[-1]}" \
 			-c copy "$outfile"
-		
+
 	else # Middle clip: [split[i-1], split[i]]
 		ffmpeg -v error -y -i "$VIDEO" \
 			-ss "${SPLITS[$((i-1))]}" \

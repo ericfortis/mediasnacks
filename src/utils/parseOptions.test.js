@@ -1,13 +1,13 @@
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { equal, deepEqual } from 'node:assert/strict'
-import { mkdtemp, writeFile, rm } from 'node:fs/promises'
+import { mkdtemp, writeFile, rmdir } from 'node:fs/promises'
 import { test, describe, before, after } from 'node:test'
 
 import { parseOptions } from './parseOptions.js'
 
 
-describe('parseArgsWithGlobs', () => {
+describe('parseOptions', () => {
 	let testDir
 	let inTmpDir = f => join(testDir, f)
 	const testFiles = ['file1.png', 'file2.png', 'file3.png']
@@ -18,7 +18,7 @@ describe('parseArgsWithGlobs', () => {
 			await writeFile(inTmpDir(file), '')
 	})
 
-	after(() => rm(testDir))
+	after(() => rmdir(testDir, { recursive: true }))
 
 	test('parses args and globs files', async () => {
 		const { values, files } = await parseOptions({
