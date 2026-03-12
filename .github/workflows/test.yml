@@ -1,0 +1,31 @@
+name: Test
+on: [ push, pull_request ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Cache apt packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt
+          key: ${{ runner.os }}-apt-${{ hashFiles('.github/workflows/test.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
+      - name: Install zsh and ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zsh ffmpeg
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+        env:
+          TMPDIR: ${{ runner.temp }}
+
+      - run: npm run test
