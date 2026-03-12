@@ -7,8 +7,5 @@
   "type": "module",
 	"bin": {
 		"mediasnacks": "src/cli.js"
-	},
-	"scripts": {
-		"test": "node --test"
 	}
 }
