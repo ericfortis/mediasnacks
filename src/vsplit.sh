@@ -30,7 +30,7 @@ NAME="${BASENAME%.*}"
 SEGMENT_COUNT=$((${#SPLITS[@]} + 1))
 
 # Generate each segment
-for i in {1..$SEGMENT_COUNT}; do
+for (( i=1; i<=$SEGMENT_COUNT; i++ )); do
     OUTFILE="$DIRNAME/${NAME}_${i}.$EXT"
 
     if [ $i -eq 1 ]; then
