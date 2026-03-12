@@ -3,12 +3,12 @@
 if [ "$#" -ne 3 ]; then
     cat << EOF
 Usage:
-    $(basename $0) <video-file> <start-time> <end-time>
+    $(basename $0) <start-time> <end-time> <video-file>
 
 Examples:
-    $(basename $0) input.mp4 10 30
-    $(basename $0) input.mkv 00:00:10 00:00:30
-    $(basename $0) video.mov 1:23.5 2:45.0
+    $(basename $0) 10 30 input.mp4
+    $(basename $0) 00:00:10 00:00:30 input.mkv
+    $(basename $0) 1:23.5 2:45.0 video.mov
 EOF
     exit 1
 fi
