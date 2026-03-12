@@ -15,4 +15,8 @@ test('PNG to AVIF', async () => {
 	deepEqual(
 		await videoAttrs(join(tmp, 'lenna.avif')),
 		await videoAttrs('tests/fixtures/lenna.avif'))
+	// That's because we use non-deterministic avif.
+	// avif is deterministic only when it's single-threaded and with a fixed preset, such as
+	//   '-svtav1-params', 'avif=1:preset=8',
+	//   '-threads', '1',
 })
