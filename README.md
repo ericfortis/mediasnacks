@@ -23,6 +23,7 @@ Commands:
 - `framediff`: Plays a video of adjacent frames diff
 - `vdiff`: Plays a video with the difference of two videos
 - `vconcat`: Concatenates videos
+- `vtrim`: Trims video from start to end time
 
 - `dlaudio`: yt-dlp best audio
 - `dlvideo`: yt-dlp best video

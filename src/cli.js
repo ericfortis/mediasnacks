@@ -20,6 +20,7 @@ const COMMANDS = {
 	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
 
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
+	vtrim: ['vtrim.sh', 'Trims video from start to end time'],
 
 	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
 	dlvideo: ['dlvideo.sh', 'yt-dlp best video'],

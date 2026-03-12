@@ -12,6 +12,7 @@ _mediasnacks_commands=(
   'framediff:ffplay with a filter for diffing adjacent frames'
   'vdiff:Plays a video with the difference of two videos'
   'vconcat:Concatenates videos'
+  'vtrim:Trims video from start to end time'
   'dlaudio: yt-dlp best audio'
   'dlvideo: yt-dlp best video'
   'unemoji:Removes emojis from filenames'
@@ -29,7 +30,7 @@ fi
 
 local cmd="$words[2]"
 case "$cmd" in
-	avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|vdiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|vcut|flattendir)
+	avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|vdiff|vconcat|vtrim|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|vcut|flattendir)
 		_files
 		;;
 	qdir)
