@@ -14,7 +14,7 @@ EOF
 fi
 
 VIDEO="${@[-1]}"
-SPLITS=("${@:1:$#-1}")
+SPLITS=("${@[1,-2]}")
 
 if [ ! -f "$VIDEO" ]; then
     echo "Error: file not found: $VIDEO"
