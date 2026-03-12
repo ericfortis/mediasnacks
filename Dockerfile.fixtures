@@ -1,0 +1,36 @@
+# Docker environment matching GitHub Actions CI
+# Used to generate consistent video fixtures for tests
+
+FROM ubuntu:24.04
+
+# Install dependencies matching CI environment
+RUN apt-get update && \
+    apt-get install -y \
+    zsh \
+    ffmpeg \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 24 (matching CI)
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /workspace
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Default shell to zsh (since your scripts use #!/bin/zsh)
+SHELL ["/bin/zsh", "-c"]
+
+# Default command: open a shell for interactive fixture generation
+CMD ["/bin/zsh"]
