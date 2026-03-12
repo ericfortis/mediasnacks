@@ -22,4 +22,4 @@ COPY . .
 
 RUN chmod +x src/*.sh
 
-CMD ["npm", "run", "test"]
+CMD ["make", "test"]
