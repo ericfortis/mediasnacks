@@ -30,7 +30,7 @@ fi
 
 local cmd="$words[2]"
 case "$cmd" in
-	avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|vdiff|vconcat|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|vcut|flattendir)
+	avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|vdiff|vconcat|vtrim|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|vcut|flattendir)
 		_files
 		;;
 	qdir)
