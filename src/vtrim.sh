@@ -15,18 +15,18 @@ fi
 
 START="$1"
 END="$2"
-INPUT="$3"
+VIDEO="$3"
 
-if [ ! -f "$INPUT" ]; then
-    echo "Error: file not found: $INPUT"
+if [ ! -f "$VIDEO" ]; then
+    echo "Error: file not found: $VIDEO"
     exit 1
 fi
 
-BASENAME=$(basename "$INPUT")
-DIRNAME=$(dirname "$INPUT")
+BASENAME=$(basename "$VIDEO")
+DIRNAME=$(dirname "$VIDEO")
 EXT="${BASENAME##*.}"
 NAME="${BASENAME%.*}"
 
 OUTFILE="$DIRNAME/${NAME}.trim.$EXT"
 
-ffmpeg -v error -y -ss "$START" -to "$END" -i "$INPUT" -c copy "$OUTFILE"
+ffmpeg -v error -y -ss "$START" -to "$END" -i "$VIDEO" -c copy "$OUTFILE"
