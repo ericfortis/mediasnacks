@@ -6,7 +6,7 @@ Run tests in a Docker container that exactly matches the CI environment (ubuntu-
 
 ```bash
 # Build the image
-docker build -f Dockerfile.test -t mediasnacks-test .
+docker build -t mediasnacks-test .
 
 # Run tests
 docker run --rm mediasnacks-test

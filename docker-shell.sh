@@ -4,7 +4,7 @@
 set -e
 
 echo "Building Docker test image..."
-docker build -f Dockerfile.test -t mediasnacks-test .
+docker build -t mediasnacks-test .
 
 echo ""
 echo "Opening shell in Docker container..."
