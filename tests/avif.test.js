@@ -10,13 +10,13 @@ import { videoAttrs } from '../src/utils/ffmpeg.js'
 
 test('PNG to AVIF', async () => {
 	const tmp = mkdtempSync(join(tmpdir(), 'avif-test-'))
-	execSync(`src/cli.js avif --output-dir ${tmp} tests/fixtures/lenna.png`)
+	execSync(`src/cli.js avif --output-dir ${tmp} ${join(import.meta.dirname, 'fixtures/lenna.png')}`)
 
 	deepEqual(
 		await videoAttrs(join(tmp, 'lenna.avif')),
-		await videoAttrs('tests/fixtures/lenna.avif'))
-	// That's because we use non-deterministic avif.
-	// avif is deterministic only when it's single-threaded and with a fixed preset, such as
-	//   '-svtav1-params', 'avif=1:preset=8',
-	//   '-threads', '1',
+		await videoAttrs(join(import.meta.dirname, 'fixtures/lenna.avif')))
+		// That's because we use non-deterministic avif.
+		// avif is deterministic only when it's single-threaded and with a fixed preset, such as
+		//   '-svtav1-params', 'avif=1:preset=8',
+		//   '-threads', '1',
 })
