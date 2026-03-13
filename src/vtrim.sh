@@ -29,7 +29,6 @@ NAME="${BASENAME%.*}"
 
 outfile="$DIRNAME/${NAME}.trim.$EXT"
 
-# Calculate duration
 duration=$(awk "BEGIN {print $END - $START}")
 
 ffmpeg -v error -y -ss "$START" -i "$VIDEO" \

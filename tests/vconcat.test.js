@@ -16,9 +16,8 @@ test('vconcat concatenates videos with single quotes in filenames', async () => 
 	cpSync('tests/fixtures/60fps.mp4', file2)
 
 	// Concatenate the files (needs proper quoting in shell)
-	execSync(`src/cli.js vconcat "${file1}" "${file2}"`, { cwd: process.cwd(), shell: '/bin/sh' })
+	execSync(`src/cli.js vconcat "${file1}" "${file2}"`)
 
-	// Verify the concatenated file was created successfully
 	const concatenatedFile = join(tmp, `video'1.concat.mp4`)
 	ok(existsSync(concatenatedFile), 'Concatenated file should be created')
 
@@ -26,5 +25,6 @@ test('vconcat concatenates videos with single quotes in filenames', async () => 
 	const duration = parseFloat(concatenatedAttrs.duration)
 
 	// Should be approximately 60 seconds (30 + 30)
+	// TODO Improve
 	ok(duration > 55 && duration < 65, `Duration should be ~60s, got ${duration}s`)
 })

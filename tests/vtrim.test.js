@@ -21,5 +21,6 @@ test('vtrim trims video from start to end time', async () => {
 	const duration = parseFloat(attrs.duration)
 
 	// Duration should be approximately 5 seconds (10 - 5)
+	// TODO improve
 	ok(duration > 4.5 && duration < 5.5, `Duration should be ~5s, got ${duration}s`)
 })
