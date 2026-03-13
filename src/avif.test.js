@@ -11,7 +11,7 @@ const rel = f => join(import.meta.dirname, f)
 
 test('PNG to AVIF', async () => {
 	const tmp = mkdtempSync(join(tmpdir(), 'avif-test-'))
-	execSync(`src/cli.js avif --output-dir ${tmp} ${rel('fixtures/lenna.png')}`)
+	execSync(`${rel('cli.js')} avif --output-dir ${tmp} ${rel('fixtures/lenna.png')}`)
 
 	deepEqual(
 		await videoAttrs(join(tmp, 'lenna.avif')),
