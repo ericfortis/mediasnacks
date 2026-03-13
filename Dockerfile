@@ -11,3 +11,5 @@ RUN apt-get update && \
 WORKDIR /workspace
 
 COPY . .
+
+CMD ["node", "--test"]
