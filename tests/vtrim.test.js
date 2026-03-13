@@ -16,5 +16,5 @@ test('vtrim trims video from start to end time', () => {
 
 	const out = join(tmp, '60fps.trim.mp4')
 	const expected = 'tests/fixtures/60fps_2.mp4'
-	equal(sha1(out), sha1(expected), 'Trimmed video (5-10s) should match 60fps_2.mp4')
+	equal(sha1(out), sha1(expected), 'Trimmed video (5-10s) should match 60fps_2.mp4 (regenerated fixture)')
 })
