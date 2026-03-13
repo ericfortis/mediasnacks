@@ -33,8 +33,6 @@ Commands:
 
 - `curltime`: Measures request response timings
 - `gif`: Video to GIF
-- `vsplit`: Split video at multiple time points
-
 - `flattendir`: Moves unique files to the top dir and deletes empty dirs
 
 ### Glob Patterns and Literal Filenames

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 # Convert to GIF
 
@@ -10,7 +10,7 @@ usage() {
   exit 1
 }
 
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
   case "$1" in
     --fps)
       FPS="$2";
@@ -26,9 +26,10 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-[[ -z "$file" ]] && usage
+[ -z "$file" ] && usage
 
-outfile="${file:r}.gif"
+# Remove extension using parameter expansion
+outfile="${file%.*}.gif"
 
 ffmpeg -v error -i "$file" \
   -vf "fps=${FPS},scale=${WIDTH}:-1" \

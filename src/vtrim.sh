@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 if [ "$#" -ne 3 ]; then
 	cat << EOF
@@ -29,7 +29,9 @@ NAME="${BASENAME%.*}"
 
 outfile="$DIRNAME/${NAME}.trim.$EXT"
 
-ffmpeg -v error -y -i "$VIDEO" \
-	-ss "$START" \
-	-to "$END" \
+# Calculate duration
+duration=$(awk "BEGIN {print $END - $START}")
+
+ffmpeg -v error -y -ss "$START" -i "$VIDEO" \
+	-t "$duration" \
 	-c copy "$outfile"
