@@ -27,13 +27,10 @@ DIRNAME=$(dirname "$VIDEO")
 EXT="${BASENAME##*.}"
 NAME="${BASENAME%.*}"
 
-echo "start $START, end $END"
-
+# For speed, we copy without re-encoding (with -ss before -i), but 
+# that means that the output isn’t going to be exact
 ffmpeg -v error -y \
   -ss "$START" \
 	-to "$END" \
   -i "$VIDEO" \
 	-c copy "$DIRNAME/${NAME}.trim.$EXT"
-
-# For speed, we copy without re-encoding (with -ss before -i), but 
-# that means that the output isn’t going to be exact
