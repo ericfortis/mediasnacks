@@ -4,7 +4,7 @@ import { equal } from 'node:assert/strict'
 import { tmpdir } from 'node:os'
 import { execSync } from 'node:child_process'
 import { mkdtempSync, cpSync } from 'node:fs'
-import { sha1 } from './utils.js'
+import { sha1, videoAttr } from './utils.js'
 
 test('vconcat concatenates split videos', () => {
 	const tmp = mkdtempSync(join(tmpdir(), 'vconcat-test-'))
@@ -21,7 +21,11 @@ test('vconcat concatenates split videos', () => {
 	// Verify the concatenated file matches what we expect from these splits
 	const concatenatedFile = join(tmp, `60'fps_1.concat.mp4`)
 	const concatenatedHash = sha1(concatenatedFile)
+	const concatenatedDuration = videoAttr(concatenatedFile, 'duration')
+	const originalDuration = videoAttr('tests/fixtures/60fps.mp4', 'duration')
 
 	// The hash should be consistent for the same input splits
 	equal(concatenatedHash, 'a2d93a93865e2c082260a1897985615e6f15d2d6', 'concatenated video hash should be consistent')
+	// Duration should match the original
+	equal(concatenatedDuration, originalDuration, 'concatenated video duration should match original')
 })
