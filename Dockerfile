@@ -1,6 +1,5 @@
 FROM node:24-bookworm-slim
 
-# Install zsh and ffmpeg
 RUN apt-get update && apt-get install -y \
     zsh ffmpeg \
     && rm -rf /var/lib/apt/lists/*
