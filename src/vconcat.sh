@@ -17,7 +17,6 @@ for file in "$@"; do
 done
 
 first_video="$1"
-# Remove extension and get extension using parameter expansion
 name="${first_video%.*}"
 ext="${first_video##*.}"
 outfile="${name}.concat.${ext}"

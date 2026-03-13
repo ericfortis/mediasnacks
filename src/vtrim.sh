@@ -27,10 +27,8 @@ DIRNAME=$(dirname "$VIDEO")
 EXT="${BASENAME##*.}"
 NAME="${BASENAME%.*}"
 
-outfile="$DIRNAME/${NAME}.trim.$EXT"
-
 duration=$(awk "BEGIN {print $END - $START}")
 
 ffmpeg -v error -y -ss "$START" -i "$VIDEO" \
 	-t "$duration" \
-	-c copy "$outfile"
+	-c copy "$DIRNAME/${NAME}.trim.$EXT"

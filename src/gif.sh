@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Convert to GIF
+# Converts to GIF
 
 FPS=10
 WIDTH=600
@@ -28,9 +28,6 @@ done
 
 [ -z "$file" ] && usage
 
-# Remove extension using parameter expansion
-outfile="${file%.*}.gif"
-
 ffmpeg -v error -i "$file" \
   -vf "fps=${FPS},scale=${WIDTH}:-1" \
-  "$outfile"
+  "${file%.*}.gif"
