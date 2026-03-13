@@ -41,21 +41,20 @@ while [ $i -le $N_CLIPS ]; do
 		eval "split_time=\${1}"
 		ffmpeg -v error -y -i "$VIDEO" \
 			-t "$split_time" \
-			-c copy -avoid_negative_ts make_zero "$outfile"
+			-c copy "$outfile"
 
 	elif [ $i -eq $N_CLIPS ]; then # Last clip: [last_split, end]
 		eval "split_time=\${$#}"
-		ffmpeg -v error -y -i "$VIDEO" \
-			-ss "$split_time" \
-			-c copy -avoid_negative_ts make_zero "$outfile"
+		ffmpeg -v error -y -ss "$split_time" -i "$VIDEO" \
+			-c copy "$outfile"
 
 	else # Middle clip: [split[i-1], split[i]]
 		eval "start_time=\${$((i-1))}"
 		eval "end_time=\${$i}"
-		ffmpeg -v error -y -i "$VIDEO" \
-			-ss "$start_time" \
-			-to "$end_time" \
-			-c copy -avoid_negative_ts make_zero "$outfile"
+		duration=$((end_time - start_time))
+		ffmpeg -v error -y -ss "$start_time" -i "$VIDEO" \
+			-t "$duration" \
+			-c copy "$outfile"
 	fi
 	i=$((i + 1))
 done
