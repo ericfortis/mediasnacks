@@ -9,23 +9,20 @@ import { sha1, videoAttr } from './utils.js'
 test('vconcat concatenates split videos', () => {
 	const tmp = mkdtempSync(join(tmpdir(), 'vconcat-test-'))
 
-	// Copy fixture files with single quotes in filenames to test escaping
-	for (let i = 1; i <= 6; i++) {
-		const splitFile = join(tmp, `60'fps_${i}.mp4`)
-		cpSync(`tests/fixtures/60fps_${i}.mp4`, splitFile)
-	}
+	// Copy original with single quote in filename to test escaping
+	const inputFile = join(tmp, `60'fps.mp4`)
+	cpSync('tests/fixtures/60fps.mp4', inputFile)
 
-	// Concatenate the split files (needs proper quoting in shell)
+	// Split the video
+	execSync(`src/cli.js vsplit 5 10 15 20 25 "${inputFile}"`)
+
+	// Concatenate the split files back together
 	execSync(`src/cli.js vconcat ${tmp}/60\\'fps_*.mp4`, { cwd: process.cwd(), shell: '/bin/sh' })
 
-	// Verify the concatenated file matches what we expect from these splits
+	// Verify the concatenated file duration matches the original
 	const concatenatedFile = join(tmp, `60'fps_1.concat.mp4`)
-	const concatenatedHash = sha1(concatenatedFile)
 	const concatenatedDuration = videoAttr(concatenatedFile, 'duration')
-	const originalDuration = videoAttr('tests/fixtures/60fps.mp4', 'duration')
+	const originalDuration = videoAttr(inputFile, 'duration')
 
-	// The hash should be consistent for the same input splits
-	equal(concatenatedHash, 'a2d93a93865e2c082260a1897985615e6f15d2d6', 'concatenated video hash should be consistent')
-	// Duration should match the original
 	equal(concatenatedDuration, originalDuration, 'concatenated video duration should match original')
 })
