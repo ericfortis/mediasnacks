@@ -22,6 +22,7 @@ Commands:
 - `resize` Resizes videos or images
 - `vconcat`: Concatenates videos
 - `vdiff`: Plays a video with the difference of two videos
+- `vsplit`: Splits a video into multiple clips from CSV timestamps
 - `vtrim`: Trims video from start to end time
 
 - `flattendir`: Moves unique files to the top dir and deletes empty dirs

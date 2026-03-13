@@ -11,6 +11,7 @@ _mediasnacks_commands=(
   'resize:Resizes videos or images'
   'vconcat:Concatenates videos'
   'vdiff:Plays a video with the difference of two videos'
+  'vsplit:Splits a video into multiple clips from CSV timestamps'
   'vtrim:Trims video from start to end time'
   'flattendir:Moves unique files to the top dir and deletes empty dirs'
   'seqcheck:Finds missing sequence number'
@@ -29,7 +30,7 @@ fi
 
 local cmd="$words[2]"
 case "$cmd" in
-	avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|vdiff|vconcat|vtrim|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|flattendir)
+	avif|resize|sqcrop|moov2front|dropdups|seqcheck|hev1tohvc1|framediff|vdiff|vconcat|vsplit|vtrim|dlaudio|dlvideo|unemoji|rmcover|curltime|gif|flattendir)
 		_files
 		;;
 	qdir)

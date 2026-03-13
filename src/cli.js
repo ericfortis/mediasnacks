@@ -17,6 +17,7 @@ const COMMANDS = {
 	resize: ['resize.js', 'Resizes videos or images'],
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
 	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
+	vsplit: ['vsplit.js', 'Splits a video into multiple clips from CSV timestamps'],
 	vtrim: ['vtrim.sh', 'Trims video from start to end time'],
 
 	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs'],
