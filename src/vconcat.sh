@@ -11,7 +11,9 @@ fi
 
 list_file=$(mktemp -p .)
 for file in "$@"; do
-  printf "file '%s'\n" "$file" >> "$list_file"
+  # Escape single quotes by replacing ' with '\''
+  escaped=$(printf '%s\n' "$file" | sed "s/'/'\\\\''/g")
+  printf "file '%s'\n" "$escaped" >> "$list_file"
 done
 
 first_video="$1"
