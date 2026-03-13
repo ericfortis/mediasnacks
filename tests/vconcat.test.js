@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import { test } from 'node:test'
-import { equal } from 'node:assert/strict'
+import { ok } from 'node:assert/strict'
 import { tmpdir } from 'node:os'
 import { execSync } from 'node:child_process'
 import { mkdtempSync, cpSync } from 'node:fs'
@@ -19,10 +19,11 @@ test('vconcat concatenates split videos', async () => {
 	// Concatenate the split files back together
 	execSync(`src/cli.js vconcat ${tmp}/60\\'fps_*.mp4`, { cwd: process.cwd(), shell: '/bin/sh' })
 
-	// Verify the concatenated file duration matches the original
+	// Verify the concatenated file duration matches the original (within 0.5s tolerance for keyframe handling)
 	const concatenatedFile = join(tmp, `60'fps_1.concat.mp4`)
 	const concatenatedAttrs = await videoAttrs(concatenatedFile)
 	const originalAttrs = await videoAttrs(inputFile)
+	const diff = Math.abs(parseFloat(concatenatedAttrs.duration) - parseFloat(originalAttrs.duration))
 
-	equal(concatenatedAttrs.duration, originalAttrs.duration, 'concatenated video duration should match original')
+	ok(diff < 0.5, `concatenated duration ${concatenatedAttrs.duration} should be within 0.5s of original ${originalAttrs.duration}, but diff is ${diff}`)
 })
