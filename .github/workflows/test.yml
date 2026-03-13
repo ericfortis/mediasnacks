@@ -1,4 +1,5 @@
 name: Test
+
 on: [ push, pull_request ]
 
 permissions:
@@ -6,13 +7,22 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v5
 
-      - name: Build image
-        run: docker build -t app-test .
+      - uses: docker/setup-buildx-action@v3
 
-      - name: Tests
+      - name: Build image (cached)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: app-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Run tests
         run: docker run --rm app-test
