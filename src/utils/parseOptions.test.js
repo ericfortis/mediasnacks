@@ -1,7 +1,7 @@
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { equal, deepEqual } from 'node:assert/strict'
-import { mkdtemp, writeFile, rmdir } from 'node:fs/promises'
+import { mkdtemp, writeFile, rm } from 'node:fs/promises'
 import { test, describe, before, after } from 'node:test'
 
 import { parseOptions } from './parseOptions.js'
@@ -18,7 +18,7 @@ describe('parseOptions', () => {
 			await writeFile(inTmpDir(file), '')
 	})
 
-	after(() => rmdir(testDir, { recursive: true }))
+	after(() => rm(testDir, { recursive: true }))
 
 	test('parses args and globs files', async () => {
 		const { values, files } = await parseOptions({
