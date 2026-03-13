@@ -1,25 +1,23 @@
 import { ok } from 'node:assert/strict'
 import { join } from 'node:path'
-import { tmpdir } from 'node:os'
-import { execSync } from 'node:child_process'
 import { describe, test } from 'node:test'
-import { mkdtempSync, cpSync, readdirSync } from 'node:fs'
+import { cpSync, readdirSync } from 'node:fs'
 
 import { videoAttrs } from './utils/ffmpeg.js'
+import { mkTempDir, cli } from './utils/test-utils.js'
 
 
 const rel = f => join(import.meta.dirname, f)
 
 describe('vsplit splits video into multiple clips from CSV', () => {
-	const tmp = mkdtempSync(join(tmpdir(), 'vsplit-test-'))
+	const tmp = mkTempDir('vsplit')
 
 	const csvFile = join(tmp, '60fps.csv')
 	const inputFile = join(tmp, '60fps.mp4')
 
 	cpSync(rel('fixtures/60fps.csv'), csvFile)
 	cpSync(rel('fixtures/60fps.mp4'), inputFile)
-
-	execSync(`${rel('cli.js')} vsplit ${csvFile} ${inputFile}`)
+	cli('vsplit', csvFile, inputFile)
 
 	test('all 6 clips were created', () => {
 		const files = readdirSync(tmp).filter(f => f.startsWith('60fps_'))

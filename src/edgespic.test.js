@@ -1,19 +1,17 @@
 import { join } from 'node:path'
-import { tmpdir } from 'node:os'
 import { ok, equal } from 'node:assert/strict'
-import { spawnSync } from 'node:child_process'
 import { describe, test } from 'node:test'
-import { mkdtempSync, cpSync, readdirSync, } from 'node:fs'
+import { cpSync, readdirSync, } from 'node:fs'
 
-import { sha1 } from './utils/fs-utils.js'
+import { cli, mkTempDir, sha1 } from './utils/test-utils.js'
 
 const rel = f => join(import.meta.dirname, f)
 
 describe('edgespic', () => {
-	const tmp = mkdtempSync(join(tmpdir(), 'edgespic-'))
+	const tmp = mkTempDir('edgespic')
 	const inputFile = join(tmp, '60fps.mp4')
 	cpSync(rel('fixtures/60fps.mp4'), inputFile)
-	spawnSync(rel('cli.js'), ['edgespic', inputFile])
+	cli('edgespic', inputFile)
 
 	test('creates output directory', () => {
 		const files = readdirSync(join(tmp, 'edgespic'))

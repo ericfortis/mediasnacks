@@ -1,7 +1,7 @@
+import { lstatSync } from 'node:fs'
+import { randomUUID } from 'node:crypto'
 import { mkdir, unlink, rename } from 'node:fs/promises'
 import { dirname, extname, join } from 'node:path'
-import { lstatSync, readFileSync } from 'node:fs'
-import { randomUUID, createHash } from 'node:crypto'
 
 
 export const lstat = f => lstatSync(f, { throwIfNoEntry: false })
@@ -33,11 +33,3 @@ export async function mkDir(path) {
 			throw err
 	}
 }
-
-export function sha1(filePath) {
-	return createHash('sha1')
-		.update(readFileSync(filePath))
-		.digest('base64')
-}
-
-
