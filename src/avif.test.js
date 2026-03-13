@@ -10,7 +10,7 @@ import { videoAttrs } from './utils/ffmpeg.js'
 const rel = f => join(import.meta.dirname, f)
 
 test('PNG to AVIF', async () => {
-	const tmp = mkdtempSync(join(tmpdir(), 'avif-test-'))
+	const tmp = mkdtempSync(join(tmpdir(), 'avif-'))
 	execSync(`${rel('cli.js')} avif --output-dir ${tmp} ${rel('fixtures/lenna.png')}`)
 
 	deepEqual(

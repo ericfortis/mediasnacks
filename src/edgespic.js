@@ -39,7 +39,7 @@ async function main() {
 	if (!files.length)
 		throw new Error('No video files specified')
 
-	const outDir = join(parse(files[0]).dir, 'edgespics')
+	const outDir = join(parse(files[0]).dir, 'edgespic')
 	await mkDir(outDir) 
 
 	console.log('Extracting edge frames…')
