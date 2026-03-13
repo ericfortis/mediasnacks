@@ -64,11 +64,11 @@ function parseCSV(csvPath) {
 		throw new Error('CSV file is empty')
 
 	const clips = []
-	for (let i = 1; i < lines.length; i++) { // skip header
+	for (let i = 1; i < lines.length; i++) { // unconditionally skips header 
 		const parts = lines[i].split(',').map(s => s.trim())
 
 		if (parts.length !== 2)
-			throw new Error(`Invalid CSV format at line ${i + 2}: expected 2 columns, got ${parts.length}`)
+			throw new Error(`Invalid CSV format at line ${i + 1}: expected 2 columns, got ${parts.length}`)
 
 		clips.push(parts)
 	}
