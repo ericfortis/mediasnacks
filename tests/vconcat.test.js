@@ -4,9 +4,9 @@ import { equal } from 'node:assert/strict'
 import { tmpdir } from 'node:os'
 import { execSync } from 'node:child_process'
 import { mkdtempSync, cpSync } from 'node:fs'
-import { sha1, videoAttr } from './utils.js'
+import { videoAttrs } from '../src/utils/ffmpeg.js'
 
-test('vconcat concatenates split videos', () => {
+test('vconcat concatenates split videos', async () => {
 	const tmp = mkdtempSync(join(tmpdir(), 'vconcat-test-'))
 
 	// Copy original with single quote in filename to test escaping
@@ -21,8 +21,8 @@ test('vconcat concatenates split videos', () => {
 
 	// Verify the concatenated file duration matches the original
 	const concatenatedFile = join(tmp, `60'fps_1.concat.mp4`)
-	const concatenatedDuration = videoAttr(concatenatedFile, 'duration')
-	const originalDuration = videoAttr(inputFile, 'duration')
+	const concatenatedAttrs = await videoAttrs(concatenatedFile)
+	const originalAttrs = await videoAttrs(inputFile)
 
-	equal(concatenatedDuration, originalDuration, 'concatenated video duration should match original')
+	equal(concatenatedAttrs.duration, originalAttrs.duration, 'concatenated video duration should match original')
 })
