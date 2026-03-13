@@ -1,12 +1,11 @@
+FROM mwader/static-ffmpeg:8.0.1 as ffmpeg
 FROM node:24-bookworm-slim
 
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    && rm -rf /var/lib/apt/lists/*
-
 ENV FORCE_COLOR=1
-
 WORKDIR /workspace
+
+COPY --from=ffmpeg /ffmpeg /usr/local/bin/ffmpeg
+COPY --from=ffmpeg /ffprobe /usr/local/bin/ffprobe
 
 COPY src/ src/
 COPY tests/ tests/
