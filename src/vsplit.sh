@@ -41,21 +41,24 @@ i=1
 while [ $i -le $N_CLIPS ]; do
 	outfile="$DIRNAME/${NAME}_${i}.$EXT"
 
-	if [ $i -eq 1 ]; then # First clip: [start, first_split]
+	if [ $i -eq 1 ]; then # First clip: [start, first_split] minus one frame
 		eval "split_time=\${1}"
+		# Subtract one frame from duration to avoid overlap
+		duration=$(awk "BEGIN {print $split_time - $FRAME_DURATION}")
 		ffmpeg -v error -y -i "$VIDEO" \
-			-t "$split_time" \
+			-t "$duration" \
 			-c copy "$outfile"
 
-	elif [ $i -eq $N_CLIPS ]; then # Last clip: [last_split, end]
+	elif [ $i -eq $N_CLIPS ]; then # Last clip: [last_split, end] - no frame subtraction
 		eval "split_time=\${$#}"
 		ffmpeg -v error -y -ss "$split_time" -i "$VIDEO" \
 			-c copy "$outfile"
 
-	else # Middle clip: [split[i-1], split[i]]
+	else # Middle clip: [split[i-1], split[i]] minus one frame
 		eval "start_time=\${$((i-1))}"
 		eval "end_time=\${$i}"
-		duration=$((end_time - start_time))
+		# Subtract one frame from duration to avoid overlap
+		duration=$(awk "BEGIN {print $end_time - $start_time - $FRAME_DURATION}")
 		ffmpeg -v error -y -ss "$start_time" -i "$VIDEO" \
 			-t "$duration" \
 			-c copy "$outfile"
