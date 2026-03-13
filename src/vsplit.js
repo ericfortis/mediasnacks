@@ -35,7 +35,7 @@ async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
-		help: { short: 'h', type: 'boolean', default: false },
+		help: { short: 'h', type: 'boolean' },
 	})
 
 	if (values.help) {

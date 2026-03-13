@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { mkdir } from 'node:fs/promises'
 import { basename, extname, join, parse } from 'node:path'
 
+import { mkDir } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
@@ -40,7 +40,7 @@ async function main() {
 		throw new Error('No video files specified')
 
 	const outDir = join(parse(files[0]).dir, 'edgespics')
-	await mkdir(outDir) // TODO allow EEXIST
+	await mkDir(outDir) 
 
 	console.log('Extracting edge frames…')
 	for (const file of files)

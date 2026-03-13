@@ -1,6 +1,6 @@
 import { lstatSync } from 'node:fs'
 import { randomUUID } from 'node:crypto'
-import { unlink, rename } from 'node:fs/promises'
+import { mkdir, unlink, rename } from 'node:fs/promises'
 import { dirname, extname, join } from 'node:path'
 
 
@@ -23,3 +23,15 @@ export async function overwrite(src, target) {
 	await unlink(target)
 	await rename(src, target)
 }
+
+export async function mkDir(path) {
+	try {
+		await mkdir(path, { recursive: true })
+	}
+	catch (err) {
+		if (err.code !== 'EEXIST')
+			throw err
+	}
+}
+
+
