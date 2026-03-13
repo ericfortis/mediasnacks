@@ -10,6 +10,7 @@ RUN apt-get update && \
 
 WORKDIR /workspace
 
-COPY . .
+COPY src/ src/
+COPY tests/ tests/
 
 CMD ["node", "--test"]
