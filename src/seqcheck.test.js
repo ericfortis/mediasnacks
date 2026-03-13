@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import { deepEqual } from 'node:assert/strict'
-import { extractSeqNums, findMissingNumbers } from '../src/seqcheck.js'
+import { extractSeqNums, findMissingNumbers } from './seqcheck.js'
 
 
 test('extractSeqNums extracts sequence numbers from filenames', () => {

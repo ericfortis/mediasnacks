@@ -8,7 +8,6 @@ ENV FORCE_COLOR=1
 WORKDIR /workspace
 
 COPY src/ src/
-COPY tests/ tests/
 COPY package.json .
 
 CMD ["node", "--test"]
