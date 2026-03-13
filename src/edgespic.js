@@ -53,6 +53,7 @@ async function extractEdgeFrames(video, width, outDir) {
 	const name = basename(video, extname(video))
 
 	await ffmpeg([
+		'-y',
 		'-i', video,
 		'-vf', `scale=${width}:-1`,
 		'-frames:v', '1',
@@ -60,7 +61,8 @@ async function extractEdgeFrames(video, width, outDir) {
 	])
 
 	await ffmpeg([
-		'-sseof', `-${1 / eval(r_frame_rate)}`,
+		'-y',
+		'-sseof', -1 / eval(r_frame_rate),
 		'-i', video,
 		'-vf', `scale=${width}:-1`,
 		'-frames:v', '1',
