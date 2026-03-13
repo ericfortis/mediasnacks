@@ -43,26 +43,24 @@ while [ $i -le $N_CLIPS ]; do
 
 	if [ $i -eq 1 ]; then # First clip: [start, first_split] minus one frame
 		eval "split_time=\${1}"
-		# Subtract one frame duration from end time
-		end_time=$(awk "BEGIN {print $split_time - $FRAME_DURATION}")
+		# Subtract one frame duration
+		duration=$(awk "BEGIN {print $split_time - $FRAME_DURATION}")
 		ffmpeg -v error -y -i "$VIDEO" \
-			-to "$end_time" \
+			-t "$duration" \
 			-c copy "$outfile"
 
 	elif [ $i -eq $N_CLIPS ]; then # Last clip: [last_split, end] - no frame subtraction
 		eval "split_time=\${$#}"
-		ffmpeg -v error -y -i "$VIDEO" \
-			-ss "$split_time" \
+		ffmpeg -v error -y -ss "$split_time" -i "$VIDEO" \
 			-c copy "$outfile"
 
 	else # Middle clip: [split[i-1], split[i]] minus one frame
 		eval "start_time=\${$((i-1))}"
 		eval "end_time=\${$i}"
-		# Subtract one frame duration from end time
-		adjusted_end=$(awk "BEGIN {print $end_time - $FRAME_DURATION}")
-		ffmpeg -v error -y -i "$VIDEO" \
-			-ss "$start_time" \
-			-to "$adjusted_end" \
+		# Calculate duration and subtract one frame
+		duration=$(awk "BEGIN {print $end_time - $start_time - $FRAME_DURATION}")
+		ffmpeg -v error -y -ss "$start_time" -i "$VIDEO" \
+			-t "$duration" \
 			-c copy "$outfile"
 	fi
 	i=$((i + 1))
