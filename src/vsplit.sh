@@ -43,11 +43,11 @@ while [ $i -le $N_CLIPS ]; do
 
 	if [ $i -eq 1 ]; then # First clip: [start, first_split] minus one frame
 		eval "split_time=\${1}"
-		# Subtract one frame from duration to avoid overlap
-		duration=$(awk "BEGIN {print $split_time - $FRAME_DURATION}")
+		# Calculate number of frames, minus 1 to avoid overlap
+		num_frames=$(awk "BEGIN {printf \"%.0f\", ($split_time * $FPS) - 1}")
 		ffmpeg -v error -y -i "$VIDEO" \
-			-t "$duration" \
-			-c copy "$outfile"
+			-frames:v "$num_frames" \
+			-c:v copy -c:a copy "$outfile"
 
 	elif [ $i -eq $N_CLIPS ]; then # Last clip: [last_split, end] - no frame subtraction
 		eval "split_time=\${$#}"
@@ -57,11 +57,11 @@ while [ $i -le $N_CLIPS ]; do
 	else # Middle clip: [split[i-1], split[i]] minus one frame
 		eval "start_time=\${$((i-1))}"
 		eval "end_time=\${$i}"
-		# Subtract one frame from duration to avoid overlap
-		duration=$(awk "BEGIN {print $end_time - $start_time - $FRAME_DURATION}")
+		# Calculate number of frames, minus 1 to avoid overlap
+		num_frames=$(awk "BEGIN {printf \"%.0f\", (($end_time - $start_time) * $FPS) - 1}")
 		ffmpeg -v error -y -ss "$start_time" -i "$VIDEO" \
-			-t "$duration" \
-			-c copy "$outfile"
+			-frames:v "$num_frames" \
+			-c:v copy -c:a copy "$outfile"
 	fi
 	i=$((i + 1))
 done
