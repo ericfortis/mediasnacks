@@ -77,12 +77,11 @@ function parseCSV(csvPath) {
 
 async function splitVideo(videoPath, clips) {
 	const { dir, name, ext } = parse(videoPath)
-	const padding = String(clips.length).length
+	const seqLen = String(clips.length).length
 
 	for (let i = 0; i < clips.length; i++) {
 		const [start, end] = clips[i]
-		const clipNumber = String(i + 1).padStart(padding, '0')
-		const outputPath = join(dir, `${name}_${clipNumber}${ext}`)
+		const seq = String(i + 1).padStart(seqLen, '0')
 		await run('ffmpeg', [
 			'-v', 'error',
 			'-ss', start,
@@ -90,7 +89,7 @@ async function splitVideo(videoPath, clips) {
 			'-i', videoPath,
 			'-c', 'copy',
 			'-y',
-			outputPath
+			join(dir, `${name}_${seq}${ext}`)
 		])
 	}
 }
