@@ -20,4 +20,5 @@ echo ""
 
 docker run --rm -it \
   -v "$(pwd)/tests/fixtures:/workspace/tests/fixtures" \
-  mediasnacks-test 
+  mediasnacks-test \
+  /bin/bash
