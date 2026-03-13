@@ -31,6 +31,10 @@ BASENAME=$(basename "$VIDEO")
 EXT="${BASENAME##*.}"
 NAME="${BASENAME%.*}"
 
+# Get framerate to calculate frame duration
+FPS=$(ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of default=noprint_wrappers=1:nokey=1 "$VIDEO")
+FRAME_DURATION=$(awk "BEGIN {print 1/($FPS)}")
+
 N_CLIPS=$(($# + 1))
 
 i=1
