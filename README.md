@@ -15,6 +15,7 @@ Commands:
 - `sqcrop` Square crops images
  
 - `dropdups` Removes duplicate frames in a video
+- `edgespic` Extracts first and last frames
 - `framediff`: Plays a video of adjacent frames diff
 - `gif`: Video to GIF
 - `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder

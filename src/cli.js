@@ -10,6 +10,7 @@ const COMMANDS = {
 	sqcrop: ['sqcrop.js', 'Square crops images'],
 
 	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
+	edgespic: ['edgespic.js', 'Extracts first and last frames'],
 	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
 	gif: ['gif.sh', 'Video to GIF'],
 	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering in macOS Finder '],
