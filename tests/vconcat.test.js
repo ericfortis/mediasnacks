@@ -9,19 +9,17 @@ import { sha1 } from './utils.js'
 test('vconcat concatenates split videos', () => {
 	const tmp = mkdtempSync(join(tmpdir(), 'vconcat-test-'))
 
-	// Copy fixture files to temp directory
-	const inputFile = join(tmp, '60fps.mp4')
-	cpSync('tests/fixtures/60fps.mp4', inputFile)
+	// Copy fixture files with single quotes in filenames to test escaping
 	for (let i = 1; i <= 6; i++) {
-		const splitFile = join(tmp, `60fps_${i}.mp4`)
+		const splitFile = join(tmp, `60'fps_${i}.mp4`)
 		cpSync(`tests/fixtures/60fps_${i}.mp4`, splitFile)
 	}
 
-	// Concatenate the split files
-	execSync(`src/cli.js vconcat ${tmp}/60fps_*.mp4`, { cwd: process.cwd() })
+	// Concatenate the split files (needs proper quoting in shell)
+	execSync(`src/cli.js vconcat ${tmp}/60\\'fps_*.mp4`, { cwd: process.cwd(), shell: '/bin/sh' })
 
 	// Verify the concatenated file matches what we expect from these splits
-	const concatenatedFile = join(tmp, '60fps_1.concat.mp4')
+	const concatenatedFile = join(tmp, `60'fps_1.concat.mp4`)
 	const concatenatedHash = sha1(concatenatedFile)
 
 	// The hash should be consistent for the same input splits
