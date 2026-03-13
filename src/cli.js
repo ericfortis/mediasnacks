@@ -7,30 +7,29 @@ import pkgJSON from '../package.json' with { type: 'json' }
 
 const COMMANDS = {
 	avif: ['avif.js', 'Converts images to AVIF'],
-	resize: ['resize.js', 'Resizes videos or images'],
 	sqcrop: ['sqcrop.js', 'Square crops images'],
-	moov2front: ['moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
 
 	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
-	seqcheck: ['seqcheck.js', 'Finds missing sequence number'],
-	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
-	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering in macOS Finder '],
-
 	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
-	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
-
+	gif: ['gif.sh', 'Video to GIF'],
+	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering in macOS Finder '],
+	moov2front: ['moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
+	resize: ['resize.js', 'Resizes videos or images'],
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
+	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
 	vtrim: ['vtrim.sh', 'Trims video from start to end time'],
+
+	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs'],
+	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
+	seqcheck: ['seqcheck.js', 'Finds missing sequence number'],
 
 	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
 	dlvideo: ['dlvideo.sh', 'yt-dlp best video'],
 
 	unemoji: ['unemoji.sh', 'Removes emojis from filenames'],
 	rmcover: ['rmcover.sh', 'Removes cover art'],
-	
+
 	curltime: ['curltime.sh', 'Measures request response timings'],
-	gif: ['gif.sh', 'Video to GIF'],
-	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs']
 }
 
 const USAGE = `

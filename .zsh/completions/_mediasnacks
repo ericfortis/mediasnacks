@@ -2,24 +2,24 @@
 
 _mediasnacks_commands=(
   'avif:Converts images to AVIF'
-  'resize:Resizes videos or images'
   'sqcrop:Square crops images'
-  'moov2front:Rearranges metadata for fast-start streaming'
   'dropdups:Removes duplicate frames in a video'
+  'framediff:ffplay with a filter for diffing adjacent frames'
+  'gif:Video to GIF'
+  'hev1tohvc1:Fixes video thumbnails not rendering in macOS Finder'
+  'moov2front:Rearranges metadata for fast-start streaming'
+  'resize:Resizes videos or images'
+  'vconcat:Concatenates videos'
+  'vdiff:Plays a video with the difference of two videos'
+  'vtrim:Trims video from start to end time'
+  'flattendir:Moves unique files to the top dir and deletes empty dirs'
   'seqcheck:Finds missing sequence number'
   'qdir:Sequentially runs all *.sh files in a folder'
-  'hev1tohvc1:Fixes video thumbnails not rendering in macOS Finder'
-  'framediff:ffplay with a filter for diffing adjacent frames'
-  'vdiff:Plays a video with the difference of two videos'
-  'vconcat:Concatenates videos'
-  'vtrim:Trims video from start to end time'
   'dlaudio: yt-dlp best audio'
   'dlvideo: yt-dlp best video'
   'unemoji:Removes emojis from filenames'
   'rmcover:Removes cover art'
   'curltime:Measures request response timings'
-  'gif:Video to GIF'
-  'flattendir:Moves unique files to the top dir and deletes empty dirs'
 )
 
 if (( CURRENT == 2 )); then

@@ -12,18 +12,21 @@ npx mediasnacks <command> <args>
 
 Commands:
 - `avif` Converts images to AVIF
-- `resize` Resizes videos or images
 - `sqcrop` Square crops images
-- `moov2front` Rearranges .mov and .mp4 metadata for fast-start streaming
+ 
 - `dropdups` Removes duplicate frames in a video
-- `seqcheck` Finds missing sequence number
-- `qdir` Sequentially runs all *.sh files in a folder
-- `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder
-
 - `framediff`: Plays a video of adjacent frames diff
-- `vdiff`: Plays a video with the difference of two videos
+- `gif`: Video to GIF
+- `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder
+- `moov2front` Rearranges .mov and .mp4 metadata for fast-start streaming
+- `resize` Resizes videos or images
 - `vconcat`: Concatenates videos
+- `vdiff`: Plays a video with the difference of two videos
 - `vtrim`: Trims video from start to end time
+
+- `flattendir`: Moves unique files to the top dir and deletes empty dirs
+- `qdir` Sequentially runs all *.sh files in a folder
+- `seqcheck` Finds missing sequence number
 
 - `dlaudio`: yt-dlp best audio
 - `dlvideo`: yt-dlp best video
@@ -32,8 +35,6 @@ Commands:
 - `rmcover`: Removes cover art
 
 - `curltime`: Measures request response timings
-- `gif`: Video to GIF
-- `flattendir`: Moves unique files to the top dir and deletes empty dirs
 
 ### Glob Patterns and Literal Filenames
 
