@@ -113,7 +113,7 @@ What is Fast Start?
 For example, for `dropdups -n2 file.mov`
 
 - Open Automator
-- Quick Action (type for your document) 
+- Select: Quick Action
 - Workflow receives current: `movie files` in `Finder.app`
 - Action: `Run Shell Script`
 ```shell
@@ -122,5 +122,6 @@ for f in "$@"; do
   $HOME/bin/mediasnacks dropdups -n2 "$f"
 done
 ```
-FYI, custom workflows live in `~/Library/Services` 
+
+It will be saved to `~/Library/Services` 
 
