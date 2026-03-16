@@ -104,5 +104,27 @@ What is Fast Start?
 
 <br/>
 
+
+## macOS Quick Action
+
+`~/Library/Services` custom actions directory
+
+For example, for `dropdups -n2 file.mov`
+
+Open Automator
+- Quick Action (type for your document) 
+- Workflow receives current: `movie files` in `Finder.app`
+- Action: `Run Shell Script`
+```shell
+export PATH="/opt/homebrew/bin"
+for f in "$@"; do
+  $HOME/bin/mediasnacks dropdups -n2 "$f"
+done
+```
+
+
+
+
+
 ### License
 MIT
