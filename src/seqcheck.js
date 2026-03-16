@@ -68,5 +68,5 @@ function escapeRegex(str) {
 }
 
 
-if (fileURLToPath(import.meta.url) === process.argv[1])
+if (import.meta.main)
 	main()

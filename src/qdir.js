@@ -94,7 +94,7 @@ function sleep(ms) {
 }
 
 
-if (fileURLToPath(import.meta.url) === process.argv[1])
+if (import.meta.main)
 	main().catch(err => {
 		console.error(err.message || err)
 		process.exit(1)
