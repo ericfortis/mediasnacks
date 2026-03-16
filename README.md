@@ -3,14 +3,14 @@
 Utilities optimizing and preparing video and images for the web.
 
 
-## Usage Overview
+## Overview
 **FFmpeg and Node.js must be installed.**
 
 ```shell
 npx mediasnacks <command> <args>
 ```
 
-Commands:
+### Commands
 - `avif` Converts images to AVIF
 - `sqcrop` Square crops images
  
@@ -38,26 +38,24 @@ Commands:
 
 - `curltime`: Measures request response timings
 
-### Glob Patterns and Literal Filenames
-
-Most commands accept glob patterns (like `*.png` or `file[234].png`) to match multiple
-files. By default, these patterns are expanded by Node.js to match existing files.
-
-To treat arguments as literal filenames instead of
-glob patterns, use the `--` (double dash) separator:
+### Globs
+Glob patterns are expanded by Node.js to match existing files.
 
 ```shell
-# Expands to: file2.png, file3.png, file4.png
 npx mediasnacks avif file[234].png
+  # Expands to: file2.png, file3.png, file4.png
+```
 
-# Literal filename: "file[234].png"
+```shell
 npx mediasnacks avif -- file[234].png
-
-# Mixed: expand first pattern, treat second as literal
-npx mediasnacks avif file2.png -- file[234].png
+  # Literal filename: "file[234].png"
 ```
 
 <br/>
+
+---
+
+## Commands
 
 ### Converting Images to AVIF
 ```shell
@@ -104,14 +102,17 @@ What is Fast Start?
 
 <br/>
 
+---
 
-## macOS Quick Action
+## Adding a macOS Quick Action
 
-`~/Library/Services` custom actions directory
+
+![](./docs/macos-quick-action.png)
+
 
 For example, for `dropdups -n2 file.mov`
 
-Open Automator
+- Open Automator
 - Quick Action (type for your document) 
 - Workflow receives current: `movie files` in `Finder.app`
 - Action: `Run Shell Script`
@@ -121,10 +122,5 @@ for f in "$@"; do
   $HOME/bin/mediasnacks dropdups -n2 "$f"
 done
 ```
+FYI, custom workflows live in `~/Library/Services` 
 
-
-
-
-
-### License
-MIT

@@ -36,7 +36,7 @@ async function main() {
 
 	const { values, files } = await parseOptions({
 		'bad-frame-number': { short: 'n', type: 'string', default: '' },
-		help: { short: 'h', type: 'boolean', default: false },
+		help: { short: 'h', type: 'boolean' },
 	})
 
 	if (values.help) {

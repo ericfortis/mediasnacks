@@ -34,8 +34,8 @@ async function main() {
 		width: { type: 'string', default: '-2' },
 		height: { type: 'string', default: '-2' },
 		'output-dir': { type: 'string', default: '' },
-		overwrite: { short: 'y', type: 'boolean', default: false },
-		help: { short: 'h', type: 'boolean', default: false },
+		overwrite: { short: 'y', type: 'boolean' },
+		help: { short: 'h', type: 'boolean' },
 	})
 
 	if (values.help) {

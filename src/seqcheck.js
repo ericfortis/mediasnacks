@@ -22,7 +22,7 @@ function main() {
 		options: {
 			'left-delimiter': { type: 'string', default: '_' },
 			'right-delimiter': { type: 'string', default: '.' },
-			help: { short: 'h', type: 'boolean', default: false },
+			help: { short: 'h', type: 'boolean' },
 		},
 		allowPositionals: true,
 	})
