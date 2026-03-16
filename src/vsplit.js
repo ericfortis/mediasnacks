@@ -77,7 +77,7 @@ function parseCSV(csvPath) {
 
 async function splitVideo(videoPath, clips) {
 	const { dir, name, ext } = parse(videoPath)
-	const seqLen = String(clips.length).length
+	const seqLen = Math.log10(clips.length) + 1 | 0
 
 	for (let i = 0; i < clips.length; i++) {
 		const [start, end] = clips[i]

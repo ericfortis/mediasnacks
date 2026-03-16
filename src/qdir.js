@@ -13,15 +13,13 @@ const USAGE = `
 Usage: npx mediasnacks qdir [folder]
 
 Sequentially runs all *.sh files in a folder (cwd by default). 
-
--h, --help
 `.trim()
 
 
 async function main() {
 	const { values, positionals } = parseArgs({
 		options: {
-			help: { short: 'h', type: 'boolean', default: false },
+			help: { short: 'h', type: 'boolean' },
 		},
 		allowPositionals: true,
 	})
