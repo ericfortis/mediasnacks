@@ -8,7 +8,7 @@ import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
 const USAGE = `
-Usage: npx mediasnacks edgespic [--width=<num>] <files>
+Usage:  mediasnacks edgespic [--width=<num>] <files>
 
 Extracts the first and last frames from each video and saves them to the 'edgepics/' subfolder.
 --width defaults to 640px and The aspect ratio is preserved.

@@ -6,7 +6,7 @@ import { parseOptions } from './utils/parseOptions.js'
 
 
 const USAGE = `
-Usage: npx mediasnacks moov2front <videos>
+Usage:  mediasnacks moov2front <videos>
 
 Rearranges .mov and .mp4 metadata to the start of the file for fast-start streaming.
 

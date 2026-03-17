@@ -8,7 +8,7 @@ import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
 const USAGE = `
-Usage: npx mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
+Usage: mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
 
 Converts images to AVIF.
 `.trim()

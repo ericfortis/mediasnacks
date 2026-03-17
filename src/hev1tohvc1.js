@@ -6,7 +6,7 @@ import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
 const USAGE = `
-Usage: npx mediasnacks hev1tohvc1 <videos>
+Usage: mediasnacks hev1tohvc1 <videos>
 
 This program fixes video thumbnails not rendering in macOS
 Finder, and fixes video not importable in Final Cut Pro. That’s done 

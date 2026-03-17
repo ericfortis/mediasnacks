@@ -10,7 +10,7 @@ import { isFile } from './utils/fs-utils.js'
 
 
 const USAGE = `
-Usage: npx mediasnacks qdir [folder]
+Usage:  mediasnacks qdir [folder]
 
 Sequentially runs all *.sh files in a folder (cwd by default). 
 `.trim()

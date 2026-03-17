@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 
 
 const USAGE = `
-Usage: npx mediasnacks seqcheck [options] [folder]
+Usage:  mediasnacks seqcheck [options] [folder]
 
 Find missing numbered files in a sequence.
 

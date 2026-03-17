@@ -9,7 +9,7 @@ import { parseOptions } from './utils/parseOptions.js'
 
 
 const USAGE = `
-Usage: npx mediasnacks sqcrop [-y | --overwrite] [--output-dir=<dir>] <images> 
+Usage:  mediasnacks sqcrop [-y | --overwrite] [--output-dir=<dir>] <images> 
 
 Square crops images
 `.trim()
