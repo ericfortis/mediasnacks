@@ -7,7 +7,7 @@ import pkgJSON from '../package.json' with { type: 'json' }
 
 const COMMANDS = {
 	avif: ['avif.js', 'Converts images to AVIF'],
-	sqcrop: ['sqcrop.js', 'Square crops images'],
+	sqcrop: ['sqcrop.js', 'Square crops images\n'],
 
 	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
 	edgespic: ['edgespic.js', 'Extracts first and last frames'],
@@ -19,27 +19,27 @@ const COMMANDS = {
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
 	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
 	vsplit: ['vsplit.js', 'Splits a video into multiple clips from CSV timestamps'],
-	vtrim: ['vtrim.sh', 'Trims video from start to end time'],
+	vtrim: ['vtrim.sh', 'Trims video from start to end time\n'],
 
 	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs'],
 	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
-	seqcheck: ['seqcheck.js', 'Finds missing sequence number'],
+	seqcheck: ['seqcheck.js', 'Finds missing sequence number\n'],
 
 	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
-	dlvideo: ['dlvideo.sh', 'yt-dlp best video'],
+	dlvideo: ['dlvideo.sh', 'yt-dlp best video\n'],
 
 	unemoji: ['unemoji.sh', 'Removes emojis from filenames'],
-	rmcover: ['rmcover.sh', 'Removes cover art'],
+	rmcover: ['rmcover.sh', 'Removes cover art\n'],
 
 	curltime: ['curltime.sh', 'Measures request response timings'],
 }
 
 const USAGE = `
-Usage: npx mediasnacks <command> <args>
+Usage: mediasnacks <command> <args>
 
 Commands:
 ${Object.entries(COMMANDS).map(([cmd, [, title]]) =>
-	`    ${cmd}\t${title}`).join('\n')}
+	`   ${cmd.padEnd(12, ' ')}\t${title}`).join('\n')}
 `.trim()
 
 
