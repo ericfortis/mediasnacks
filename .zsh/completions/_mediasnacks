@@ -3,24 +3,30 @@
 _mediasnacks_commands=(
   'avif:Converts images to AVIF'
   'sqcrop:Square crops images'
-  'dropdups:Removes duplicate frames in a video'
+  
+  'resize:Resizes videos or images'
   'edgespic:Extracts first and last frames'
-  'framediff:ffplay with a filter for diffing adjacent frames'
   'gif:Video to GIF'
+  
+  'dropdups:Removes duplicate frames in a video'
+  'framediff:ffplay with a filter for diffing adjacent frames'
   'hev1tohvc1:Fixes video thumbnails not rendering in macOS Finder'
   'moov2front:Rearranges metadata for fast-start streaming'
-  'resize:Resizes videos or images'
   'vconcat:Concatenates videos'
   'vdiff:Plays a video with the difference of two videos'
   'vsplit:Splits a video into multiple clips from CSV timestamps'
   'vtrim:Trims video from start to end time'
+  
   'flattendir:Moves unique files to the top dir and deletes empty dirs'
   'seqcheck:Finds missing sequence number'
   'qdir:Sequentially runs all *.sh files in a folder'
+  
   'dlaudio: yt-dlp best audio'
   'dlvideo: yt-dlp best video'
+  
   'unemoji:Removes emojis from filenames'
   'rmcover:Removes cover art'
+  
   'curltime:Measures request response timings'
 )
 

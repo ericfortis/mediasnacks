@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { join } from 'node:path'
+import { styleText } from 'node:util'
 import { spawn } from 'node:child_process'
 import pkgJSON from '../package.json' with { type: 'json' }
 
@@ -9,13 +10,14 @@ const COMMANDS = {
 	avif: ['avif.js', 'Converts images to AVIF'],
 	sqcrop: ['sqcrop.js', 'Square crops images\n'],
 
-	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
+	resize: ['resize.js', 'Resizes videos or images'],
 	edgespic: ['edgespic.js', 'Extracts first and last frames'],
+	gif: ['gif.sh', 'Video to GIF\n'],
+
+	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
 	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
-	gif: ['gif.sh', 'Video to GIF'],
 	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering in macOS Finder '],
 	moov2front: ['moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
-	resize: ['resize.js', 'Resizes videos or images'],
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
 	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
 	vsplit: ['vsplit.js', 'Splits a video into multiple clips from CSV timestamps'],
@@ -39,7 +41,7 @@ Usage: mediasnacks <command> <args>
 
 Commands:
 ${Object.entries(COMMANDS).map(([cmd, [, title]]) =>
-	`   ${cmd.padEnd(12, ' ')}\t${title}`).join('\n')}
+	`   ${styleText('bold', cmd.padEnd(12, ' '))}\t${title}`).join('\n')}
 `.trim()
 
 

@@ -13,45 +13,51 @@ npx mediasnacks <command> <args>
 ### Commands
 - `avif` Converts images to AVIF
 - `sqcrop` Square crops images
- 
-- `dropdups` Removes duplicate frames in a video
+
+
+- `resize` Resizes videos or images
 - `edgespic` Extracts first and last frames
-- `framediff`: Plays a video of adjacent frames diff
 - `gif`: Video to GIF
+
+
+- `dropdups` Removes duplicate frames in a video
+- `framediff`: Plays a video of adjacent frames diff
 - `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder
 - `moov2front` Rearranges .mov and .mp4 metadata for fast-start streaming
-- `resize` Resizes videos or images
 - `vconcat`: Concatenates videos
 - `vdiff`: Plays a video with the difference of two videos
 - `vsplit`: Splits a video into multiple clips from CSV timestamps
 - `vtrim`: Trims video from start to end time
 
+
 - `flattendir`: Moves unique files to the top dir and deletes empty dirs
 - `qdir` Sequentially runs all *.sh files in a folder
 - `seqcheck` Finds missing sequence number
 
+
 - `dlaudio`: yt-dlp best audio
 - `dlvideo`: yt-dlp best video
+
 
 - `unemoji`: Removes emojis from filenames
 - `rmcover`: Removes cover art
 
+
 - `curltime`: Measures request response timings
 
 ### Globs
-Glob patterns are expanded by Node.js to match existing files.
+Glob patterns are expanded by Node.js.
 
 ```shell
-npx mediasnacks avif file[234].png
-  # Expands to: file2.png, file3.png, file4.png
+mediasnacks avif file[234].png
+# Expands to: file2.png, file3.png, file4.png
 ```
 
 ```shell
-npx mediasnacks avif -- file[234].png
-  # Literal filename: "file[234].png"
+mediasnacks avif -- file[234].png
+# Literal filename: "file[234].png"
 ```
 
-<br/>
 
 ---
 
@@ -59,7 +65,7 @@ npx mediasnacks avif -- file[234].png
 
 ### Converting Images to AVIF
 ```shell
-npx mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
+mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
 ```
 
 <br/>
@@ -72,17 +78,17 @@ Resizes videos and images. The aspect ratio is preserved when only one dimension
 - `-2` same as `-1` but rounds to the nearest even number
 
 ```shell
-npx mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
+mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
 ```
 
 Example: Overwrites the input file (-y)
 ```shell
-npx mediasnacks resize -y --width 480 'dir-a/**/*.png' 'dir-b/**/*.mp4'
+mediasnacks resize -y --width 480 'dir-a/**/*.png' 'dir-b/**/*.mp4'
 ```
 
 Example: Output directory (-o)
 ```shell
-npx mediasnacks resize --height 240 --output-dir /tmp/out video.mov
+mediasnacks resize --height 240 --output-dir /tmp/out video.mov
 ```
 
 <br/>
@@ -93,7 +99,7 @@ Rearranges .mov and .mp4 metadata to the start of the file for fast-start stream
 **Files are overwritten**
 
 ```shell
-npx mediasnacks moov2front <videos>
+mediasnacks moov2front <videos>
 ```
 What is Fast Start?
 - https://wiki.avblocks.com/avblocks-for-cpp/muxer-parameters/mp4
@@ -108,7 +114,6 @@ What is Fast Start?
 
 
 ![](./docs/macos-quick-action.png)
-
 
 For example, for `dropdups -n2 file.mov`
 
