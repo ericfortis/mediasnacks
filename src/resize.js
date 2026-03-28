@@ -10,7 +10,7 @@ import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
 const USAGE = `
-Usage:  mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
+Usage: mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
 
 Resizes videos and images. The aspect ratio is preserved when only one dimension is specified.
 

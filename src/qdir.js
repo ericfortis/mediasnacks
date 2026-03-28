@@ -3,14 +3,13 @@
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
 import { parseArgs } from 'node:util'
-import { fileURLToPath } from 'node:url'
 import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
 
 import { isFile } from './utils/fs-utils.js'
 
 
 const USAGE = `
-Usage:  mediasnacks qdir [folder]
+Usage: mediasnacks qdir [folder]
 
 Sequentially runs all *.sh files in a folder (cwd by default). 
 `.trim()

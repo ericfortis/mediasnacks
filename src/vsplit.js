@@ -10,7 +10,7 @@ import { assertUserHasFFmpeg, run } from './utils/ffmpeg.js'
 // TODO looks like it's missing a frame (perhaps becaue of -c copy)
 
 const USAGE = `
-Usage:  mediasnacks vsplit <csv> <video>
+Usage: mediasnacks vsplit <csv> <video>
 
 Splits a video into multiple clips from CSV timestamps.
 
