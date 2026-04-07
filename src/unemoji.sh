@@ -1,12 +1,13 @@
 #!/bin/sh
 
-# Removes emoji's from filenames
+# Removes emoji's from filenames on the current working directory.
+# Does not overwrite files.
 
 find . -depth | while IFS= read -r file; do
   dir=$(dirname "$file")
   base=$(basename "$file")
 
-  # Remove emojis using Perl's Unicode-aware regex
+  # Remove Emojis
   newbase=$(printf '%s' "$base" | perl -CSD -pe '
     s/[\x{1F600}-\x{1F64F}]//g;  # Emoticons
     s/[\x{1F300}-\x{1F5FF}]//g;  # Misc Symbols and Pictographs
@@ -18,7 +19,7 @@ find . -depth | while IFS= read -r file; do
     s/[\x{1F1E6}-\x{1F1FF}]//g;  # Regional Indicator Symbols
   ')
   
-  # Normalize
+  # Normalize to Unicode NFKC
   newbase=$(printf '%s' "$newbase" | perl -CSD -MUnicode::Normalize -pe '$_ = NFKC($_)')
 
   if [ "$base" != "$newbase" ]; then
