@@ -17,6 +17,9 @@ find . -depth | while IFS= read -r file; do
     s/[\x{1FA70}-\x{1FAFF}]//g;  # Symbols and Pictographs Extended-A
     s/[\x{1F1E6}-\x{1F1FF}]//g;  # Regional Indicator Symbols
   ')
+  
+  # Normalize
+  newbase=$(printf '%s' "$newbase" | perl -CSD -MUnicode::Normalize -pe '$_ = NFKC($_)')
 
   if [ "$base" != "$newbase" ]; then
     newpath="$dir/$newbase"
