@@ -1,7 +1,7 @@
-import { join } from 'node:path'
-import { tmpdir } from 'node:os'
-import { spawnSync } from 'node:child_process'
-import { createHash } from 'node:crypto'
+import { join }                               from 'node:path'
+import { tmpdir }                              from 'node:os'
+import { spawnSync }                           from 'node:child_process'
+import { createHash }                           from 'node:crypto'
 import { mkdtempSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 
 const rel = f => join(import.meta.dirname, f)
