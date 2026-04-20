@@ -122,7 +122,7 @@ For example, for `dropdups -n2 file.mov`
 - Workflow receives current: `movie files` in `Finder.app`
 - Action: `Run Shell Script`
 ```shell
-export PATH="/opt/homebrew/bin"
+export PATH="/opt/homebrew/bin:/opt/homebrew/opt/node@24/bin"
 for f in "$@"; do
   $HOME/bin/mediasnacks dropdups -n2 "$f"
 done
