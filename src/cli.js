@@ -21,7 +21,8 @@ const COMMANDS = {
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
 	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
 	vsplit: ['vsplit.js', 'Splits a video into multiple clips from CSV timestamps'],
-	vtrim: ['vtrim.sh', 'Trims video from start to end time\n'],
+	vtrim: ['vtrim.sh', 'Trims video from start to end time'],
+	prores: ['prores.js', 'Converts video to ProRes\n'],
 
 	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs'],
 	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
