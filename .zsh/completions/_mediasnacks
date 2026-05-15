@@ -45,9 +45,3 @@ case "$cmd" in
 		_files -/
 		;;
 esac
-
-
-# INSTALL in: ~/.zshrc
-#fpath=(~/.zsh/completions $fpath)
-#zmodload zsh/complist
-#autoload -U compinit && compinit

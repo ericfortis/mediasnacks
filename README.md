@@ -1,14 +1,21 @@
 # mediasnacks
 
-Utilities optimizing and preparing video and images for the web.
+Utilities video and images.
 
 
-## Overview
+### Install
 **FFmpeg and Node.js must be installed.**
 
 ```shell
-npx mediasnacks <command> <args>
+npm install -g mediasnacks --ignore-scripts=true
 ```
+
+
+## Overview
+```shell
+mediasnacks <command> <args>
+```
+
 
 ### Commands
 - `avif` Converts images to AVIF

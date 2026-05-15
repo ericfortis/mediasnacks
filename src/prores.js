@@ -23,8 +23,8 @@ Arguments:
   <video>  Video file to convert
 
 Options:
-  --profile <n>  ProRes profile (default: 3 (HQ))
-  -h, --help      Show this help message
+  -p, --profile <n>  ProRes profile (default: 3 (422 HQ))
+  -h, --help         Show this help message
 
 Example:
   npx mediasnacks prores video.mov
