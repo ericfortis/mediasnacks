@@ -32,7 +32,7 @@ async function main() {
 	}
 
 	if (!files.length)
-		throw new Error('No video specified. See npx mediasnacks vtrim --help')
+		throw new Error('No video specified. See mediasnacks vtrim --help')
 
 	for (const file of files)
 		await trim(resolve(file), values.start, values.end)

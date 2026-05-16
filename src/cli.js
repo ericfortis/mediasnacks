@@ -62,7 +62,7 @@ if (!opt) {
 	process.exit(1)
 }
 if (!Object.hasOwn(COMMANDS, opt)) {
-	console.error(`'${opt}' is not a command. See npx mediasnacks --help\n`)
+	console.error(`'${opt}' is not a command. See mediasnacks --help\n`)
 	process.exit(1)
 }
 

@@ -15,10 +15,10 @@ Usage: mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [-
 Resizes videos and images. The aspect ratio is preserved when only one dimension is specified.
 
 Example: Overwrites the input file (-y)
-    npx mediasnacks resize -y --width 480 'dir-a/**/*.png' 'dir-b/**/*.mp4'
+    mediasnacks resize -y --width 480 'dir-a/**/*.png' 'dir-b/**/*.mp4'
 
 Example: Output directory (-o)
-    npx mediasnacks resize --height 240 --output-dir /tmp/out video.mov
+    mediasnacks resize --height 240 --output-dir /tmp/out video.mov
    
 Details:
 	--width and --height are -2 by default:

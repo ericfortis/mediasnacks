@@ -14,8 +14,8 @@ Extracts the first and last frames from each video and saves them to the 'edgepi
 --width defaults to 640px and The aspect ratio is preserved.
 
 Example:
-    npx mediasnacks edgespic --width 800 *.mov
-    npx mediasnacks edgespic -w 600 'videos/**/*.mp4'
+    mediasnacks edgespic --width 800 *.mov
+    mediasnacks edgespic -w 600 'videos/**/*.mp4'
 `.trim()
 
 

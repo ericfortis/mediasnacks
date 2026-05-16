@@ -27,8 +27,8 @@ Options:
   -h, --help         Show this help message
 
 Example:
-  npx mediasnacks prores video.mov
-  npx mediasnacks prores --profile 2 video.mov
+  mediasnacks prores video.mov
+  mediasnacks prores --profile 2 video.mov
 
   Outputs: video.prores.mov
 `.trim()
@@ -48,7 +48,7 @@ async function main() {
 	}
 
 	if (files.length !== 1)
-		throw new Error('Expected 1 argument: video file. See npx mediasnacks prores --help')
+		throw new Error('Expected 1 argument: video file. See mediasnacks prores --help')
 
 	const videoPath = resolve(files[0])
 

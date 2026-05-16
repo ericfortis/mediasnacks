@@ -19,7 +19,7 @@ Arguments:
   <video>  Video file to split
 
 Example:
-  npx mediasnacks vsplit clips.csv video.mov
+  mediasnacks vsplit clips.csv video.mov
 
   Given clips.csv:
     start,end
@@ -44,7 +44,7 @@ async function main() {
 	}
 
 	if (files.length !== 2)
-		throw new Error('Expected 2 arguments: CSV file and video file. See npx mediasnacks vsplit --help')
+		throw new Error('Expected 2 arguments: CSV file and video file. See mediasnacks vsplit --help')
 
 	const [csvPath, videoPath] = files.map(f => resolve(f))
 

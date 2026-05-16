@@ -30,7 +30,7 @@ async function main() {
 	}
 
 	if (!files.length)
-		throw new Error('No images specified. See npx mediasnacks sqcrop --help')
+		throw new Error('No images specified. See mediasnacks sqcrop --help')
 
 	console.log('Cropping…')
 	for (const file of files)

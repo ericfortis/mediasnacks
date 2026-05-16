@@ -29,7 +29,7 @@ async function main() {
 	}
 
 	if (!files.length)
-		throw new Error('No images specified. See npx mediasnacks avif --help')
+		throw new Error('No images specified. See mediasnacks avif --help')
 
 	console.log('AVIF…')
 	for (const file of files)

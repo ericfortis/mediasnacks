@@ -45,7 +45,7 @@ async function main() {
 	}
 
 	if (!files.length)
-		throw new Error('No video specified. See npx mediasnacks dropdups --help')
+		throw new Error('No video specified. See mediasnacks dropdups --help')
 
 	let nBadFrame = values['bad-frame-number']
 	if (nBadFrame && !/^\d+$/.test(nBadFrame))
