@@ -6,13 +6,20 @@ Utilities video and images.
 ### Install
 **FFmpeg and Node.js must be installed.**
 
-```shell
-npm install -g mediasnacks --ignore-scripts=true
+```sh
+npm install -g mediasnacks
+```
+
+Optionally, if you have `ignore-scripts=true` in your `.npmprc`, 
+you can install zsh auto-completions with:
+```sh
+$(npm root -g)/mediasnacks/install-zsh-completions.sh
 ```
 
 
+
 ## Overview
-```shell
+```sh
 mediasnacks <command> <args>
 ```
 

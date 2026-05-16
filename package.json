@@ -1,6 +1,6 @@
 {
   "name": "mediasnacks",
-  "version": "0.18.1",
+  "version": "0.18.2",
   "description": "Utilities for optimizing and preparing videos and images",
   "license": "MIT",
   "author": "Eric Fortis",
@@ -10,7 +10,8 @@
 	},
 	"scripts": {
 		"test": "docker run --rm $(docker build -q .)",
-		"postinstall": "sh install-zsh-completions.sh"
+		"postinstall": "sh install-zsh-completions.sh",
+		"dev-install": "npm i -g . --ignore-scripts=false"
 	},
 	"files": [
 		"src",
