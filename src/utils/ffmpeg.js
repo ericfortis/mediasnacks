@@ -141,7 +141,7 @@ export async function videoAttrs(v) {
 		'-of', 'json',
 		v
 	])
-	return JSON.parse(stdout).streams[0]
+	return JSON.parse(stdout).streams?.[0] || {}
 }
 
 

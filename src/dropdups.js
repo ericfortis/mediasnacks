@@ -20,7 +20,7 @@ const PROFILE = PRORES_PROFILES.hq
 const USAGE = `
 Usage: mediasnacks dropdups [-n <bad-frame-number>] <video>
 
-Removes duplicate frames and outputs ProRes 422 HQ.
+Removes sequentially duplicate frames and outputs ProRes 422 HQ.
 
 Options:
   -n, --bad-frame-number <n>  Known frame interval to drop.

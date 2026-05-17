@@ -34,7 +34,8 @@ mediasnacks <command> <args>
 - `gif`: Video to GIF
 
 
-- `dropdups` Removes duplicate frames in a video
+- `detectdups` Detects sequentially duplicate frames in a video
+- `dropdups` Removes sequentially duplicate frames in a video
 - `framediff`: Plays a video of adjacent frames diff
 - `hev1tohvc1`: Fixes video thumbnails not rendering in macOS Finder
 - `moov2front` Rearranges .mov and .mp4 metadata for fast-start streaming
