@@ -9,16 +9,18 @@ import { assertUserHasFFmpeg, run } from './utils/ffmpeg.js'
 
 // TODO looks like it's missing a frame (perhaps becaue of -c copy)
 
-const USAGE = `
-Usage: mediasnacks vsplit <csv> <video>
+const MAN = `
+SYNOPSIS
+  mediasnacks vsplit <csv> <video>
 
-Splits a video into multiple clips from CSV timestamps.
+DESCRIPTION
+  Splits a video into multiple clips from CSV timestamps.
 
-Arguments:
+ARGUMENTS
   <csv>    CSV file with start,end columns (in seconds)
   <video>  Video file to split
 
-Example:
+EXAMPLE
   mediasnacks vsplit clips.csv video.mov
 
   Given clips.csv:
@@ -39,7 +41,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

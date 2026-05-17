@@ -8,10 +8,12 @@ import { lstat, uniqueFilenameFor } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 
 
-const USAGE = `
-Usage: mediasnacks sqcrop [-y | --overwrite] [--output-dir=<dir>] <images> 
+const MAN = `
+SYNOPSIS
+  mediasnacks sqcrop [-y | --overwrite] [--output-dir=<dir>] <images> 
 
-Square crops images
+DESCRIPTION
+  Square crops images
 `.trim()
 
 
@@ -25,7 +27,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

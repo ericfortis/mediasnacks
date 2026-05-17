@@ -38,12 +38,13 @@ const COMMANDS = {
 	curltime: ['curltime.sh', 'Measures request response timings'],
 }
 
-const USAGE = `
-Usage: mediasnacks <command> <args>
+const MAN = `
+SYNOPSIS
+  mediasnacks <command> <args>
 
-Commands:
+COMMANDS
 ${Object.entries(COMMANDS).map(([cmd, [, title]]) =>
-	`   ${styleText('bold', cmd.padEnd(12, ' '))}\t${title}`).join('\n')}
+	`  ${styleText('bold', cmd.padEnd(12, ' '))}\t${title}`).join('\n')}
 `.trim()
 
 
@@ -54,12 +55,12 @@ if (opt === '-v' || opt === '--version') {
 	process.exit(0)
 }
 if (opt === '-h' || opt === '--help') {
-	console.log(USAGE)
+	console.log(MAN)
 	process.exit(0)
 }
 
 if (!opt) {
-	console.log(USAGE)
+	console.log(MAN)
 	process.exit(1)
 }
 if (!Object.hasOwn(COMMANDS, opt)) {

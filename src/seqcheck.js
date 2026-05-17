@@ -4,12 +4,14 @@ import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
 
 
-const USAGE = `
-Usage: mediasnacks seqcheck [options] [folder]
+const MAN = `
+SYNOPSIS
+  mediasnacks seqcheck [options] [folder]
 
-Find missing numbered files in a sequence.
+DESCRIPTION
+  Find missing numbered files in a sequence.
 
-Options:
+OPTIONS
   -ld, --left-delimiter <str>   Delimiter before the number (default: "_")
   -rd, --right-delimiter <str>  Delimiter after the number (default: ".")
   -h,  --help
@@ -27,7 +29,7 @@ function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

@@ -14,23 +14,22 @@ const PRORES_PROFILES = {
 	'4444xq': 5,
 }
 
-const USAGE = `
-Usage: mediasnacks prores [options] <video>
+const MAN = `
+SYNOPSIS
+  mediasnacks prores [options] <video>
 
-Converts a video to ProRes format.
+DESCRIPTION
+  Converts a video to ProRes format.
 
-Arguments:
-  <video>  Video file to convert
-
-Options:
+OPTIONS
   -p, --profile <n>  ProRes profile (default: 3 (422 HQ))
   -h, --help         Show this help message
 
-Example:
+EXAMPLES
   mediasnacks prores video.mov
   mediasnacks prores --profile 2 video.mov
 
-  Outputs: video.prores.mov
+  Both output a file named: video.prores.mov
 `.trim()
 
 
@@ -43,7 +42,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

@@ -8,19 +8,21 @@ import { isFile, uniqueFilenameFor } from './utils/fs-utils.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
+const MAN = `
+SYNOPSIS
+  mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
 
-const USAGE = `
-Usage: mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
+DESCRIPTION
+  Resizes videos and images. The aspect ratio is preserved when only one dimension is specified.
 
-Resizes videos and images. The aspect ratio is preserved when only one dimension is specified.
-
-Example: Overwrites the input file (-y)
+EXAMPLES
+  Overwrites the input file (-y)
     mediasnacks resize -y --width 480 'dir-a/**/*.png' 'dir-b/**/*.mp4'
 
-Example: Output directory (-o)
+  Output directory (-o)
     mediasnacks resize --height 240 --output-dir /tmp/out video.mov
    
-Details:
+OPTIONS
 	--width and --height are -2 by default:
 		-1 = auto-compute while preserving the aspect ratio (may result in an odd number)
 		-2 = same as -1 but rounds to the nearest even number
@@ -39,7 +41,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

@@ -7,10 +7,12 @@ import { replaceExt, lstat } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
-const USAGE = `
-Usage: mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
+const MAN = `
+SYNOPSIS
+  mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
 
-Converts images to AVIF.
+DESCRIPTION
+ Converts images to AVIF.
 `.trim()
 
 
@@ -24,7 +26,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

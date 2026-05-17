@@ -5,12 +5,15 @@ import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 
 
-const USAGE = `
-Usage: mediasnacks moov2front <videos>
+const MAN = `
+SYNOPSIS
+  mediasnacks moov2front <videos>
 
-Rearranges .mov and .mp4 metadata to the start of the file for fast-start streaming.
-
-Files are overwritten.
+DESCRIPTION
+  Rearranges .mov and .mp4 metadata to the start of the file for fast-start streaming.
+ 
+NOTES
+  Files are overwritten.
 `.trim()
 
 async function main() {
@@ -19,7 +22,7 @@ async function main() {
 	const { files } = await parseOptions()
 
 	if (!files.length)
-		throw new Error(USAGE)
+		throw new Error(MAN)
 
 	console.log('Optimizing video for progressive download…')
 	for (const file of files)

@@ -17,12 +17,14 @@ const PRORES_PROFILES = {
 const PROFILE = PRORES_PROFILES.hq
 
 
-const USAGE = `
-Usage: mediasnacks dropdups [-n <bad-frame-number>] <video>
+const MAN = `
+SYNOPSIS
+  mediasnacks dropdups [-n <bad-frame-number>] <video>
 
-Removes sequentially duplicate frames and outputs ProRes 422 HQ.
+DESCRIPTION
+  Removes sequentially duplicate frames and outputs ProRes 422 HQ.
 
-Options:
+OPTIONS
   -n, --bad-frame-number <n>  Known frame interval to drop.
 		         (default: n=0) auto-detects repeated frames (slower)
              Ex.A: Use n=2 when every other frame is repeated.
@@ -40,7 +42,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

@@ -5,12 +5,14 @@ import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
-const USAGE = `
-Usage: mediasnacks vtrim [--start <time>] [--end <time>] <video>
+const MAN = `
+SYNOPSIS
+  mediasnacks vtrim [--start <time>] [--end <time>] <video>
 
-Trims a video without re-encoding (fast, but approximate cuts).
+DESCRIPTION
+  Trims a video without re-encoding (fast, but approximate cuts).
 
-Options:
+OPTIONS
   -s, --start <time>   Start time (e.g. 10, 00:00:10, 1:23.5). Default: beginning.
   -e, --end <time>     End time (e.g. 30, 00:00:30, 2:45.0). Default: end of video.
   -h, --help
@@ -27,7 +29,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

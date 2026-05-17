@@ -4,16 +4,26 @@ import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg, videoAttrs } from './utils/ffmpeg.js'
 
 
-const USAGE = `
+const MAN = `
 Usage: mediasnacks detectdups [options] <video>
 
-Detects sequentially duplicate frames in a video and prints their frame numbers.
+Detects sequentially duplicate frames in a video and prints a histogram of their distance.
 
-Options:
+EXAMPLES
+  Peak at N=2, means that every other frame is repeated, such as in a 
+  video that was converted from 30 to 60fps without interpolation.
+
+  Peak at N=6, means that the 6th frame in a sequence is repeated.
+  For instance, a video converted from 25 to 30fps, or 50 to 60fps.
+
+OPTIONS
   -s, --seek <sec>      Video start time for detection
   -d, --duration <sec>  Analyze this many seconds of video
   -v, --verbose
   -h, --help
+  
+SEE ALSO
+  mediasnacks framediff
 `.trim()
 
 
@@ -27,7 +37,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 
@@ -90,22 +100,18 @@ async function detectDuplicateFramesNums(video, seek, duration) {
 }
 
 function analyze(dup_frames, seek, duration) {
-	const dup_distance = []
 	const histogram = {}
 	for (let i = 1; i < dup_frames.length; i++) {
 		const diff = dup_frames[i] - dup_frames[i - 1]
-		dup_distance.push(diff)
 		histogram[diff] = (histogram[diff] || 0) + 1
 	}
-	console.log({
+	console.log(JSON.stringify({
 		analyzed_region: {
-			start: seek + 's',
-			end: (seek + duration) + 's',
+			start_sec: seek,
+			end_sec: seek + duration
 		},
-		dup_frames,
-		dup_distance,
 		histogram
-	})
+	}, null, 2))
 }
 
 main().catch(err => {

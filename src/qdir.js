@@ -8,10 +8,12 @@ import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
 import { isFile } from './utils/fs-utils.js'
 
 
-const USAGE = `
-Usage: mediasnacks qdir [folder]
+const MAN = `
+SYNOPSIS
+  mediasnacks qdir [folder]
 
-Sequentially runs all *.sh files in a folder (cwd by default). 
+DESCRIPTION
+  Sequentially runs all *.sh files in a folder (cwd by default). 
 `.trim()
 
 
@@ -24,7 +26,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(USAGE)
+		console.log(MAN)
 		process.exit(0)
 	}
 

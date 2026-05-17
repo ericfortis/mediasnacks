@@ -5,12 +5,14 @@ import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
 
 
-const USAGE = `
-Usage: mediasnacks hev1tohvc1 <videos>
+const MAN = `
+SYNOPSIS
+  mediasnacks hev1tohvc1 <videos>
 
-This program fixes video thumbnails not rendering in macOS
-Finder, and fixes video not importable in Final Cut Pro. That’s done 
-by changing the container’s sample entry code from HEV1 to HVC1.
+DESCRIPTION
+  This program fixes video thumbnails not rendering in macOS
+  Finder, and fixes video not importable in Final Cut Pro. That’s done 
+  by changing the container’s sample entry code from HEV1 to HVC1.
 `.trim()
 
 
@@ -20,7 +22,7 @@ async function main() {
 	const { files } = await parseOptions()
 
 	if (!files.length)
-		throw new Error(USAGE)
+		throw new Error(MAN)
 
 	console.log('HEV1 to HVC1…')
 	for (const file of files)

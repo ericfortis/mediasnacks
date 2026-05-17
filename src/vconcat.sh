@@ -2,9 +2,9 @@
 
 if [ "$#" -lt 2 ]; then
   cat << EOF
-Usage:
-    $(basename "$0") vid1.mov vid2.mov [...]
-    $(basename "$0") *.mp4
+EXAMPLES
+  $(basename "$0") vid1.mov vid2.mov [...]
+  $(basename "$0") *.mp4
 EOF
   exit 1
 fi
