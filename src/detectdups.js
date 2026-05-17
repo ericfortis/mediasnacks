@@ -32,16 +32,22 @@ async function main() {
 	}
 
 	if (files.length !== 1)
-		throw new Error('One video file must be specified. See mediasnacks detectdups --help')
+		throw new Error('Invalid input file. One video file must be specified. See mediasnacks detectdups --help')
 
 	const v = await videoAttrs(files[0])
 
 	if (v.codec_type !== 'video')
-		throw new Error('Input file must be a video.')
+		throw new Error('Invalid input file. Must be a video.')
 
 	const vDur = Number(v.duration)
-	const seek = Number(values.seek) || (vDur > 60 ? 20 : 0)
-	const duration = Number(values.duration) || (vDur > 60 ? 20 : vDur)
+
+	const seek = values.seek
+		? Number(values.seek)
+		: vDur > 60 ? 20 : 0
+
+	const duration = values.duration
+		? Number(values.duration)
+		: vDur > 60 ? 20 : vDur
 
 	if (isNaN(seek) || seek < 0)
 		throw new Error(`Invalid --seek value: ${values.seek}`)
@@ -53,8 +59,8 @@ async function main() {
 		throw new Error(`Invalid analysis range. Exceeds video duration: ${vDur}`)
 
 
-	const dupFrames = await detectDuplicateFramesNums(files[0], seek, duration)
-	analyze(dupFrames, seek, duration)
+	const dups = await detectDuplicateFramesNums(files[0], seek, duration)
+	analyze(dups, seek, duration)
 }
 
 async function detectDuplicateFramesNums(video, seek, duration) {
