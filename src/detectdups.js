@@ -3,6 +3,7 @@
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg, videoAttrs } from './utils/ffmpeg.js'
 
+const STDEV_THRESHOLD = 0.2
 
 const MAN = `
 Usage: mediasnacks detectdups [options] <video>
@@ -73,7 +74,7 @@ async function main() {
 	analyze(dups, seek, duration)
 }
 
-async function detectDuplicateFramesNums(video, seek, duration) {
+export async function detectDuplicateFramesNums(video, seek, duration) {
 	const { stderr } = await ffmpeg([
 		'-v', 'info',
 		'-stats',
@@ -81,7 +82,6 @@ async function detectDuplicateFramesNums(video, seek, duration) {
 		'-t', duration,
 		'-i', video,
 		'-vf', [
-			'scale=320:-1',
 			'tblend=all_mode=difference',
 			'format=gray',
 			'showinfo',
@@ -89,16 +89,23 @@ async function detectDuplicateFramesNums(video, seek, duration) {
 		'-f', 'null', '-',
 	])
 
-	const reBlackFramesNum = /n:\s*(\d+).*?mean:\[0]/
+	const reNearBlackFrames = /n:\s*(\d+).*?mean:\[0].*?stdev:\[([0-9.]+)]/
 	const dupFrames = []
 	for (const line of stderr.split('\n')) {
-		const match = line.match(reBlackFramesNum)
-		if (match)
-			dupFrames.push(Number(match[1]))
+		const match = line.match(reNearBlackFrames)
+		if (match) {
+			const stdev = parseFloat(match[2])
+			if (stdev <= STDEV_THRESHOLD) {
+				const frameNum = parseInt(match[1], 10)
+				dupFrames.push(frameNum)
+			}
+		}
 	}
 	return dupFrames
 }
 
+// This is only good for when there's one repeated frame in a cycle.
+// i.e. it's the wrong approach for e.g. 25 to 60, in which N=2 and N=3
 function analyze(dup_frames, seek, duration) {
 	const histogram = {}
 	for (let i = 1; i < dup_frames.length; i++) {
@@ -110,11 +117,28 @@ function analyze(dup_frames, seek, duration) {
 			start_sec: seek,
 			end_sec: seek + duration
 		},
-		histogram
+		histogram,
+		n: maxFreqKey(histogram)
 	}, null, 2))
 }
 
-main().catch(err => {
-	console.error(err.message || err)
-	process.exit(1)
-})
+function maxFreqKey(hist) {
+	let maxKey = null
+	let maxVal = -1
+	for (const [key, val] of Object.entries(hist))
+		if (val > maxVal) {
+			maxVal = val
+			maxKey = key
+		}
+	return maxKey !== null
+		? Number(maxKey)
+		: null
+}
+
+
+
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message || err)
+		process.exit(1)
+	})
