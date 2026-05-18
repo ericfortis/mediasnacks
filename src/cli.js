@@ -12,6 +12,7 @@ const COMMANDS = {
 
 	resize: ['resize.js', 'Resizes videos or images'],
 	edgespic: ['edgespic.js', 'Extracts first and last frames'],
+	ssim: ['ssim.js', 'Computes SSIM between two images'],
 	gif: ['gif.sh', 'Video to GIF\n'],
 
 	detectdups: ['detectdups.js', 'Detects duplicate frames in a video'],

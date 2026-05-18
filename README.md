@@ -31,6 +31,7 @@ mediasnacks <command> <args>
 
 - `resize` Resizes videos or images
 - `edgespic` Extracts first and last frames
+- `ssim` Computes similarity of two images
 - `gif`: Video to GIF
 
 
