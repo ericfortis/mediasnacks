@@ -1,10 +1,6 @@
 import { spawn } from 'node:child_process'
 
 
-export async function ffmpeg(args) {
-	return runSilently('ffmpeg', args)
-}
-
 export async function assertUserHasFFmpeg() {
 	try {
 		await runSilently('ffmpeg', ['-version'])
@@ -15,6 +11,9 @@ export async function assertUserHasFFmpeg() {
 	}
 }
 
+export async function ffmpeg(args) {
+	return runSilently('ffmpeg', args)
+}
 
 async function runSilently(program, args) {
 	return new Promise((resolve, reject) => {
