@@ -34,9 +34,7 @@ const COMMANDS = {
 	dlvideo: ['dlvideo.sh', 'yt-dlp best video\n'],
 
 	unemoji: ['unemoji.sh', 'Removes emojis from filenames'],
-	rmcover: ['rmcover.sh', 'Removes cover art\n'],
-
-	curltime: ['curltime.sh', 'Measures request response timings'],
+	rmcover: ['rmcover.sh', 'Removes cover art'],
 }
 
 const MAN = `

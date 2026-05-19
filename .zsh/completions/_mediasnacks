@@ -29,8 +29,6 @@ _mediasnacks_commands=(
   
   'unemoji:Removes emojis from filenames'
   'rmcover:Removes cover art'
-  
-  'curltime:Measures request response timings'
 )
 
 if (( CURRENT == 2 )); then

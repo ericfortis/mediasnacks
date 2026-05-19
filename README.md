@@ -60,8 +60,6 @@ mediasnacks <command> <args>
 - `rmcover`: Removes cover art
 
 
-- `curltime`: Measures request response timings
-
 ### Globs
 Glob patterns are expanded by Node.js.
 
