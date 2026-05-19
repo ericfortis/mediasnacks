@@ -71,7 +71,16 @@ async function main() {
 
 
 	const dups = await detectDuplicateFramesNums(files[0], seek, duration)
-	analyze(dups, seek, duration)
+	const h = deltaHistogram(dups)
+	const report = {
+		n: maxFreqKey(h),
+		histogram: h,
+		analyzed_region: {
+			start_sec: seek,
+			end_sec: seek + duration
+		},
+	}
+	console.log(JSON.stringify(report, null, 2))
 }
 
 export async function detectDuplicateFramesNums(video, seek, duration) {
@@ -106,35 +115,27 @@ export async function detectDuplicateFramesNums(video, seek, duration) {
 
 // This is only good for when there's one repeated frame in a cycle.
 // i.e. it's the wrong approach for e.g. 25 to 60, in which N=2 and N=3
-function analyze(dup_frames, seek, duration) {
+function deltaHistogram(dups) {
 	const histogram = {}
-	for (let i = 1; i < dup_frames.length; i++) {
-		const diff = dup_frames[i] - dup_frames[i - 1]
+	for (let i = 1; i < dups.length; i++) {
+		const diff = dups[i] - dups[i - 1]
 		histogram[diff] = (histogram[diff] || 0) + 1
 	}
-	console.log(JSON.stringify({
-		analyzed_region: {
-			start_sec: seek,
-			end_sec: seek + duration
-		},
-		histogram,
-		n: maxFreqKey(histogram)
-	}, null, 2))
+	return histogram
 }
 
-function maxFreqKey(hist) {
+function maxFreqKey(histogram) {
 	let maxKey = null
 	let maxVal = -1
-	for (const [key, val] of Object.entries(hist))
-		if (val > maxVal) {
-			maxVal = val
-			maxKey = key
+	for (const [k, v] of Object.entries(histogram))
+		if (v > maxVal) {
+			maxVal = v
+			maxKey = k
 		}
 	return maxKey !== null
 		? Number(maxKey)
 		: null
 }
-
 
 
 if (import.meta.main)
