@@ -4,7 +4,7 @@ import { basename, extname, join, parse } from 'node:path'
 
 import { mkDir } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
+import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
 const MAN = `

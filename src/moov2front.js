@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
+import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 

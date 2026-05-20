@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { describe, test } from 'node:test'
 import { cpSync, readdirSync } from 'node:fs'
 
-import { videoAttrs } from './utils/ffmpeg.js'
+import { videoAttrs } from './utils/subprocess.js'
 import { mkTempDir, cli } from './utils/test-utils.js'
 
 

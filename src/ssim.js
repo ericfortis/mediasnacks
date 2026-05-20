@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { ffmpeg } from './utils/ffmpeg.js'
+import { ffmpeg } from './utils/subprocess.js'
 
 
 const MAN = `

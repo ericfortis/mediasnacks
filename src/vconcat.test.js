@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { test } from 'node:test'
 import { cpSync } from 'node:fs'
 
-import { videoAttrs } from './utils/ffmpeg.js'
+import { videoAttrs } from './utils/subprocess.js'
 import { mkTempDir, cli } from './utils/test-utils.js'
 
 const rel = f => join(import.meta.dirname, f)

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { join } from 'node:path'
 import { execSync } from 'node:child_process'
 import { writeFileSync, accessSync, constants } from 'node:fs'

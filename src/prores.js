@@ -3,7 +3,7 @@
 import { resolve, parse, join } from 'node:path'
 
 import { parseOptions } from './utils/parseOptions.js'
-import { assertUserHasFFmpeg, run } from './utils/ffmpeg.js'
+import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
 
 const PRORES_PROFILES = {
 	'proxy': 0,

@@ -2,7 +2,7 @@
 
 import { resolve, parse } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, assertUserHasFFmpeg } from './utils/ffmpeg.js'
+import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
 const MAN = `

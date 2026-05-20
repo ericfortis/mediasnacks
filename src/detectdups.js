@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, assertUserHasFFmpeg, videoAttrs } from './utils/ffmpeg.js'
+import { ffmpeg, assertUserHasFFmpeg, videoAttrs } from './utils/subprocess.js'
 
 const STDEV_THRESHOLD = 0.2
 

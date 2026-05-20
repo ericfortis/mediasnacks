@@ -5,7 +5,7 @@ import { rename } from 'node:fs/promises'
 
 import { parseOptions } from './utils/parseOptions.js'
 import { isFile, uniqueFilenameFor } from './utils/fs-utils.js'
-import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/ffmpeg.js'
+import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
 const MAN = `
