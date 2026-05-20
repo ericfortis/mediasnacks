@@ -2,26 +2,32 @@
 
 import { join } from 'node:path'
 import { execSync } from 'node:child_process'
-import { writeFileSync, accessSync, constants } from 'node:fs'
+import { writeFileSync } from 'node:fs'
 import { COMMANDS } from './src/cli.js'
 
-let fpathDirs
+let zshFuncDefsPaths
 try {
-	const output = execSync('zsh -c "print -l \\$fpath"', {
-		encoding: 'utf-8',
-		stdio: ['ignore', 'pipe', 'ignore']
-	})
-	fpathDirs = output.split('\n').map(dir => dir.trim()).filter(Boolean)
+	zshFuncDefsPaths = execSync('zsh -c "print -l \\$fpath"', { encoding: 'utf-8' })
 }
 catch {
 	process.exit(0) // Exit on systems without ZSH
 }
 
-const completionScript = `#compdef mediasnacks
+for (const dir of zshFuncDefsPaths.split('\n'))
+	try {
+		writeFileSync(join(dir, '_mediasnacks'), makeScript(), { mode: 0o755 })
+		break
+	}
+	catch {}
+
+
+function makeScript() {
+	return `#compdef mediasnacks
 
 _mediasnacks_commands=(
-${(Object.entries(COMMANDS).map(([cmd, [, desc]]) =>
-	`  '${cmd}:${desc.trim().replace(/:/g, '\\:')}'`).join('\n'))}
+${Object.entries(COMMANDS).map(([cmd, [, desc]]) =>
+		`'${cmd}:${desc.trim()}'`
+	).join('\n')}
 )
 
 if (( CURRENT == 2 )); then
@@ -39,14 +45,6 @@ case "$cmd" in
 		;;
 esac
 `
+}
 
-for (const dir of fpathDirs)
-	try {
-		accessSync(dir, constants.W_OK)
-		writeFileSync(join(dir, '_mediasnacks'), completionScript, { mode: 0o755 })
-		break
-	}
-	catch {
-		// Directory not writable or other error, try next
-	}
 

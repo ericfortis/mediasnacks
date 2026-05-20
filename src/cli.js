@@ -18,7 +18,7 @@ export const COMMANDS = {
 	detectdups: ['detectdups.js', 'Detects duplicate frames in a video'],
 	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
 	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
-	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering in macOS Finder '],
+	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering on macOS Finder'],
 	moov2front: ['moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
 	vconcat: ['vconcat.sh', 'Concatenates videos'],
 	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
