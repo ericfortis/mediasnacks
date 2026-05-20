@@ -6,7 +6,7 @@ import { spawn } from 'node:child_process'
 import pkgJSON from '../package.json' with { type: 'json' }
 
 
-export const COMMANDS = {
+const COMMANDS = {
 	avif: ['avif.js', 'Converts images to AVIF'],
 	sqcrop: ['sqcrop.js', 'Square crops images\n'],
 
@@ -37,13 +37,18 @@ export const COMMANDS = {
 	rmcover: ['rmcover.sh', 'Removes cover art'],
 }
 
-const MAN = `
+export function commandsSummary() {
+	return Object.entries(COMMANDS)
+		.map(([cmd, [, desc]]) => [cmd, desc])
+}
+
+const HELP = `
 SYNOPSIS
   mediasnacks <command> <args>
 
 COMMANDS
-${Object.entries(COMMANDS).map(([cmd, [, title]]) =>
-	`  ${styleText('bold', cmd.padEnd(12, ' '))}\t${title}`).join('\n')}
+${commandsSummary().map(([cmd, desc]) =>
+	`  ${styleText('bold', cmd.padEnd(12, ' '))}\t${desc}`).join('\n')}
 `.trim()
 
 
@@ -55,12 +60,12 @@ function main() {
 		process.exit(0)
 	}
 	if (opt === '-h' || opt === '--help') {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 
 	if (!opt) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(1)
 	}
 	if (!Object.hasOwn(COMMANDS, opt)) {
