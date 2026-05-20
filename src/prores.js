@@ -5,7 +5,7 @@ import { resolve, parse, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
 
-const PRORES_PROFILES = {
+export const PRORES_PROFILES = {
 	'proxy': 0,
 	'lt': 1,
 	'standard': 2,
@@ -69,7 +69,8 @@ async function prores(video, profile, output) {
 	])
 }
 
-main().catch(err => {
-	console.error(err.message || err)
-	process.exit(1)
-})
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message || err)
+		process.exit(1)
+	})

@@ -4,18 +4,10 @@ import { resolve, parse, format } from 'node:path'
 
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg, run } from './utils/subprocess.js'
+import { PRORES_PROFILES } from './prores.js'
 
 
-const PRORES_PROFILES = {
-	'proxy': 0,
-	'lt': 1,
-	'standard': 2,
-	'hq': 3,
-	'4444': 4,
-	'4444xq': 5,
-}
 const PROFILE = PRORES_PROFILES.hq
-
 
 const HELP = `
 SYNOPSIS
