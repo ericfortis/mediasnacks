@@ -46,11 +46,11 @@ async function main() {
 
 	console.log('Extracting edge frames…')
 	for (const file of files)
-		await extractEdgeFrames(file, width, outDir)
+		await edgespic(file, width, outDir)
 }
 
 
-async function extractEdgeFrames(video, width, outDir) {
+async function edgespic(video, width, outDir) {
 	const { r_frame_rate } = await videoAttrs(video)
 	const name = basename(video, extname(video))
 

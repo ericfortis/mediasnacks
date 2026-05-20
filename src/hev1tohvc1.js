@@ -26,10 +26,10 @@ async function main() {
 
 	console.log('HEV1 to HVC1…')
 	for (const file of files)
-		await toHvc1(file)
+		await hev1tohvc1(file)
 }
 
-async function toHvc1(file) {
+async function hev1tohvc1(file) {
 	const v = await videoAttrs(file)
 	if (v.codec_tag_string !== 'hev1') {
 		console.log('(skipped: non hev1)', file)

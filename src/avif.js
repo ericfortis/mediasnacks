@@ -35,14 +35,14 @@ async function main() {
 
 	console.log('AVIF…')
 	for (const file of files)
-		await toAvif({
+		await avif({
 			file,
 			outFile: join(values['output-dir'] || dirname(file), replaceExt(basename(file), 'avif')),
 			overwrite: values.overwrite
 		})
 }
 
-async function toAvif({ file, outFile, overwrite }) {
+async function avif({ file, outFile, overwrite }) {
 	const stAvif = lstat(outFile)
 
 	if (!overwrite && stAvif?.isFile()) {

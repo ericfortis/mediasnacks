@@ -55,7 +55,7 @@ async function main() {
 		throw new Error('CSV file contains no clips')
 
 	console.log(`Splitting video into ${clips.length} clip${clips.length === 1 ? '' : 's'}…`)
-	await splitVideo(videoPath, clips)
+	await vsplit(videoPath, clips)
 }
 
 function parseCSV(csvPath) {
@@ -77,7 +77,7 @@ function parseCSV(csvPath) {
 	return clips
 }
 
-async function splitVideo(videoPath, clips) {
+async function vsplit(videoPath, clips) {
 	const { dir, name, ext } = parse(videoPath)
 	const seqLen = Math.log10(clips.length) + 1 | 0
 

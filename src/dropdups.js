@@ -55,10 +55,10 @@ async function main() {
 
 	console.log('Dropping Duplicate Frames…')
 	for (const file of files)
-		await drop(resolve(file), nBadFrame)
+		await dropdups(resolve(file), nBadFrame)
 }
 
-async function drop(video, nBadFrame) {
+async function dropdups(video, nBadFrame) {
 	await run('ffmpeg', [
 		'-v', 'error',
 		'-stats',

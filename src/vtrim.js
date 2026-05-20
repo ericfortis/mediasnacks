@@ -37,10 +37,10 @@ async function main() {
 		throw new Error('No video specified. See mediasnacks vtrim --help')
 
 	for (const file of files)
-		await trim(resolve(file), values.start, values.end)
+		await vtrim(resolve(file), values.start, values.end)
 }
 
-async function trim(video, start, end) {
+async function vtrim(video, start, end) {
 	const { dir, name, ext } = parse(video)
 	await ffmpeg([
 		'-v', 'error',

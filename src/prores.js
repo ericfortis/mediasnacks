@@ -49,20 +49,23 @@ async function main() {
 	if (files.length !== 1)
 		throw new Error('Expected 1 argument: video file. See mediasnacks prores --help')
 
-	const videoPath = resolve(files[0])
-
-	const { name, dir } = parse(videoPath)
-	const outputPath = join(dir, `${name}.prores.mov`)
+	const video = resolve(files[0])
+	const { name, dir } = parse(video)
+	const output = join(dir, `${name}.prores.mov`)
 
 	console.log(`Converting to ProRes…`)
+	await prores(video, values.profile, output)
+}
+
+async function prores(video, profile, output) {
 	await run('ffmpeg', [
 		'-v', 'error',
 		'-stats',
-		'-i', videoPath,
+		'-i', video,
 		'-c:v', 'prores_ks',
-		'-profile:v', values.profile,
+		'-profile:v', profile,
 		'-pix_fmt', 'yuv422p10le',
-		outputPath
+		output
 	])
 }
 

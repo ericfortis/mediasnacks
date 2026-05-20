@@ -72,7 +72,7 @@ async function main() {
 		throw new Error(`Invalid analysis range. Exceeds video duration: ${vDur}`)
 
 
-	const dups = await detectDuplicateFramesNums(files[0], seek, duration)
+	const dups = await detectdups(files[0], seek, duration)
 	const h = deltaHistogram(dups)
 	const report = {
 		n: maxFreqKey(h),
@@ -85,7 +85,7 @@ async function main() {
 	console.log(JSON.stringify(report, null, 2))
 }
 
-export async function detectDuplicateFramesNums(video, seek, duration) {
+export async function detectdups(video, seek, duration) {
 	const { stderr } = await ffmpeg([
 		'-v', 'info',
 		'-stats',
