@@ -6,7 +6,7 @@ import { spawn } from 'node:child_process'
 import pkgJSON from '../package.json' with { type: 'json' }
 
 
-const COMMANDS = {
+export const COMMANDS = {
 	avif: ['avif.js', 'Converts images to AVIF'],
 	sqcrop: ['sqcrop.js', 'Square crops images\n'],
 
@@ -47,26 +47,31 @@ ${Object.entries(COMMANDS).map(([cmd, [, title]]) =>
 `.trim()
 
 
-const [, , opt, ...args] = process.argv
+function main() {
+	const [, , opt, ...args] = process.argv
 
-if (opt === '-v' || opt === '--version') {
-	console.log(pkgJSON.version)
-	process.exit(0)
-}
-if (opt === '-h' || opt === '--help') {
-	console.log(MAN)
-	process.exit(0)
+	if (opt === '-v' || opt === '--version') {
+		console.log(pkgJSON.version)
+		process.exit(0)
+	}
+	if (opt === '-h' || opt === '--help') {
+		console.log(MAN)
+		process.exit(0)
+	}
+
+	if (!opt) {
+		console.log(MAN)
+		process.exit(1)
+	}
+	if (!Object.hasOwn(COMMANDS, opt)) {
+		console.error(`'${opt}' is not a command. See mediasnacks --help\n`)
+		process.exit(1)
+	}
+
+	const cmd = join(import.meta.dirname, COMMANDS[opt][0])
+	spawn(cmd, args, { stdio: 'inherit' })
+		.on('exit', process.exit)
 }
 
-if (!opt) {
-	console.log(MAN)
-	process.exit(1)
-}
-if (!Object.hasOwn(COMMANDS, opt)) {
-	console.error(`'${opt}' is not a command. See mediasnacks --help\n`)
-	process.exit(1)
-}
-
-const cmd = join(import.meta.dirname, COMMANDS[opt][0])
-spawn(cmd, args, { stdio: 'inherit' })
-	.on('exit', process.exit)
+if (import.meta.main)
+	main()

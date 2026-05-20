@@ -10,12 +10,11 @@
 	},
 	"scripts": {
 		"test": "docker run --rm $(docker build -q .)",
-		"postinstall": "sh install-zsh-completions.sh",
+		"postinstall": "node install-zsh-completions.js",
 		"dev-install": "npm i -g . --ignore-scripts=false"
 	},
 	"files": [
 		"src",
-		".zsh",
-		"install-zsh-completions.sh"
+		"install-zsh-completions.js"
 	]
 }
