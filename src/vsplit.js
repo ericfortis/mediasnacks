@@ -9,7 +9,7 @@ import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
 
 // TODO looks like it's missing a frame (perhaps becaue of -c copy)
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks vsplit <csv> <video>
 
@@ -41,7 +41,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

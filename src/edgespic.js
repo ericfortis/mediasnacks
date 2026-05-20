@@ -7,7 +7,7 @@ import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks edgespic [--width=<num>] <files>
 
@@ -30,7 +30,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

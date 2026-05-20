@@ -17,7 +17,7 @@ const PRORES_PROFILES = {
 const PROFILE = PRORES_PROFILES.hq
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks dropdups [-n <bad-frame-number>] <video>
 
@@ -42,7 +42,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

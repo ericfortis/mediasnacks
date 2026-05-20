@@ -8,7 +8,7 @@ import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
 import { isFile } from './utils/fs-utils.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks qdir [folder]
 
@@ -26,7 +26,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

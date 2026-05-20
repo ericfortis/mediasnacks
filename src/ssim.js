@@ -3,7 +3,7 @@
 import { ffmpeg } from './utils/subprocess.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks ssim <img1> <img2>
 
@@ -15,7 +15,7 @@ DESCRIPTION
 async function main() {
 	const [img1, img2] = process.argv.slice(2)
 	if (!img1 || !img2) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(1)
 	}
 

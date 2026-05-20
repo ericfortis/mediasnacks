@@ -5,7 +5,7 @@ import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks vtrim [--start <time>] [--end <time>] <video>
 
@@ -29,7 +29,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

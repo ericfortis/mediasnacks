@@ -4,7 +4,7 @@ import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks seqcheck [options] [folder]
 
@@ -29,7 +29,7 @@ function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

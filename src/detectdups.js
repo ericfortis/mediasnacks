@@ -5,10 +5,12 @@ import { ffmpeg, assertUserHasFFmpeg, videoAttrs } from './utils/subprocess.js'
 
 const STDEV_THRESHOLD = 0.2
 
-const MAN = `
-Usage: mediasnacks detectdups [options] <video>
+const HELP = `
+SYNOPSIS
+  mediasnacks detectdups [options] <video>
 
-Detects sequentially duplicate frames in a video and prints a histogram of their distance.
+DESCRIPTION
+  Detects sequentially duplicate frames in a video and prints a histogram of their distance.
 
 EXAMPLES
   Peak at N=2, means that every other frame is repeated, such as in a 
@@ -38,7 +40,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

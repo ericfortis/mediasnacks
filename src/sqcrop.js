@@ -8,7 +8,7 @@ import { lstat, uniqueFilenameFor } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks sqcrop [-y | --overwrite] [--output-dir=<dir>] <images> 
 
@@ -27,7 +27,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

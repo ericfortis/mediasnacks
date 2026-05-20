@@ -8,7 +8,7 @@ import { isFile, uniqueFilenameFor } from './utils/fs-utils.js'
 import { ffmpeg, videoAttrs, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
 
@@ -41,7 +41,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

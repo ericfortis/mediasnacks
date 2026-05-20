@@ -5,7 +5,7 @@ import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks hev1tohvc1 <videos>
 
@@ -22,7 +22,7 @@ async function main() {
 	const { files } = await parseOptions()
 
 	if (!files.length)
-		throw new Error(MAN)
+		throw new Error(HELP)
 
 	console.log('HEV1 to HVC1…')
 	for (const file of files)

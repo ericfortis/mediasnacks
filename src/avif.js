@@ -7,7 +7,7 @@ import { replaceExt, lstat } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
 
@@ -26,7 +26,7 @@ async function main() {
 	})
 
 	if (values.help) {
-		console.log(MAN)
+		console.log(HELP)
 		process.exit(0)
 	}
 

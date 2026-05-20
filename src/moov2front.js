@@ -5,7 +5,7 @@ import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 
 
-const MAN = `
+const HELP = `
 SYNOPSIS
   mediasnacks moov2front <videos>
 
@@ -22,7 +22,7 @@ async function main() {
 	const { files } = await parseOptions()
 
 	if (!files.length)
-		throw new Error(MAN)
+		throw new Error(HELP)
 
 	console.log('Optimizing video for progressive download…')
 	for (const file of files)
