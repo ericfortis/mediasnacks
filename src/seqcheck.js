@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
 

@@ -3,8 +3,8 @@
 if [ "$#" -lt 2 ]; then
   cat << EOF
 EXAMPLES
-  $(basename "$0") vid1.mov vid2.mov [...]
-  $(basename "$0") *.mp4
+  mediasnacks vconcat vid1.mov vid2.mov [...]
+  mediasnacks vconcat *.mp4
 EOF
   exit 1
 fi

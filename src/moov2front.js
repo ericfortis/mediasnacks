@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
@@ -19,6 +18,7 @@ DESCRIPTION
 NOTES
   Files are overwritten.
 `.trim()
+
 
 async function main() {
 	await assertUserHasFFmpeg()

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 

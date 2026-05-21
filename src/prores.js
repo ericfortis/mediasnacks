@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-
 import { resolve, parse, join } from 'node:path'
-
 import { parseOptions } from './utils/parseOptions.js'
 import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
 
