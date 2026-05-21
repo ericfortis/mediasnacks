@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-import { join } from 'node:path'
 import { spawn } from 'node:child_process'
-import { readdirSync } from 'node:fs'
 import { parseOptions } from './utils/parseOptions.js'
+import { findFiles } from './utils/fs-utils.js'
 
 
 const HELP = `
@@ -29,33 +28,32 @@ async function main() {
 		process.exit(0)
 	}
 
-	const pattern = positionals.length
-		? positionals.join('|')
-		: ''
-	const files = findFiles('.', new RegExp(pattern, 'i'), values.recursive)
+	const files = findFiles({
+		dir: '.',
+		regex: new RegExp(positionals.join('|'), 'i'),
+		recursive: values.recursive,
+		ignoredDirs: ['.fcpbundle/']
+	})
 
-	if (!files.length) {
-		console.error('No matching files found.')
-		process.exit(0)
-	}
+	if (!files.length)
+		throw new Error('No matching files found.')
 
-	const child = spawn('mpv', ['--playlist=-'], {
+	play(files)
+}
+
+function play(files) {
+	const mpv = spawn('mpv', ['--playlist=-'], {
 		detached: true,
 		stdio: ['pipe', 'ignore', 'ignore']
 	})
-	child.stdin.end(files.join('\n'))
-	child.unref()
-}
-
-function findFiles(dir, regex, recursive = true) {
-	const IGNORED_DIRS = ['.fcpbundle/']
-	return readdirSync(dir, { withFileTypes: true, recursive })
-		.filter(entry =>
-			entry.isFile()
-			&& !entry.name.startsWith('.')
-			&& !IGNORED_DIRS.some(d => entry.parentPath.includes(d))
-			&& regex.test(entry.name))
-		.map(entry => join(entry.parentPath, entry.name))
+	mpv.stdin.end(files.join('\n'))
+	mpv.unref()
+	mpv.on('error', function (err) {
+		if (err.code === 'ENOENT')
+			console.error('Error: MPV is not installed')
+		else
+			console.log(err)
+	})
 }
 
 main().catch(err => {
