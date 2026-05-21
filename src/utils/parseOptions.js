@@ -13,6 +13,7 @@ export async function parseOptions(options = {}, config = {}) {
 	})
 	return {
 		values,
+		positionals,
 		files: await resolveGlobs(positionals, tokens)
 	}
 }

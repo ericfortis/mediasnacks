@@ -29,7 +29,8 @@ const COMMANDS = {
 	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs'],
 	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
 	seqcheck: ['seqcheck.js', 'Finds missing sequence number'],
-	random: ['random.js', 'Opens a random file (macOS only)\n'],
+	random: ['random.js', 'Opens a random file (macOS only)'],
+	play: ['play.js', 'Plays filtered playlist with mpv\n'],
 
 	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
 	dlvideo: ['dlvideo.sh', 'yt-dlp best video\n'],

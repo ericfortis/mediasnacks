@@ -51,6 +51,7 @@ mediasnacks <command> <args>
 - `qdir` Sequentially runs all *.sh files in a folder
 - `seqcheck` Finds missing sequence number
 - `random` Opens a random file
+- `play` Plays filtered playlist with mpv
 
 
 - `dlaudio`: yt-dlp best audio
