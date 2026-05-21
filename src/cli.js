@@ -28,7 +28,8 @@ const COMMANDS = {
 
 	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs'],
 	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
-	seqcheck: ['seqcheck.js', 'Finds missing sequence number\n'],
+	seqcheck: ['seqcheck.js', 'Finds missing sequence number'],
+	random: ['random.js', 'Opens a random file (macOS only)\n'],
 
 	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
 	dlvideo: ['dlvideo.sh', 'yt-dlp best video\n'],

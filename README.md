@@ -50,6 +50,7 @@ mediasnacks <command> <args>
 - `flattendir`: Moves unique files to the top dir and deletes empty dirs
 - `qdir` Sequentially runs all *.sh files in a folder
 - `seqcheck` Finds missing sequence number
+- `random` Opens a random file
 
 
 - `dlaudio`: yt-dlp best audio
