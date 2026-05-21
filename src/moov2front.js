@@ -11,6 +11,10 @@ SYNOPSIS
 
 DESCRIPTION
   Rearranges .mov and .mp4 metadata to the start of the file for fast-start streaming.
+  
+  What is Fast Start?
+	  - https://wiki.avblocks.com/avblocks-for-cpp/muxer-parameters/mp4
+	  - https://trac.ffmpeg.org/wiki/HowToCheckIfFaststartIsEnabledForPlayback
  
 NOTES
   Files are overwritten.

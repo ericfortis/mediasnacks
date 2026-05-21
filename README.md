@@ -76,57 +76,6 @@ mediasnacks avif -- file[234].png
 ```
 
 
----
-
-## Commands
-
-### Converting Images to AVIF
-```shell
-mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
-```
-
-<br/>
-
-### Resizing Images or Videos
-Resizes videos and images. The aspect ratio is preserved when only one dimension is specified.
-
-`--width` and `--height` are `-2` by default:
-- `-1` auto-compute while preserving the aspect ratio (may result in an odd number)
-- `-2` same as `-1` but rounds to the nearest even number
-
-```shell
-mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--output-dir=<dir>] <files>
-```
-
-Example: Overwrites the input file (-y)
-```shell
-mediasnacks resize -y --width 480 'dir-a/**/*.png' 'dir-b/**/*.mp4'
-```
-
-Example: Output directory (-o)
-```shell
-mediasnacks resize --height 240 --output-dir /tmp/out video.mov
-```
-
-<br/>
-
-### Fast-Start Streaming Video
-Rearranges .mov and .mp4 metadata to the start of the file for fast-start streaming.
-
-**Files are overwritten**
-
-```shell
-mediasnacks moov2front <videos>
-```
-What is Fast Start?
-- https://wiki.avblocks.com/avblocks-for-cpp/muxer-parameters/mp4
-- https://trac.ffmpeg.org/wiki/HowToCheckIfFaststartIsEnabledForPlayback
-
-
-<br/>
-
----
-
 ## Adding a macOS Quick Action
 
 
