@@ -48,6 +48,7 @@ function play(files) {
 	})
 	mpv.stdin.end(files.join('\n'))
 	mpv.unref()
+
 	mpv.on('error', function (err) {
 		if (err.code === 'ENOENT')
 			console.error('Error: MPV is not installed')

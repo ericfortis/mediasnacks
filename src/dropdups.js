@@ -11,17 +11,22 @@ const PROFILE = PRORES_PROFILES.hq
 
 const HELP = `
 SYNOPSIS
-  mediasnacks dropdups [-n <bad-frame-number>] <video>
+  mediasnacks dropdups [-n <dup-frame-num>] <video>
 
 DESCRIPTION
   Removes sequentially duplicate frames and outputs ProRes 422 HQ.
 
 OPTIONS
-  -n, --bad-frame-number <n>  Known frame interval to drop.
-		         (default: n=0) auto-detects repeated frames (slower)
-             Ex.A: Use n=2 when every other frame is repeated.
-		         Ex.B: Use n=6 if e.g., a 25 fps got upped to 30 fps without interpolation.
+  -n, --dup-frame-num <n>  Known frame interval to drop.
+		                       Default: n=0, which auto-detects repeated frames (slower)
   -h, --help
+
+EXAMPLES
+  Use n=2 when every other frame is repeated:
+  mediasnacks dropdups -n2 vid.mov
+  
+	Use n=6 if e.g., a 25 fps got upped to 30 fps without interpolation.
+  mediasnacks dropdups -n6 vid.mov
 `.trim()
 
 
@@ -29,7 +34,7 @@ async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
-		'bad-frame-number': { short: 'n', type: 'string', default: '' },
+		'dup-frame-num': { short: 'n', type: 'string', default: '' },
 		help: { short: 'h', type: 'boolean' },
 	})
 
@@ -41,23 +46,23 @@ async function main() {
 	if (!files.length)
 		throw new Error('No video specified. See mediasnacks dropdups --help')
 
-	let nBadFrame = values['bad-frame-number']
-	if (nBadFrame && !/^\d+$/.test(nBadFrame))
-		throw new Error('Invalid --bad-frame-number. It must be a positive integer.')
+	let dupFrameNum = values['dup-frame-num']
+	if (dupFrameNum && !Number.isInteger(+dupFrameNum))
+		throw new Error('Invalid -n. It must be a positive integer.')
 
 	console.log('Dropping Duplicate Frames…')
 	for (const file of files)
-		await dropdups(resolve(file), nBadFrame)
+		await dropdups(resolve(file), dupFrameNum)
 }
 
-async function dropdups(video, nBadFrame) {
+async function dropdups(video, dupFrameNum) {
 	await run('ffmpeg', [
 		'-v', 'error',
 		'-stats',
 		'-an',
 		'-i', video,
-		'-vf', nBadFrame
-			? `decimate=cycle=${nBadFrame}`
+		'-vf', dupFrameNum
+			? `decimate=cycle=${dupFrameNum}`
 			: 'mpdecimate,setpts=N/FRAME_RATE/TB',
 		'-fps_mode', 'cfr',
 		'-c:v', 'prores_ks',
