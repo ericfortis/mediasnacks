@@ -1,10 +1,29 @@
 #!/bin/sh
 
-# Diffs two video files
-# The videos must have the same resolution and ideally the same framerate.
+
+help() {
+  /bin/cat << EOF
+SYNOPSIS
+  mediasnacks vdiff <video1> <video2>
+
+DESCRIPTION
+  Diffs two video files using FFplay with a blend filter. Videos must have
+  the same resolution and ideally the same framerate.
+EOF
+}
+
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  help
+  exit 0
+fi
+
+if [ $# -lt 2 ] || [ ! -f "$1" ] || [ ! -f "$2" ]; then
+  help
+  exit 1
+fi
+
 video1="$1"
 video2="$2"
-
 ffprobe -v error "$video1" || exit 1
 ffprobe -v error "$video2" || exit 1
 
