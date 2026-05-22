@@ -23,15 +23,15 @@ async function main() {
 }
 
 export async function ssim(img1, img2) {
-	const result = await ffmpeg([
+	const { stderr } = await ffmpeg([
 		'-i', img1,
 		'-i', img2,
 		'-filter_complex', 'ssim',
 		'-f', 'null', '-'
 	])
-	const match = result.stderr.match(/All:([\d.]+)/)
+	const match = stderr.match(/All:([\d.]+)/)
 	if (!match)
-		throw new Error(`Could not parse SSIM output:\n${result.stderr}`)
+		throw new Error(`Could not parse SSIM output:\n${stderr}`)
 	return parseFloat(match[1])
 }
 

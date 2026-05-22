@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-
 import { join, basename, dirname } from 'node:path'
-
 import { parseOptions } from './utils/parseOptions.js'
 import { replaceExt, lstat } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
@@ -13,6 +11,10 @@ SYNOPSIS
 
 DESCRIPTION
  Converts images to AVIF.
+
+EXAMPLES
+  mediasnacks avif -y '*.png'
+  mediasnacks avif --output-dir=foo/ 'a/**/*.png'
 `.trim()
 
 

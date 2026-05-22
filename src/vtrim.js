@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { resolve, parse } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
@@ -7,7 +6,7 @@ import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks vtrim [--start <time>] [--end <time>] <video>
+  mediasnacks vtrim [--start <time>] [--end <time>] <videos>
 
 DESCRIPTION
   Trims a video without re-encoding (fast, but approximate cuts).
@@ -16,6 +15,9 @@ OPTIONS
   -s, --start <time>   Start time (e.g. 10, 00:00:10, 1:23.5). Default: beginning.
   -e, --end <time>     End time (e.g. 30, 00:00:30, 2:45.0). Default: end of video.
   -h, --help
+  
+SEE ALSO
+	mediasnacks vsplit
 `.trim()
 
 

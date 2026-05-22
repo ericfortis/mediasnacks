@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { readFileSync } from 'node:fs'
 import { resolve, parse, join } from 'node:path'
 
@@ -30,6 +29,9 @@ EXAMPLE
     10,15
 
   Outputs: video_1.mov, video_2.mov, video_3.mov
+ 
+SEE ALSO
+	mediasnacks vtrim
 `.trim()
 
 
