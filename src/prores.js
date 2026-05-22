@@ -21,7 +21,7 @@ DESCRIPTION
 
 OPTIONS
   -p, --profile <n>  ProRes profile (default: 3 (422 HQ))
-  -h, --help         Show this help message
+  -h, --help
 
 EXAMPLES
   mediasnacks prores video.mov
@@ -35,8 +35,8 @@ async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
-		help: { short: 'h', type: 'boolean' },
 		profile: { short: 'p', type: 'string', default: String(PRORES_PROFILES.hq) },
+		help: { short: 'h', type: 'boolean' },
 	})
 
 	if (values.help) {

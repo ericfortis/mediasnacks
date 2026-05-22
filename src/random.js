@@ -7,7 +7,7 @@ import { parseOptions } from './utils/parseOptions.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks random [-r | --recursive] [-h | --help]
+  mediasnacks random [-r | --recursive]
 
 DESCRIPTION
   Opens a random file in the current working directory

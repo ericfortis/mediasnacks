@@ -6,7 +6,7 @@ import { findFiles } from './utils/fs-utils.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks play [--no-recursive] [-h | --help] [query ...]
+  mediasnacks play [--no-recursive] [query ...]
 
 DESCRIPTION
   Plays a filtered playlist with mpv.

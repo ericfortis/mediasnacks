@@ -1,13 +1,37 @@
 #!/bin/sh
 
-if [ "$#" -lt 2 ]; then
+
+help() {
   cat << EOF
+SYNOPSIS
+  mediasnacks vconcat <video1> <video2> …
+
+DESCRIPTION
+  Concatenates video files using FFmpeg's without re-encoding.
+  All videos must have compatible codecs and resolutions.
+
 EXAMPLES
-  mediasnacks vconcat vid1.mov vid2.mov [...]
+  mediasnacks vconcat vid1.mov vid2.mov
   mediasnacks vconcat *.mp4
 EOF
+}
+
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  help
+  exit 0
+fi
+
+if [ "$#" -lt 2 ]; then
+  help
   exit 1
 fi
+
+for arg in "$@"; do
+  if [ ! -f "$arg" ]; then
+    help
+    exit 1
+  fi
+done
 
 list_file=$(mktemp -p .)
 for file in "$@"; do
