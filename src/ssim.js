@@ -13,7 +13,7 @@ DESCRIPTION
 
 
 async function main() {
-	const { values, files } = await parseOptions({
+	const { values, positionals } = await parseOptions({
 		help: { short: 'h', type: 'boolean' }
 	})
 
@@ -22,10 +22,10 @@ async function main() {
 		return
 	}
 
-	if (files.length !== 2)
+	if (positionals.length !== 2)
 		throw new Error('Expected two images')
 
-	const score = await ssim(...files)
+	const score = await ssim(...positionals)
 	console.log(score)
 }
 
