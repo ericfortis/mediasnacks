@@ -13,7 +13,8 @@ test('flattendir moves files to top level and deletes empty dirs', () => {
 	touch(tmp, 'dir1', 'dir1-1', 'file3.txt')
 	touch(tmp, 'dir1', '.DS_Store')
 
-	cli('flattendir', tmp)
+	process.env.CWD = tmp
+	cli('flattendir')
 	deepEqual(readdirSync(tmp).sort(), [
 		'file1.txt',
 		'file2.txt',
@@ -27,7 +28,8 @@ test('flattendir does not move files if filename collision occurs', () => {
 	touch(tmp, 'file1.txt')
 	touch(tmp, 'dir1', 'file1.txt')
 
-	cli('flattendir', tmp)
+	process.env.CWD = tmp
+	cli('flattendir')
 	deepEqual(readdirSync(tmp, { recursive: true }).sort(), [
 		'dir1',
 		'dir1/file1.txt',
