@@ -10,7 +10,7 @@ export function mkTempDir(prefix = 'test-') {
 }
 
 export function cli(...args) {
-	return spawnSync(rel('../cli.js'), args, { cwd: process.env.CWD })
+	return spawnSync(rel('../cli.js'), args)
 }
 
 export function dir(...args) {
