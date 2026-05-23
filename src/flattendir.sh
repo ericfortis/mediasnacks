@@ -3,32 +3,25 @@
 help() {
   /bin/cat << EOF
 SYNOPSIS
-  mediasnacks flattendir [folder]
+  mediasnacks flattendir
 
 DESCRIPTION
-  Moves unique files from subdirectories into the top-level folder, then
-  deletes empty directories. Defaults to the current working directory.
+	On the current working directory, it moves unique files from subdirectories
+	into the top-level folder, then deletes empty directories.
 EOF
 }
 
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-  help
-  exit 0
+if [ "$1" = "-h" ]; then
+	help
+	exit 0
 fi
 
-if [ $# -gt 0 ] && [ ! -d "$1" ]; then
-  help
-  exit 1
-fi
-
-DIR="${1:-$(pwd)}"
-
-find "$DIR" -mindepth 2 -type f | while IFS= read -r file; do
-  dest="$DIR/$(basename "$file")"
+find . -mindepth 2 -type f | while IFS= read -r file; do
+  dest="./$(basename "$file")"
   if [ ! -e "$dest" ]; then
     mv "$file" "$dest"
   fi
 done
 
-find "$DIR" -type f -name '.DS_Store' -delete
-find "$DIR" -depth -type d -empty ! -path "$DIR" -delete
+find . -type f -name '.DS_Store' -delete
+find . -depth -type d -empty ! -path . -delete
