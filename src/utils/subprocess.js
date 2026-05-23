@@ -39,10 +39,9 @@ async function runSilently(program, args) {
 
 export async function run(program, args) {
 	return new Promise((resolve, reject) => {
-		const p = spawn(program, args)
-		p.stdout.on('data', data => process.stdout.write(data))
-		p.stderr.on('data', chunk => process.stderr.write(chunk))
-
+		const p = spawn(program, args, { stdio: ['inherit', 'pipe', 'pipe'] })
+		p.stdout.pipe(process.stdout)
+		p.stderr.pipe(process.stderr)
 		p.on('error', reject)
 		p.on('close', code => {
 			if (code === 0)
