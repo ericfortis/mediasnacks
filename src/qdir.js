@@ -2,10 +2,10 @@
 
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
-import { parseArgs } from 'node:util'
 import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
 
 import { isFile } from './utils/fs-utils.js'
+import { parseOptions } from './utils/parseOptions.js'
 
 
 const HELP = `
@@ -18,11 +18,8 @@ DESCRIPTION
 
 
 async function main() {
-	const { values, positionals } = parseArgs({
-		options: {
-			help: { short: 'h', type: 'boolean' },
-		},
-		allowPositionals: true,
+	const { values, positionals } = await parseOptions({
+		help: { short: 'h', type: 'boolean' }
 	})
 
 	if (values.help) {
