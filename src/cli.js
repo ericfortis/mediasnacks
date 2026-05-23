@@ -59,11 +59,11 @@ function main() {
 
 	if (opt === '-v' || opt === '--version') {
 		console.log(pkgJSON.version)
-		process.exit(0)
+		return
 	}
 	if (opt === '-h' || opt === '--help') {
 		console.log(HELP)
-		process.exit(0)
+		return
 	}
 
 	if (!opt) {

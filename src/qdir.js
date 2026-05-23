@@ -27,7 +27,7 @@ async function main() {
 
 	if (values.help) {
 		console.log(HELP)
-		process.exit(0)
+		return
 	}
 
 	const dir = positionals[0] || process.cwd()

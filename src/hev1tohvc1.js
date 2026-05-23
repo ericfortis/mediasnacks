@@ -19,7 +19,14 @@ DESCRIPTION
 async function main() {
 	await assertUserHasFFmpeg()
 
-	const { files } = await parseOptions()
+	const { values, files } = await parseOptions({
+		help: { short: 'h', type: 'boolean' }
+	})
+
+	if (values.help) {
+		console.log(HELP)
+		return
+	}
 
 	if (!files.length)
 		throw new Error(HELP)

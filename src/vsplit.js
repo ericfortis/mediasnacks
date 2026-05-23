@@ -44,7 +44,7 @@ async function main() {
 
 	if (values.help) {
 		console.log(HELP)
-		process.exit(0)
+		return
 	}
 
 	if (files.length !== 2)

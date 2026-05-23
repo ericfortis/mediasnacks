@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { ffmpeg } from './utils/subprocess.js'
+import { parseOptions } from './utils/parseOptions.js'
 
 
 const HELP = `
@@ -12,13 +13,19 @@ DESCRIPTION
 
 
 async function main() {
-	const [img1, img2] = process.argv.slice(2)
-	if (!img1 || !img2) {
+	const { values, files } = parseOptions({
+		help: { short: 'h', type: 'boolean' }
+	})
+
+	if (values.help) {
 		console.log(HELP)
-		process.exit(1)
+		return
 	}
 
-	const score = await ssim(img1, img2)
+	if (files.length !== 2)
+		throw new Error('Expected two images')
+
+	const score = await ssim(...files)
 	console.log(score)
 }
 
