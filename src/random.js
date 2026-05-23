@@ -14,10 +14,8 @@ DESCRIPTION
 `.trim()
 
 async function main() {
-	if (process.platform !== 'darwin') {
-		console.error('Error: This command is only supported on macOS.')
-		process.exit(1)
-	}
+	if (process.platform !== 'darwin')
+		throw new Error('Error: This command is only supported on macOS.')
 
 	const { values } = await parseOptions({
 		recursive: { short: 'r', type: 'boolean' },
