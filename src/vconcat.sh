@@ -16,7 +16,7 @@ EXAMPLES
 EOF
 }
 
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+if [ "$1" = "-h" ]; then
   help
   exit 0
 fi

@@ -7,12 +7,12 @@ SYNOPSIS
   mediasnacks vdiff <video1> <video2>
 
 DESCRIPTION
-  Diffs two video files using FFplay with a blend filter. Videos must have
-  the same resolution and ideally the same framerate.
+  Diffs two video files using FFplay with a blend filter.
+  Videos must have the same resolution.
 EOF
 }
 
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+if [ "$1" = "-h" ]; then
   help
   exit 0
 fi
