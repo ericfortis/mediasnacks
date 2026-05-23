@@ -14,7 +14,21 @@ SYNOPSIS
 
 DESCRIPTION
   Sequentially runs all *.sh files in a folder (cwd by default). 
+  Completed scripts get renamed with a ".done" extension,
+  or to ".failed.$exitCode"
+  
 `.trim()
+
+
+function filter(f) {
+	return f.endsWith('.sh')
+}
+
+function newExt(exitCode) {
+	return exitCode === 0
+		? '.done'
+		: `.failed.${exitCode}`
+}
 
 
 async function main() {
@@ -52,12 +66,9 @@ export async function qdir(dir, pollIntervalMs = 10_000) {
 
 		const jobName = job.split('/').pop()
 		await writeFile(lock, jobName, 'utf8')
-
 		try {
 			const exitCode = await runShell(job)
-			await rename(job, job + (exitCode === 0
-				? '.done'
-				: `.failed.${exitCode}`))
+			await rename(job, job + newExt(exitCode))
 		}
 		finally {
 			await unlink(lock).catch(() => {})
@@ -68,8 +79,8 @@ export async function qdir(dir, pollIntervalMs = 10_000) {
 async function getNextJob(dir) {
 	const entries = await readdir(dir, { withFileTypes: true })
 	const scripts = entries
-		.filter(d => d.isFile() && d.name.endsWith('.sh'))
-		.map(d => d.name)
+		.filter(entry => entry.isFile() && filter(entry.name))
+		.map(entry => entry.name)
 		.sort()
 	return scripts.length
 		? join(dir, scripts[0])
