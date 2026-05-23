@@ -26,7 +26,7 @@ async function main() {
 		throw new Error('Expected two images')
 
 	const score = await ssim(...positionals)
-	console.log(score)
+	console.log(score.toString())
 }
 
 export async function ssim(img1, img2) {
