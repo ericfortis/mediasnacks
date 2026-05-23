@@ -13,7 +13,7 @@ DESCRIPTION
 
 
 async function main() {
-	const { values, files } = parseOptions({
+	const { values, files } = await parseOptions({
 		help: { short: 'h', type: 'boolean' }
 	})
 
