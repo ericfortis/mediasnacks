@@ -54,6 +54,7 @@ function play(files) {
 			console.error('Error: MPV is not installed')
 		else
 			console.log(err)
+		process.exit(1)
 	})
 }
 
