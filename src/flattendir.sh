@@ -9,17 +9,11 @@ DESCRIPTION
   Moves unique files from subdirectories into the top-level folder, then
   deletes empty directories. Defaults to the current working directory.
 EOF
+  exit "${1:-0}"
 }
 
-if [ "$1" = "-h" ]; then
-  help
-  exit 0
-fi
-
-if [ $# -gt 0 ] && [ ! -d "$1" ]; then
-  help
-  exit 1
-fi
+[ "$1" = "-h" ] && help
+[ $# -gt 0 ] && [ ! -d "$1" ] && help 1
 
 DIR="${1:-$(pwd)}"
 

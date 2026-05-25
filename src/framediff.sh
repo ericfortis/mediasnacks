@@ -16,17 +16,11 @@ TIPS
 SEE ALSO
   mediasnacks detectdups, ffplay(1)
 EOF
+  exit "${1:-0}"
 }
 
-if [ "$1" = "-h" ]; then
-  help
-  exit 0
-fi
-
-if [ ! -f "$1" ]; then
-  help
-  exit 1
-fi
+[ "$1" = "-h" ] && help
+[ ! -f "$1" ] && help 1
 
 ffplay -v error "$1" -vf "
     tblend=all_mode=difference,

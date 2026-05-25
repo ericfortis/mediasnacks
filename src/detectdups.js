@@ -62,15 +62,9 @@ async function main() {
 		? Number(values.duration)
 		: vDur > 60 ? 20 : vDur
 
-	if (isNaN(seek) || seek < 0)
-		throw new Error(`Invalid --seek value: ${values.seek}`)
-
-	if (isNaN(duration) || duration < 1)
-		throw new Error(`Invalid --duration value: ${values.duration}`)
-
-	if ((seek + duration) > vDur)
-		throw new Error(`Invalid analysis range. Exceeds video duration: ${vDur}`)
-
+	if (isNaN(seek) || seek < 0) throw new Error(`Invalid --seek value: ${values.seek}`)
+	if (isNaN(duration) || duration < 1) throw new Error(`Invalid --duration value: ${values.duration}`)
+	if ((seek + duration) > vDur) throw new Error(`Invalid analysis range. Exceeds video duration: ${vDur}`)
 
 	const dups = await detectdups(files[0], seek, duration)
 	const h = deltaHistogram(dups)

@@ -7,30 +7,21 @@ SYNOPSIS
   mediasnacks vconcat <video1> <video2> …
 
 DESCRIPTION
-  Concatenates video files using FFmpeg's without re-encoding.
+  Concatenates video files using FFmpeg without re-encoding.
   All videos must have compatible codecs and resolutions.
 
 EXAMPLES
   mediasnacks vconcat vid1.mov vid2.mov
   mediasnacks vconcat *.mp4
 EOF
+  exit "${1:-0}"
 }
 
-if [ "$1" = "-h" ]; then
-  help
-  exit 0
-fi
-
-if [ "$#" -lt 2 ]; then
-  help
-  exit 1
-fi
+[ "$1" = "-h" ] && help
+[ "$#" -lt 2 ] && help 1
 
 for arg in "$@"; do
-  if [ ! -f "$arg" ]; then
-    help
-    exit 1
-  fi
+  [ ! -f "$arg" ] && help 1
 done
 
 list_file=$(mktemp -p .)

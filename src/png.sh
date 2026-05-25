@@ -6,15 +6,15 @@ SYNOPSIS
   mediasnacks png <img1> [img2 ...]
 
 DESCRIPTION
-  Optimizes PNG images with oxipng at max compression.
+  Losslessly optimizes PNG images with oxipng at max level.
+
+EXAMPLE
+	mediasnacks png *.png
 EOF
+  exit "${1:-0}"
 }
 
-if [ "$1" = "-h" ]; then
-  help
-  exit 0
-fi
-
-[ $# -eq 0 ] && help && exit 1
+[ "$1" = "-h" ] && help
+[ $# -eq 0 ] && help 1
 
 oxipng --opt max "$@"

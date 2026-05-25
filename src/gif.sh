@@ -1,13 +1,21 @@
 #!/bin/sh
 
-# Converts to GIF
-
 FPS=10
 WIDTH=600
 
-usage() {
-  echo "Usage: mediasnacks gif [--fps <number>] [--width <pixels>] <file>"
-  exit 1
+help() {
+  /bin/cat << EOF
+SYNOPSIS
+  mediasnacks gif [--fps <number>] [-w | --width <pixels>] <file>
+
+DESCRIPTION
+  Converts video to GIF
+
+OPTIONS
+  --fps       Default: $FPS
+  -w,--width  Default: $WIDTH
+EOF
+  exit "${1:-0}"
 }
 
 while [ $# -gt 0 ]; do
@@ -15,18 +23,21 @@ while [ $# -gt 0 ]; do
     --fps)
       FPS="$2";
       shift 2 ;;
-    --width)
+
+    --width|-w)
       WIDTH="$2"
       shift 2 ;;
+
     --help|-h)
-      usage ;;
+      help ;;
+
     *)
       file="$1"
       shift ;;
   esac
 done
 
-[ -z "$file" ] && usage
+[ -z "$file" ] && help 1
 
 ffmpeg -v error -i "$file" \
   -vf "fps=${FPS},scale=${WIDTH}:-1" \

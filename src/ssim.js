@@ -8,7 +8,7 @@ SYNOPSIS
   mediasnacks ssim <img1> <img2>
 
 DESCRIPTION
-  Computes the Structural Similarity Index (SSIM) between two images using ffmpeg.
+  Computes the Structural Similarity Index (SSIM) between two images using FFmpeg.
 `.trim()
 
 

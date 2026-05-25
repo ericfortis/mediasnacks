@@ -10,17 +10,11 @@ DESCRIPTION
   Diffs two video files using FFplay with a blend filter.
   Videos must have the same resolution.
 EOF
+  exit "${1:-0}"
 }
 
-if [ "$1" = "-h" ]; then
-  help
-  exit 0
-fi
-
-if [ $# -lt 2 ] || [ ! -f "$1" ] || [ ! -f "$2" ]; then
-  help
-  exit 1
-fi
+[ "$1" = "-h" ] && help
+[ $# -lt 2 ] || [ ! -f "$1" ] || [ ! -f "$2" ] && help 1
 
 video1="$1"
 video2="$2"
