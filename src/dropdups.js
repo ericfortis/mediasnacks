@@ -4,10 +4,10 @@ import { resolve, parse, format } from 'node:path'
 
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg, run } from './utils/subprocess.js'
-import { PRORES_PROFILES } from './prores.js'
+import { ProresProfiles } from './prores.js'
 
 
-const PROFILE = PRORES_PROFILES.hq
+const PROFILE = ProresProfiles.default
 
 const HELP = `
 SYNOPSIS
@@ -65,9 +65,7 @@ async function dropdups(video, dupFrameNum) {
 			? `decimate=cycle=${dupFrameNum}`
 			: 'mpdecimate,setpts=N/FRAME_RATE/TB',
 		'-fps_mode', 'cfr',
-		'-c:v', 'prores_ks',
-		'-profile:v', PROFILE,
-		'-pix_fmt', 'yuv422p10le',
+		'-c:v', 'prores_ks', '-profile:v', PROFILE,
 		makeOutputPath(video)
 	])
 }

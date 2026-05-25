@@ -31,7 +31,6 @@ async function main() {
 	if (!files.length)
 		throw new Error(HELP)
 
-	console.log('HEV1 to HVC1…')
 	for (const file of files)
 		await hev1tohvc1(file)
 }
