@@ -26,6 +26,7 @@ mediasnacks <command> <args>
 
 ### Commands
 - `avif` Converts images to AVIF
+- `png` Optimizes PNG images with oxipng
 - `sqcrop` Square crops images
 
 
