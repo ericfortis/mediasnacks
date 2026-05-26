@@ -6,15 +6,15 @@ import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
 export const ProresProfiles = new class {
   // https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
 	profiles = {
-		// 10-bit
-		0: 'proxy',
-		1: 'lt',
-		2: 'standard',
-		3: 'hq',
+		// 10-bit color depth
+		0: '422 Proxy',
+		1: '422 LT',
+		2: '422 Standard',
+		3: '422 High Quality',
 
 		// 12-bit
 		4: '4444',
-		5: '4444xq'
+		5: '4444XQ'
 	}
 	default = 3
 
@@ -28,23 +28,25 @@ SYNOPSIS
   mediasnacks prores [options] <video>
 
 DESCRIPTION
-  Converts a video to ProRes
+  Converts a video to Apple ProRes
 
 OPTIONS
-  -p, --profile <n>    Default: 3 (422 HQ 10-bit)
-  -s, --start <time>   Start time (e.g. 5.0). Default: beginning.
-  -e, --end <time>     End time (e.g. 0:10.0). Default: end of video.
+  -p, --profile <n>    Default: ${ProresProfiles.default}
+  -s, --start <time>   In time. Unset means beginning
+  -e, --end <time>     Out time. Unset means end
   -h, --help
-
+  
 PROFILES
 ${ProresProfiles.table().map(([num, name]) =>
 	`  ${num}: ${name}`).join('\n')}
 
-EXAMPLES
-  mediasnacks prores video.mov
-  mediasnacks prores -p2 *.mov
+TIME FORMAT
+  5.1      -- pure seconds
+  20:10.0  -- 20m 10s
 
-  Both output a file named: video.prores.mov
+EXAMPLES
+  mediasnacks prores --end=60 video.mov   // outputs video.prores.mov
+  mediasnacks prores -p2 *.mov
 `.trim()
 
 
@@ -55,7 +57,7 @@ async function main() {
 		profile: { short: 'p', type: 'string', default: String(ProresProfiles.default) },
 		start: { short: 's', type: 'string', default: '' },
 		end: { short: 'e', type: 'string', default: '' },
-		help: { short: 'h', type: 'boolean' },
+		help: { short: 'h', type: 'boolean' }
 	})
 
 	if (values.help) {
