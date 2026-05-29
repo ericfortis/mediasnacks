@@ -1,6 +1,6 @@
 {
   "name": "mediasnacks",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "Utilities for optimizing and preparing videos and images",
   "license": "MIT",
   "author": "Eric Fortis",
@@ -9,7 +9,8 @@
 		"mediasnacks": "src/cli.js"
 	},
 	"scripts": {
-		"test": "docker run --rm $(docker build -q .)",
+		"test": "FORCE_COLOR=1 node --test",
+		"test-docker": "docker run --rm $(docker build -q .)",
 		"postinstall": "node install-zsh-completions.js",
 		"dev-install": "npm i -g . --ignore-scripts=false"
 	},

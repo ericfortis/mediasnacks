@@ -2,7 +2,8 @@
 
 import { parseOptions } from './utils/parseOptions.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
-import { videoAttrs, ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { videoAttrs } from './utils/videoAttrs.js'
 
 
 const HELP = `

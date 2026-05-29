@@ -10,12 +10,6 @@ Utilities video and images.
 npm install -g mediasnacks
 ```
 
-Optionally, if you have `ignore-scripts=true` in your `.npmprc`, 
-you can install zsh auto-completions with:
-```sh
-$(npm root -g)/mediasnacks/install-zsh-completions.js
-```
-
 
 
 ## Overview
@@ -32,6 +26,8 @@ mediasnacks <command> <args>
 
 - `resize` Resizes videos or images
 - `edgespic` Extracts first and last frames
+- `frameseq` Converts video to sequence of PNGs
+- `countframes` Counts frames in a video
 - `ssim` Computes similarity of two images
 - `gif`: Video to GIF
 
