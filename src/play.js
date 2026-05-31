@@ -40,7 +40,7 @@ export default async function main() {
 	play(files)
 }
 
-function play(files) {
+export function play(files) {
 	const mpv = spawn('mpv', ['--playlist=-'], {
 		detached: true,
 		stdio: ['pipe', 'ignore', 'ignore']
