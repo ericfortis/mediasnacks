@@ -43,3 +43,5 @@ export function frameseq(options: FrameSeqOptions): Promise<void>
 
 
 export function hev1tohvc1(file: string): Promise<void>
+
+export function moov2front(file: string): Promise<void>

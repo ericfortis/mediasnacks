@@ -32,25 +32,23 @@ async function main() {
 		return
 	}
 
-	if (!files.length)
-		throw new Error(HELP)
+	if (!files.length) throw new Error('Missing input file(s)')
 
 	console.log('Optimizing video for progressive download…')
 	for (const file of files)
-		await moov2front(file)
+		try {
+			await moov2front(file)
+			console.log(file)
+		}
+		catch (err) {
+			console.error(err?.message || err)
+		}
 }
 
-async function moov2front(file) {
-	if (!/\.(mp4|mov)$/i.test(file)) {
-		console.log('(skipped: not mp4/mov)', file)
-		return
-	}
-	if (await moovIsBeforeMdat(file)) {
-		console.log('(skipped: no changes needed)', file)
-		return
-	}
+export async function moov2front(file) {
+	if (!/\.(mp4|mov)$/i.test(file)) throw new Error(`not mp4/mov. ${file}`)
+	if (await moovIsBeforeMdat(file)) throw new Error(`no changes needed. ${file}`)
 
-	console.log(file)
 	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([
 		'-hide_banner',
@@ -72,8 +70,8 @@ async function moovIsBeforeMdat(file) {
 	return firstMatchedAtom === 'moov'
 }
 
-
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message)
+		process.exit(1)
+	})
