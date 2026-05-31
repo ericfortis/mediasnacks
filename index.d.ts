@@ -19,6 +19,8 @@ export function countframes(options: CountFramesOptions): Promise<number>
 
 
 export function dlaudio(url: string): Promise<void>
+export function dlvideo(url: string): Promise<void>
+
 
 export interface DetectDupsOptions {
 	video: string

@@ -36,7 +36,7 @@ const COMMANDS = {
 	play: ['./play.js', 'Plays filtered playlist with mpv\n'],
 
 	dlaudio: ['./dlaudio.js', 'yt-dlp best audio'],
-	dlvideo: ['./dlvideo.sh', 'yt-dlp best video\n'],
+	dlvideo: ['./dlvideo.js', 'yt-dlp best video\n'],
 
 	unemoji: ['./unemoji.sh', 'Removes emojis from filenames'],
 	rmcover: ['./rmcover.sh', 'Removes cover art'],
