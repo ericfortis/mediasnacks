@@ -40,16 +40,16 @@ async function main() {
 	}
 
 	const { fps, start, end } = values
-	const file = files[0]
-	if (!file) throw new Error('No video file specified')
+	const video = files[0]
+	if (!video) throw new Error('No video file specified')
 
-	const n = await countframes({ file, fps, start, end })
+	const n = await countframes({ video, fps, start, end })
 	console.log(String(n))
 }
 
 
-export async function countframes({ file, fps, start, end }) {
-	const v = await videoAttrs(file)
+export async function countframes({ video, fps, start, end }) {
+	const v = await videoAttrs(video)
 	const videoDuration = parseFloat(v.duration || 0)
 	const startSecs = start ? parseTimecode(start) : 0
 	const endSecs = end ? parseTimecode(end) : videoDuration

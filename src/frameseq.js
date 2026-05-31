@@ -45,18 +45,18 @@ async function main() {
 	}
 
 	const { fps, start, end } = values
-	const file = files[0]
-	if (!file) throw new Error('No video files specified')
+	const video = files[0]
+	if (!video) throw new Error('No video files specified')
 	if (fps && isNaN(parseFloat(fps))) throw new Error('Invalid --fps')
 	if (start && isNaN(parseFloat(start))) throw new Error('Invalid --start')
 	if (end && isNaN(parseFloat(end))) throw new Error('Invalid --end')
 
-	const nFrames = await countframes({ file, fps, start, end })
+	const nFrames = await countframes({ video, fps, start, end })
 	const pad = String(nFrames).length
-	await frameseq(file, fps, start, end, pad)
+	await frameseq({ video, fps, start, end, pad })
 }
 
-async function frameseq(video, fps, start, end, pad) {
+export async function frameseq({ video, fps, start, end, pad }) {
 	const name = basename(video, extname(video))
 	const outDir = join(parse(video).dir, name)
 	await mkDir(outDir)
@@ -69,7 +69,8 @@ async function frameseq(video, fps, start, end, pad) {
 	].flat())
 }
 
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message)
+		process.exit(1)
+	})
