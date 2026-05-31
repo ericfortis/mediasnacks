@@ -86,3 +86,5 @@ export interface SqCropOptions {
 	overwrite?: boolean
 }
 export function sqcrop(options: SqCropOptions): Promise<void>
+
+export function ssim(img1: string, img2: string): Promise<number>
