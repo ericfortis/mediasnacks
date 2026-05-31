@@ -50,6 +50,8 @@ export function hev1tohvc1(file: string): Promise<void>
 
 export function moov2front(file: string): Promise<void>
 
+export function png(...images: string[]): Promise<void>
+
 export function play(files: string[]): void
 
 
