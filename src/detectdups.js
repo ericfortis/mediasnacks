@@ -45,13 +45,11 @@ async function main() {
 		return
 	}
 
-	if (files.length !== 1)
-		throw new Error('Invalid input file. One video file must be specified. See mediasnacks detectdups --help')
+	if (files.length !== 1) throw new Error('Invalid input file. One video file must be specified. See mediasnacks detectdups --help')
 
-	const v = await videoAttrs(files[0])
-
-	if (v.codec_type !== 'video')
-		throw new Error('Invalid input file. Must be a video.')
+	const video = files[0]
+	const v = await videoAttrs(video)
+	if (v.codec_type !== 'video') throw new Error('Invalid input file. Must be a video.')
 
 	const vDur = Number(v.duration)
 
@@ -67,7 +65,7 @@ async function main() {
 	if (isNaN(duration) || duration < 1) throw new Error(`Invalid --duration value: ${values.duration}`)
 	if ((seek + duration) > vDur) throw new Error(`Invalid analysis range. Exceeds video duration: ${vDur}`)
 
-	const dups = await detectdups(files[0], seek, duration)
+	const dups = await detectdups({ video: files[0], seek, duration })
 	const h = deltaHistogram(dups)
 	const report = {
 		n: maxFreqKey(h),
@@ -80,12 +78,12 @@ async function main() {
 	console.log(JSON.stringify(report, null, 2))
 }
 
-export async function detectdups(video, seek, duration) {
+export async function detectdups({ video, seek, duration }) {
 	const { stderr } = await ffmpeg([
 		'-v', 'info',
 		'-stats',
-		'-ss', seek,
-		'-t', duration,
+		seek ? ['-ss', seek] : [],
+		duration ? ['-t', duration] : [],
 		'-i', video,
 		'-vf', [
 			'tblend=all_mode=difference',
@@ -93,7 +91,7 @@ export async function detectdups(video, seek, duration) {
 			'showinfo',
 		].join(','),
 		'-f', 'null', '-',
-	])
+	].flat())
 
 	const reNearBlackFrames = /n:\s*(\d+).*?mean:\[0].*?stdev:\[([0-9.]+)]/
 	const dupFrames = []
