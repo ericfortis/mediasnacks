@@ -18,6 +18,8 @@ export interface CountFramesOptions {
 export function countframes(options: CountFramesOptions): Promise<number>
 
 
+export function dlaudio(url: string): Promise<void>
+
 export interface DetectDupsOptions {
 	video: string
 	seek?: TimeCode

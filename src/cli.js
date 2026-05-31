@@ -35,7 +35,7 @@ const COMMANDS = {
 	openrand: ['./openrand.js', 'Opens a random file (macOS only)'],
 	play: ['./play.js', 'Plays filtered playlist with mpv\n'],
 
-	dlaudio: ['./dlaudio.sh', 'yt-dlp best audio'],
+	dlaudio: ['./dlaudio.js', 'yt-dlp best audio'],
 	dlvideo: ['./dlvideo.sh', 'yt-dlp best video\n'],
 
 	unemoji: ['./unemoji.sh', 'Removes emojis from filenames'],
