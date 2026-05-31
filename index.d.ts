@@ -59,3 +59,8 @@ export interface ProResOptions {
 export function prores(options: ProResOptions): Promise<void>
 
 export function qdir(dir: string, pollIntervalMs?: number): Promise<void>
+
+
+export function openrand(dir: string, recursive?: boolean): void
+
+export function pickRandomFile(dir: string, recursive?: boolean): string

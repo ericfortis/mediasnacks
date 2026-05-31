@@ -6,7 +6,7 @@ import { parseOptions } from './utils/parseOptions.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks random [-r | --recursive]
+  mediasnacks openrand [-r | --recursive]
 
 DESCRIPTION
   Opens a random file in the current working directory
@@ -26,10 +26,14 @@ export default async function main() {
 		return
 	}
 
-	spawn('open', [pickRandomFile('.', values.recursive)])
+	openrand('.', values.recursive)
 }
 
-function pickRandomFile(dir, recursive) {
+export function openrand(dir = '.', recursive = false) {
+	spawn('open', [pickRandomFile(dir, recursive)])
+}
+
+export function pickRandomFile(dir = '.', recursive = false) {
 	const files = readdirSync(dir, { withFileTypes: true, recursive })
 		.filter(entry => !entry.name.startsWith('.') && entry.isFile())
 		.map(entry => join(entry.parentPath, entry.name))
