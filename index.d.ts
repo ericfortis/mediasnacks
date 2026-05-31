@@ -29,3 +29,15 @@ export function detectdups(options: DetectDupsOptions): Promise<number>
 export function dropdups(video: string, dupFrameNum?: number): Promise<void>
 
 export function edgespic(video: string, width: number, outDir: string): Promise<void>
+
+
+export interface FrameSeqOptions {
+	video: string
+	fps?: number
+	start?: TimeCode
+	end?: TimeCode
+	pad?: number
+	outdir?: string
+}
+export function frameseq(options: FrameSeqOptions): Promise<void>
+

@@ -36,6 +36,7 @@ async function main() {
 		fps: { short: 'f', type: 'string', default: '' },
 		start: { short: 's', type: 'string', default: '' },
 		end: { short: 'e', type: 'string', default: '' },
+		outdir: { type: 'string', default: '' },
 		help: { short: 'h', type: 'boolean' }
 	})
 
@@ -44,7 +45,7 @@ async function main() {
 		return
 	}
 
-	const { fps, start, end } = values
+	const { fps, start, end, outdir } = values
 	const video = files[0]
 	if (!video) throw new Error('No video files specified')
 	if (fps && isNaN(parseFloat(fps))) throw new Error('Invalid --fps')
@@ -53,12 +54,12 @@ async function main() {
 
 	const nFrames = await countframes({ video, fps, start, end })
 	const pad = String(nFrames).length
-	await frameseq({ video, fps, start, end, pad })
+	await frameseq({ video, fps, start, end, pad, outdir })
 }
 
-export async function frameseq({ video, fps, start, end, pad }) {
+export async function frameseq({ video, fps, start, end, pad, outdir }) {
 	const name = basename(video, extname(video))
-	const outDir = join(parse(video).dir, name)
+	const outDir = outdir || join(parse(video).dir, name)
 	await mkDir(outDir)
 	await ffmpeg([
 		start ? ['-ss', start] : [],
