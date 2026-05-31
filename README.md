@@ -47,7 +47,7 @@ mediasnacks <command> <args>
 - `flattendir`: Moves unique files to the top dir and deletes empty dirs
 - `qdir` Sequentially runs all *.sh files in a folder
 - `seqcheck` Finds missing sequence number
-- `random` Opens a random file
+- `openrand` Opens a random file
 - `play` Plays filtered playlist with mpv
 
 

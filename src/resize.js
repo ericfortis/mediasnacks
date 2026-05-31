@@ -56,31 +56,33 @@ export default async function main() {
 
 	console.log('Resizing…')
 	for (const file of files)
-		await resize({
-			file,
-			outFile: join(values.outdir, file), // TODO basename ?
-			overwrite: values.overwrite,
-			width,
-			height,
-		})
+		try {
+			await resize({
+				file,
+				outFile: join(values.outdir, file), // TODO basename ?
+				overwrite: values.overwrite,
+				width,
+				height,
+			})
+			console.log(file)
+		}
+		catch (err) {
+			console.error(err?.message || err)
+		}
 }
 
 
-async function resize({ file, outFile, overwrite, width, height }) {
+export async function resize({ file, outFile, overwrite, width, height }) {
 	const v = await videoAttrs(file)
 	if (width === v.width && height === v.height
 		|| width < 0 && height === v.height
-		|| height < 0 && width === v.width) {
-		console.log('(skipped: no changes needed)', file)
-		return
-	}
+		|| height < 0 && width === v.width
+	)
+		throw new Error(`no changes needed. ${file}`)
 
-	if (!overwrite && isFile(outFile)) {
-		console.log('(skipped: output file exists but --overwrite=false)', file)
-		return
-	}
+	if (!overwrite && isFile(outFile))
+		throw new Error(`output file exists but --overwrite=false. ${file}`)
 
-	console.log(file)
 	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([
 		'-i', file,

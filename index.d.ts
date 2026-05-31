@@ -64,3 +64,15 @@ export function qdir(dir: string, pollIntervalMs?: number): Promise<void>
 export function openrand(dir: string, recursive?: boolean): void
 
 export function pickRandomFile(dir: string, recursive?: boolean): string
+
+
+interface ResizeBase {
+	file: string
+	outFile?: string
+	overwrite?: boolean
+}
+export type ResizeOptions = ResizeBase & (
+	| { width: number; height?: number }
+	| { height: number; width?: number }
+	)
+export function resize(options: ResizeOptions): Promise<void>
