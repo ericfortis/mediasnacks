@@ -55,7 +55,7 @@ async function main() {
 		await dropdups(resolve(file), dupFrameNum)
 }
 
-async function dropdups(video, dupFrameNum) {
+export async function dropdups(video, dupFrameNum) {
 	await run('ffmpeg', [
 		'-v', 'error',
 		'-stats',
@@ -78,7 +78,8 @@ function makeOutputPath(video) {
 		: format({ dir, name, ext: '.mov' })
 }
 
-main().catch(err => {
-	console.error(err.message || err)
-	process.exit(1)
-})
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message || err)
+		process.exit(1)
+	})

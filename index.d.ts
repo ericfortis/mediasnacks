@@ -24,3 +24,6 @@ export interface DetectDupsOptions {
 	duration?: TimeCode
 }
 export function detectdups(options: DetectDupsOptions): Promise<number>
+
+
+export function dropdups(video: string, dupFrameNum?: number): Promise<void>
