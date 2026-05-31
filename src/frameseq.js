@@ -51,7 +51,7 @@ async function main() {
 	if (start && isNaN(parseFloat(start))) throw new Error('Invalid --start')
 	if (end && isNaN(parseFloat(end))) throw new Error('Invalid --end')
 
-	const nFrames = await countframes(file, fps, start, end)
+	const nFrames = await countframes({ file, fps, start, end })
 	const pad = String(nFrames).length
 	await frameseq(file, fps, start, end, pad)
 }
