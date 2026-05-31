@@ -34,7 +34,7 @@ export async function mkDir(path) {
 	}
 }
 
-export function findFiles({ dir, regex, recursive, ignoredDirs }) {
+export function findFiles({ dir, regex, recursive, ignoredDirs = [] }) {
 	return readdirSync(dir, { withFileTypes: true, recursive })
 		.filter(entry =>
 			entry.isFile()

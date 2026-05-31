@@ -38,7 +38,7 @@ const COMMANDS = {
 	dlaudio: ['./dlaudio.js', 'yt-dlp best audio'],
 	dlvideo: ['./dlvideo.js', 'yt-dlp best video\n'],
 
-	unemoji: ['./unemoji.sh', 'Removes emojis from filenames'],
+	unemoji: ['./unemoji.js', 'Removes emojis from filenames'],
 	rmcover: ['./rmcover.sh', 'Removes cover art'],
 }
 
