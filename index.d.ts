@@ -47,3 +47,13 @@ export function hev1tohvc1(file: string): Promise<void>
 export function moov2front(file: string): Promise<void>
 
 export function play(files: string[]): void
+
+
+export interface ProResOptions {
+	video: string
+	profile: 1 | 2 | 3 | 4 | 5
+	output: string
+	start?: TimeCode
+	end?: TimeCode
+}
+export function prores(options: ProResOptions): Promise<void>

@@ -3,7 +3,7 @@ import { parseOptions } from './utils/parseOptions.js'
 import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
 
 export const ProresProfiles = new class {
-  // https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
+	// https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
 	profiles = {
 		// 10-bit color depth
 		0: '422 Proxy',
@@ -74,10 +74,11 @@ export default async function main() {
 	const { name, dir } = parse(video)
 	const output = join(dir, `${name}.prores.mov`)
 
-	await prores(video, values.start, values.end, values.profile, output)
+	const { profile, start, end } = values
+	await prores({ video, profile, start, end, output })
 }
 
-async function prores(video, start, end, profile, output) {
+export async function prores({ video, profile, start, end, output }) {
 	await run('ffmpeg', [
 		'-v', 'error',
 		'-stats',
