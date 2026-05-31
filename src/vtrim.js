@@ -13,7 +13,6 @@ DESCRIPTION
 OPTIONS
   -s, --start <time>   Start time (e.g. 10, 00:00:10, 1:23.5). Default: beginning.
   -e, --end <time>     End time (e.g. 30, 00:00:30, 2:45.0). Default: end of video.
-  -h, --help
   
 SEE ALSO
 	mediasnacks vsplit
@@ -38,10 +37,14 @@ export default async function main() {
 		throw new Error('No video specified. See mediasnacks vtrim --help')
 
 	for (const file of files)
-		await vtrim(resolve(file), values.start, values.end)
+		await vtrim({
+			video: resolve(file),
+			start: values.start,
+			end: values.end
+		})
 }
 
-async function vtrim(video, start, end) {
+export async function vtrim({ video, start, end }) {
 	const { dir, name, ext } = parse(video)
 	await ffmpeg([
 		'-v', 'error',

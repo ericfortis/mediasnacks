@@ -77,6 +77,7 @@ export type ResizeOptions = ResizeBase & (
 	)
 export function resize(options: ResizeOptions): Promise<void>
 
+
 export function seqcheck(dir: string, leftDelim?: string, rightDelim?: string): number[]
 
 
@@ -87,7 +88,19 @@ export interface SqCropOptions {
 }
 export function sqcrop(options: SqCropOptions): Promise<void>
 
+
 export function ssim(img1: string, img2: string): Promise<number>
+
 
 export type Clip = [start: number, end: number]
 export function vsplit(video: string, clips: Clip[]): Promise<void>
+
+
+interface VtrimBase {
+	video: string
+}
+export type VtrimOptions = VtrimBase & (
+	| { start?: TimeCode; end: TimeCode }
+	| { start: TimeCode; end?: TimeCode }
+	)
+export function vtrim(options: VtrimOptions): Promise<void>
