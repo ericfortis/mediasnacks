@@ -1,6 +1,8 @@
 import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
 
+const LEFT_DELIM = '_'
+const RIGHT_DELIM = '.'
 
 const HELP = `
 SYNOPSIS
@@ -10,8 +12,8 @@ DESCRIPTION
   Find missing numbered files in a sequence.
 
 OPTIONS
-  -ld, --left-delimiter <str>   Delimiter before the number (default: "_")
-  -rd, --right-delimiter <str>  Delimiter after the number (default: ".")
+  -ld, --left-delimiter <str>   Delimiter before the number (default: "${LEFT_DELIM}")
+  -rd, --right-delimiter <str>  Delimiter after the number (default: "${RIGHT_DELIM}")
   -h,  --help
 `.trim()
 
@@ -19,8 +21,8 @@ OPTIONS
 export default function main() {
 	const { values, positionals } = parseArgs({
 		options: {
-			'left-delimiter': { type: 'string', default: '_' },
-			'right-delimiter': { type: 'string', default: '.' },
+			'left-delimiter': { type: 'string', default: LEFT_DELIM },
+			'right-delimiter': { type: 'string', default: RIGHT_DELIM },
 			help: { short: 'h', type: 'boolean' },
 		},
 		allowPositionals: true,
@@ -31,18 +33,19 @@ export default function main() {
 		return
 	}
 
-	const seq = extractSeqNums(
-		readdirSync(positionals[0] || process.cwd()),
-		values['left-delimiter'],
-		values['right-delimiter'])
-
-	const missing = findMissingNumbers(seq)
+	const dir = positionals[0] || process.cwd()
+	const missing = seqcheck(dir, values['left-delimiter'], values['right-delimiter'])
 	if (missing.length)
 		console.log('Missing:', missing)
 }
 
-export function extractSeqNums(names, leftDelimiter, rightDelimiter) {
-	const pattern = new RegExp(escapeRegex(leftDelimiter) + '(\\d+)' + escapeRegex(rightDelimiter))
+export function seqcheck(dir, leftDelim = LEFT_DELIM, rightDelim = RIGHT_DELIM) {
+	const seq = extractSeqNums(readdirSync(dir), leftDelim, rightDelim)
+	return findMissingNumbers(seq)
+}
+
+export function extractSeqNums(names, leftDelim, rightDelim) {
+	const pattern = new RegExp(escapeRegex(leftDelim) + '(\\d+)' + escapeRegex(rightDelim))
 	const seq = []
 	for (const name of names) {
 		const match = name.match(pattern)

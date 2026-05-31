@@ -76,3 +76,5 @@ export type ResizeOptions = ResizeBase & (
 	| { height: number; width?: number }
 	)
 export function resize(options: ResizeOptions): Promise<void>
+
+export function seqcheck(dir: string, leftDelim?: string, rightDelim?: string): number[]
