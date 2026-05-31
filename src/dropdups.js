@@ -1,7 +1,4 @@
-#!/usr/bin/env node
-
 import { resolve, parse, format } from 'node:path'
-
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg, run } from './utils/subprocess.js'
 import { ProresProfiles } from './prores.js'
@@ -30,7 +27,7 @@ EXAMPLES
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -77,9 +74,3 @@ function makeOutputPath(video) {
 		? format({ dir, name: `${name}.dedup`, ext: '.mov' })
 		: format({ dir, name, ext: '.mov' })
 }
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message || err)
-		process.exit(1)
-	})

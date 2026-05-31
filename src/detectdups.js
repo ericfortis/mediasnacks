@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 import { videoAttrs } from './utils/videoAttrs.js'
@@ -31,7 +29,7 @@ SEE ALSO
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -131,10 +129,3 @@ function maxFreqKey(histogram) {
 		? Number(maxKey)
 		: null
 }
-
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message || err)
-		process.exit(1)
-	})

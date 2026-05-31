@@ -6,6 +6,7 @@ const glob = promisify(_glob)
 
 export async function parseOptions(options = {}, config = {}) {
 	const { values, positionals, tokens } = parseArgs({
+		args: process.argv.slice(3),
 		allowPositionals: true,
 		options,
 		...config,

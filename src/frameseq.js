@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { basename, extname, join, parse } from 'node:path'
 
 import { mkDir } from './utils/fs-utils.js'
@@ -29,7 +27,7 @@ EXAMPLES
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -69,9 +67,3 @@ export async function frameseq({ video, fps, start, end, pad, outdir }) {
 		join(outDir, `${name}_%0${pad}d.png`)
 	].flat())
 }
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message)
-		process.exit(1)
-	})

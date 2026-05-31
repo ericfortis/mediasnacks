@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
 import { readdir, writeFile, unlink, rename } from 'node:fs/promises'
@@ -30,7 +28,7 @@ function newExt(exitCode) {
 }
 
 
-async function main() {
+export default async function main() {
 	const { values, positionals } = await parseOptions({
 		help: { short: 'h', type: 'boolean' }
 	})
@@ -98,10 +96,3 @@ async function runShell(scriptPath) {
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms))
 }
-
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message || err)
-		process.exit(1)
-	})

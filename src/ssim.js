@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { ffmpeg } from './utils/subprocess.js'
 import { parseOptions } from './utils/parseOptions.js'
 
@@ -12,7 +11,7 @@ DESCRIPTION
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	const { values, positionals } = await parseOptions({
 		help: { short: 'h', type: 'boolean' }
 	})
@@ -41,10 +40,3 @@ export async function ssim(img1, img2) {
 		throw new Error(`Could not parse SSIM output:\n${stderr}`)
 	return parseFloat(match[1])
 }
-
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message)
-		process.exit(1)
-	})

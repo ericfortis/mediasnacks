@@ -1,45 +1,45 @@
 #!/usr/bin/env node
 
 import { join } from 'node:path'
-import { styleText } from 'node:util'
 import { spawn } from 'node:child_process'
+import { styleText } from 'node:util'
 import pkgJSON from '../package.json' with { type: 'json' }
 
 
 const COMMANDS = {
-	avif: ['avif.js', 'Converts images to AVIF'],
-	png: ['png.sh', 'Optimizes PNG images with oxipng'],
-	sqcrop: ['sqcrop.js', 'Square crops images\n'],
+	avif: ['./avif.js', 'Converts images to AVIF'],
+	png: ['./png.sh', 'Optimizes PNG images with oxipng'],
+	sqcrop: ['./sqcrop.js', 'Square crops images\n'],
 
-	resize: ['resize.js', 'Resizes videos or images'],
-	edgespic: ['edgespic.js', 'Extracts first and last frames'],
-	frameseq: ['frameseq.js', 'Converts video to sequence of PNGs'],
-	countframes: ['countframes.js', 'Counts frames in a video'],
-	ssim: ['ssim.js', 'Computes SSIM between two images'],
-	gif: ['gif.sh', 'Video to GIF\n'],
+	resize: ['./resize.js', 'Resizes videos or images'],
+	edgespic: ['./edgespic.js', 'Extracts first and last frames'],
+	frameseq: ['./frameseq.js', 'Converts video to sequence of PNGs'],
+	countframes: ['./countframes.js', 'Counts frames in a video'],
+	ssim: ['./ssim.js', 'Computes SSIM between two images'],
+	gif: ['./gif.sh', 'Video to GIF\n'],
 
-	detectdups: ['detectdups.js', 'Detects duplicate frames in a video'],
-	dropdups: ['dropdups.js', 'Removes duplicate frames in a video'],
-	framediff: ['framediff.sh', 'Plays a video of adjacent frames diff'],
-	hev1tohvc1: ['hev1tohvc1.js', 'Fixes video thumbnails not rendering on macOS Finder'],
-	moov2front: ['moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
-	vconcat: ['vconcat.sh', 'Concatenates videos'],
-	vdiff: ['vdiff.sh', 'Plays a video with the difference of two videos'],
-	vsplit: ['vsplit.js', 'Splits a video into multiple clips from CSV timestamps'],
-	vtrim: ['vtrim.js', 'Trims video from start to end time'],
-	prores: ['prores.js', 'Converts video to ProRes\n'],
+	detectdups: ['./detectdups.js', 'Detects duplicate frames in a video'],
+	dropdups: ['./dropdups.js', 'Removes duplicate frames in a video'],
+	framediff: ['./framediff.sh', 'Plays a video of adjacent frames diff'],
+	hev1tohvc1: ['./hev1tohvc1.js', 'Fixes video thumbnails not rendering on macOS Finder'],
+	moov2front: ['./moov2front.js', 'Rearranges .mov and .mp4 metadata for fast-start streaming'],
+	vconcat: ['./vconcat.sh', 'Concatenates videos'],
+	vdiff: ['./vdiff.sh', 'Plays a video with the difference of two videos'],
+	vsplit: ['./vsplit.js', 'Splits a video into multiple clips from CSV timestamps'],
+	vtrim: ['./vtrim.js', 'Trims video from start to end time'],
+	prores: ['./prores.js', 'Converts video to ProRes\n'],
 
-	flattendir: ['flattendir.sh', 'Moves all files to top dir and deletes dirs'],
-	qdir: ['qdir.js', 'Sequentially runs all *.sh files in a folder'],
-	seqcheck: ['seqcheck.js', 'Finds missing sequence number'],
-	random: ['random.js', 'Opens a random file (macOS only)'],
-	play: ['play.js', 'Plays filtered playlist with mpv\n'],
+	flattendir: ['./flattendir.sh', 'Moves all files to top dir and deletes dirs'],
+	qdir: ['./qdir.js', 'Sequentially runs all *.sh files in a folder'],
+	seqcheck: ['./seqcheck.js', 'Finds missing sequence number'],
+	random: ['./random.js', 'Opens a random file (macOS only)'],
+	play: ['./play.js', 'Plays filtered playlist with mpv\n'],
 
-	dlaudio: ['dlaudio.sh', 'yt-dlp best audio'],
-	dlvideo: ['dlvideo.sh', 'yt-dlp best video\n'],
+	dlaudio: ['./dlaudio.sh', 'yt-dlp best audio'],
+	dlvideo: ['./dlvideo.sh', 'yt-dlp best video\n'],
 
-	unemoji: ['unemoji.sh', 'Removes emojis from filenames'],
-	rmcover: ['rmcover.sh', 'Removes cover art'],
+	unemoji: ['./unemoji.sh', 'Removes emojis from filenames'],
+	rmcover: ['./rmcover.sh', 'Removes cover art'],
 }
 
 export function commandsSummary() {
@@ -57,7 +57,7 @@ ${commandsSummary().map(([cmd, desc]) =>
 `.trim()
 
 
-function main() {
+async function main() {
 	const [, , opt, ...args] = process.argv
 
 	if (opt === '-v' || opt === '--version') {
@@ -78,10 +78,16 @@ function main() {
 		process.exit(1)
 	}
 
-	const cmd = join(import.meta.dirname, COMMANDS[opt][0])
-	spawn(cmd, args, { stdio: 'inherit' })
-		.on('exit', process.exit)
+	const cmd = COMMANDS[opt][0]
+	if (cmd.endsWith('.js'))
+		(await import(cmd)).default()
+	else
+		spawn(join(import.meta.dirname, cmd), args, { stdio: 'inherit' })
+			.on('exit', process.exit)
 }
 
 if (import.meta.main)
-	main()
+	main().catch(err => {
+		console.error(err?.message || err)
+		process.exit(1)
+	})

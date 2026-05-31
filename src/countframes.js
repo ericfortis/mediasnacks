@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { parseOptions } from './utils/parseOptions.js'
 import { assertUserHasFFmpeg } from './utils/subprocess.js'
 import { videoAttrs } from './utils/videoAttrs.js'
@@ -24,7 +22,7 @@ EXAMPLES
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -57,10 +55,3 @@ export async function countframes({ video, fps, start, end }) {
 	const actualFps = fps ? Number(fps) : eval(v.r_frame_rate)
 	return Math.ceil(durationLimit * actualFps)
 }
-
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message)
-		process.exit(1)
-	})

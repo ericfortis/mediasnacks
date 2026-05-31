@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { resolve, parse, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
@@ -50,7 +49,7 @@ EXAMPLES
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -89,9 +88,3 @@ async function prores(video, start, end, profile, output) {
 		output
 	].flat())
 }
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message || err)
-		process.exit(1)
-	})

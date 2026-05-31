@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { parseOptions } from './utils/parseOptions.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
@@ -17,7 +15,7 @@ DESCRIPTION
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -54,9 +52,3 @@ export async function hev1tohvc1(file) {
 	])
 	await overwrite(tmp, file)
 }
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message)
-		process.exit(1)
-	})

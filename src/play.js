@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { spawn } from 'node:child_process'
 import { parseOptions } from './utils/parseOptions.js'
 import { findFiles } from './utils/fs-utils.js'
@@ -17,7 +16,7 @@ EXAMPLE
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	const { values, positionals } = await parseOptions({
 		recursive: { short: 'r', type: 'boolean', default: true },
 		help: { short: 'h', type: 'boolean' }
@@ -57,8 +56,3 @@ function play(files) {
 		process.exit(1)
 	})
 }
-
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})

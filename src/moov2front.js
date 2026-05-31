@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
@@ -20,7 +19,7 @@ NOTES
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -69,9 +68,3 @@ async function moovIsBeforeMdat(file) {
 	const firstMatchedAtom = stderr.match(/type:'(moov|mdat)'/)?.[1]
 	return firstMatchedAtom === 'moov'
 }
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message)
-		process.exit(1)
-	})

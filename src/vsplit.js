@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { readFileSync } from 'node:fs'
 import { resolve, parse, join } from 'node:path'
 
@@ -35,7 +34,7 @@ SEE ALSO
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -97,8 +96,3 @@ async function vsplit(videoPath, clips) {
 		])
 	}
 }
-
-main().catch(err => {
-	console.error(err.message || err)
-	process.exit(1)
-})

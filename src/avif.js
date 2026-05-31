@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { join, basename, dirname } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { replaceExt, lstat } from './utils/fs-utils.js'
@@ -18,7 +17,7 @@ EXAMPLES
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -63,9 +62,3 @@ export async function avif({ file, outFile, overwrite = false }) {
 		outFile
 	])
 }
-
-if (import.meta.main)
-	main().catch(err => {
-		console.error(err.message)
-		process.exit(1)
-	})

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { resolve, parse } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
@@ -21,7 +20,7 @@ SEE ALSO
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -54,8 +53,3 @@ async function vtrim(video, start, end) {
 		resolve(dir, `${name}.trim${ext}`)
 	].flat())
 }
-
-main().catch(err => {
-	console.error(err.message || err)
-	process.exit(1)
-})

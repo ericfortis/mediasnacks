@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
 
@@ -17,7 +16,7 @@ OPTIONS
 `.trim()
 
 
-function main() {
+export default function main() {
 	const { values, positionals } = parseArgs({
 		options: {
 			'left-delimiter': { type: 'string', default: '_' },
@@ -66,7 +65,3 @@ export function findMissingNumbers(seq) {
 function escapeRegex(str) {
 	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
-
-
-if (import.meta.main)
-	main()

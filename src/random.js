@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
 import { readdirSync } from 'node:fs'
@@ -13,7 +12,7 @@ DESCRIPTION
   Opens a random file in the current working directory
 `.trim()
 
-async function main() {
+export default async function main() {
 	if (process.platform !== 'darwin')
 		throw new Error('Error: This command is only supported on macOS.')
 
@@ -36,8 +35,3 @@ function pickRandomFile(dir, recursive) {
 		.map(entry => join(entry.parentPath, entry.name))
 	return files[Math.floor(Math.random() * files.length)]
 }
-
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})

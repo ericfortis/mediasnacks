@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 
@@ -17,7 +15,7 @@ DESCRIPTION
 `.trim()
 
 
-async function main() {
+export default async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
@@ -66,8 +64,3 @@ async function sqcrop({ file, outFile, overwrite }) {
 	])
 	await rename(tmp, outFile)
 }
-
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})
