@@ -22,11 +22,11 @@ describe('parseOptions', () => {
 
 	test('parses args and globs files', async () => {
 		const { values, positionals, files } = await parseOptions({
-			'output-dir': { type: 'string' }
+			'outdir': { type: 'string' }
 		}, {
-			args: ['--output-dir', '/tmp', inTmpDir('file[12].png')],
+			args: ['--outdir', '/tmp', inTmpDir('file[12].png')],
 		})
-		equal(values['output-dir'], '/tmp')
+		equal(values['outdir'], '/tmp')
 		deepEqual(positionals, [inTmpDir('file[12].png')])
 		deepEqual(files, [
 			inTmpDir('file1.png'),

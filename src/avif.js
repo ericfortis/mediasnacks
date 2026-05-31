@@ -7,14 +7,14 @@ import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks avif [-y | --overwrite] [--output-dir=<dir>] <images> 
+  mediasnacks avif [-y | --overwrite] [--outdir=<dir>] <images> 
 
 DESCRIPTION
  Converts images to AVIF.
 
 EXAMPLES
   mediasnacks avif -y '*.png'
-  mediasnacks avif --output-dir=foo/ 'a/**/*.png'
+  mediasnacks avif --outdir=foo/ 'a/**/*.png'
 `.trim()
 
 
@@ -22,7 +22,7 @@ async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
-		'output-dir': { type: 'string', default: '' },
+		outdir: { type: 'string', default: '' },
 		overwrite: { short: 'y', type: 'boolean' },
 		help: { short: 'h', type: 'boolean' },
 	})
@@ -39,7 +39,7 @@ async function main() {
 	for (const file of files)
 		await avif({
 			file,
-			outFile: join(values['output-dir'] || dirname(file), replaceExt(basename(file), 'avif')),
+			outFile: join(values.outdir || dirname(file), replaceExt(basename(file), 'avif')),
 			overwrite: values.overwrite
 		})
 }

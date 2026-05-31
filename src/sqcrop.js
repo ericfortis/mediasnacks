@@ -10,7 +10,7 @@ import { parseOptions } from './utils/parseOptions.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks sqcrop [-y | --overwrite] [--output-dir=<dir>] <images> 
+  mediasnacks sqcrop [-y | --overwrite] [--outdir=<dir>] <images> 
 
 DESCRIPTION
   Square crops images
@@ -21,7 +21,7 @@ async function main() {
 	await assertUserHasFFmpeg()
 
 	const { values, files } = await parseOptions({
-		'output-dir': { type: 'string', default: '' },
+		outdir: { type: 'string', default: '' },
 		overwrite: { short: 'y', type: 'boolean' },
 		help: { short: 'h', type: 'boolean' },
 	})
@@ -38,7 +38,7 @@ async function main() {
 	for (const file of files)
 		await sqcrop({
 			file,
-			outFile: join(values['output-dir'], file),
+			outFile: join(values.outdir, file),
 			overwrite: values.overwrite
 		})
 }
