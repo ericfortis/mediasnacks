@@ -78,3 +78,11 @@ export type ResizeOptions = ResizeBase & (
 export function resize(options: ResizeOptions): Promise<void>
 
 export function seqcheck(dir: string, leftDelim?: string, rightDelim?: string): number[]
+
+
+export interface SqCropOptions {
+	file: string
+	outFile: string
+	overwrite?: boolean
+}
+export function sqcrop(options: SqCropOptions): Promise<void>
