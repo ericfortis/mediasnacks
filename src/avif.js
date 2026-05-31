@@ -37,27 +37,24 @@ async function main() {
 
 	console.log('AVIF…')
 	for (const file of files)
-		await avif({
-			file,
-			outFile: join(values.outdir || dirname(file), replaceExt(basename(file), 'avif')),
-			overwrite: values.overwrite
-		})
+		try {
+			await avif({
+				file,
+				outFile: join(values.outdir || dirname(file), replaceExt(basename(file), 'avif')),
+				overwrite: values.overwrite
+			})
+			console.log(file)
+		}
+		catch (err) {
+			console.error(err?.message || err)
+		}
 }
 
-async function avif({ file, outFile, overwrite }) {
+export async function avif({ file, outFile, overwrite = false }) {
 	const stAvif = lstat(outFile)
+	if (!overwrite && stAvif?.isFile()) throw new Error(`output file exists but --overwrite=false. ${file}`)
+	if (stAvif?.mtimeMs > lstat(file)?.mtimeMs) throw new Error(`avif is newer. ${file}`)
 
-	if (!overwrite && stAvif?.isFile()) {
-		console.log('(skipped: output file exists but --overwrite=false)', file)
-		return
-	}
-	if (stAvif?.mtimeMs > lstat(file)?.mtimeMs) {
-		console.log('(skipped: avif is newer)', file)
-		return
-	}
-
-	// TODO fix transparent PNGs
-	console.log(file)
 	await ffmpeg([
 		'-y',
 		'-i', file,
@@ -67,7 +64,8 @@ async function avif({ file, outFile, overwrite }) {
 	])
 }
 
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message)
+		process.exit(1)
+	})

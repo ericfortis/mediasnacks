@@ -1,10 +1,10 @@
 {
-  "name": "mediasnacks",
-  "version": "0.25.0",
-  "description": "Utilities for optimizing and preparing videos and images",
-  "license": "MIT",
-  "author": "Eric Fortis",
-  "type": "module",
+	"name": "mediasnacks",
+	"version": "0.25.0",
+	"description": "Utilities for optimizing and preparing videos and images",
+	"license": "MIT",
+	"author": "Eric Fortis",
+	"type": "module",
 	"bin": {
 		"mediasnacks": "src/cli.js"
 	},
@@ -14,8 +14,16 @@
 		"postinstall": "node install-zsh-completions.js",
 		"dev-install": "npm i -g . --ignore-scripts=false"
 	},
+	"exports": {
+		".": {
+			"import": "./index.js",
+			"types": "./index.d.ts"
+		}
+	},
 	"files": [
 		"src",
+		"index.js",
+		"index.d.js",
 		"install-zsh-completions.js"
 	]
 }
