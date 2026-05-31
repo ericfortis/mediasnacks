@@ -27,3 +27,5 @@ export function detectdups(options: DetectDupsOptions): Promise<number>
 
 
 export function dropdups(video: string, dupFrameNum?: number): Promise<void>
+
+export function edgespic(video: string, width: number, outDir: string): Promise<void>

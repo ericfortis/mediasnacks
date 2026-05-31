@@ -3,9 +3,9 @@
 import { basename, extname, join, parse } from 'node:path'
 
 import { mkDir } from './utils/fs-utils.js'
+import { videoAttrs } from './utils/videoAttrs.js'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
-import { videoAttrs } from './utils/videoAttrs.js'
 
 
 const HELP = `
@@ -38,14 +38,11 @@ async function main() {
 	}
 
 	const width = Number(values['width'])
-	if (width <= 0 || !Number.isInteger(width))
-		throw new Error('--width must be a positive number')
-
-	if (!files.length)
-		throw new Error('No video files specified')
+	if (width <= 0 || !Number.isInteger(width)) throw new Error('--width must be a positive number')
+	if (!files.length) throw new Error('No video files specified')
 
 	const outDir = join(parse(files[0]).dir, 'edgespic')
-	await mkDir(outDir) 
+	await mkDir(outDir)
 
 	console.log('Extracting edge frames…')
 	for (const file of files)
@@ -53,7 +50,7 @@ async function main() {
 }
 
 
-async function edgespic(video, width, outDir) {
+export async function edgespic(video, width, outDir) {
 	const { r_frame_rate } = await videoAttrs(video)
 	const name = basename(video, extname(video))
 
@@ -76,7 +73,8 @@ async function edgespic(video, width, outDir) {
 }
 
 
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message)
+		process.exit(1)
+	})
