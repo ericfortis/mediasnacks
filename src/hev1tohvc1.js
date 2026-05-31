@@ -30,20 +30,23 @@ async function main() {
 	}
 
 	if (!files.length)
-		throw new Error(HELP)
+		throw new Error('Missing input file(s)')
 
 	for (const file of files)
-		await hev1tohvc1(file)
+		try {
+			await hev1tohvc1(file)
+			console.log(file)
+		}
+		catch (err) {
+			console.error(err?.message || err)
+		}
 }
 
-async function hev1tohvc1(file) {
+export async function hev1tohvc1(file) {
 	const v = await videoAttrs(file)
-	if (v.codec_tag_string !== 'hev1') {
-		console.log('(skipped: non hev1)', file)
-		return
-	}
+	if (v.codec_tag_string !== 'hev1')
+		throw new Error(`non hev1 ${file}`)
 
-	console.log(file)
 	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([
 		'-i', file,
@@ -54,8 +57,8 @@ async function hev1tohvc1(file) {
 	await overwrite(tmp, file)
 }
 
-
-main().catch(err => {
-	console.error(err.message)
-	process.exit(1)
-})
+if (import.meta.main)
+	main().catch(err => {
+		console.error(err.message)
+		process.exit(1)
+	})

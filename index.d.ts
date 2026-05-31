@@ -41,3 +41,5 @@ export interface FrameSeqOptions {
 }
 export function frameseq(options: FrameSeqOptions): Promise<void>
 
+
+export function hev1tohvc1(file: string): Promise<void>
