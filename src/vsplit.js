@@ -78,7 +78,7 @@ function parseCSV(csvPath) {
 	return clips
 }
 
-async function vsplit(videoPath, clips) {
+export async function vsplit(videoPath, clips) {
 	const { dir, name, ext } = parse(videoPath)
 	const seqLen = Math.log10(clips.length) + 1 | 0
 
