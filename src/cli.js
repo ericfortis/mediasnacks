@@ -60,23 +60,20 @@ ${commandsSummary().map(([cmd, desc]) =>
 async function main() {
 	const [, , opt, ...args] = process.argv
 
-	if (opt === '-v' || opt === '--version') {
-		console.log(pkgJSON.version)
-		return
-	}
-	if (opt === '-h' || opt === '--help') {
-		console.log(HELP)
-		return
+	switch (opt) {
+		case '-v':
+		case '--version':
+			console.log(pkgJSON.version)
+			return
+
+		case '-h':
+		case '--help':
+			console.log(HELP)
+			return
 	}
 
-	if (!opt) {
-		console.log(HELP)
-		process.exit(1)
-	}
-	if (!Object.hasOwn(COMMANDS, opt)) {
-		console.error(`'${opt}' is not a command. See mediasnacks --help\n`)
-		process.exit(1)
-	}
+	if (!opt) throw HELP
+	if (!Object.hasOwn(COMMANDS, opt)) throw `'${opt}' is not a command. See mediasnacks --help\n`
 
 	const cmd = COMMANDS[opt][0]
 	if (cmd.endsWith('.js'))
