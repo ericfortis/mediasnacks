@@ -14,7 +14,7 @@ DESCRIPTION
 
 export default async function main() {
 	if (process.platform !== 'darwin')
-		throw new Error('Error: This command is only supported on macOS.')
+		throw 'This command is only supported on macOS.'
 
 	const { values } = await parseOptions({
 		recursive: { short: 'r', type: 'boolean' },

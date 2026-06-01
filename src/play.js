@@ -35,7 +35,7 @@ export default async function main() {
 	})
 
 	if (!files.length)
-		throw new Error('No matching files found.')
+		throw 'No matching files found.'
 
 	play(files)
 }

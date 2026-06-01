@@ -43,11 +43,11 @@ export default async function main() {
 		return
 	}
 
-	if (files.length !== 1) throw new Error('Invalid input file. One video file must be specified. See mediasnacks detectdups --help')
+	if (files.length !== 1) throw 'Invalid input file. One video file must be specified.'
 
 	const video = files[0]
 	const v = await videoAttrs(video)
-	if (v.codec_type !== 'video') throw new Error('Invalid input file. Must be a video.')
+	if (v.codec_type !== 'video') throw 'Invalid input file. Must be a video.'
 
 	const vDur = Number(v.duration)
 
@@ -59,9 +59,9 @@ export default async function main() {
 		? Number(values.duration)
 		: vDur > 60 ? 20 : vDur
 
-	if (isNaN(seek) || seek < 0) throw new Error(`Invalid --seek value: ${values.seek}`)
-	if (isNaN(duration) || duration < 1) throw new Error(`Invalid --duration value: ${values.duration}`)
-	if ((seek + duration) > vDur) throw new Error(`Invalid analysis range. Exceeds video duration: ${vDur}`)
+	if (isNaN(seek) || seek < 0) throw `Invalid --seek value: ${values.seek}`
+	if (isNaN(duration) || duration < 1) throw `Invalid --duration value: ${values.duration}`
+	if ((seek + duration) > vDur) throw `Invalid analysis range. Exceeds video duration: ${vDur}`
 
 	const dups = await detectdups({ video: files[0], seek, duration })
 	const h = deltaHistogram(dups)

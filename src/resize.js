@@ -47,28 +47,19 @@ export default async function main() {
 	const width = Number(values.width)
 	const height = Number(values.height)
 
-	if (width <= 0 && height <= 0)
-		throw new Error('--width or --height need to be greater than 0')
+	if (width <= 0 && height <= 0) throw '--width or --height must be > 0'
+	if (!files.length) throw 'No video files specified'
 
-	if (!files.length)
-		throw new Error('No video files specified')
-
-
-	console.log('Resizing…')
-	for (const file of files)
-		try {
-			await resize({
-				file,
-				outFile: join(values.outdir, file), // TODO basename ?
-				overwrite: values.overwrite,
-				width,
-				height,
-			})
-			console.log(file)
-		}
-		catch (err) {
-			console.error(err?.message || err)
-		}
+	for (const file of files) {
+		await resize({
+			file,
+			outFile: join(values.outdir, file), // TODO basename ?
+			overwrite: values.overwrite,
+			width,
+			height,
+		})
+		console.log(file)
+	}
 }
 
 
@@ -78,10 +69,10 @@ export async function resize({ file, outFile, overwrite, width, height }) {
 		|| width < 0 && height === v.height
 		|| height < 0 && width === v.width
 	)
-		throw new Error(`no changes needed. ${file}`)
+		throw `no changes needed. ${file}`
 
 	if (!overwrite && isFile(outFile))
-		throw new Error(`output file exists but --overwrite=false. ${file}`)
+		throw `output file exists but --overwrite=false. ${file}`
 
 	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([

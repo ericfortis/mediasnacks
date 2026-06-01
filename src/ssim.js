@@ -22,7 +22,7 @@ export default async function main() {
 	}
 
 	if (positionals.length !== 2)
-		throw new Error('Expected two images')
+		throw 'Expected two images'
 
 	const score = await ssim(...positionals)
 	console.log(score.toString())
@@ -37,6 +37,6 @@ export async function ssim(img1, img2) {
 	])
 	const match = stderr.match(/All:([\d.]+)/)
 	if (!match)
-		throw new Error(`Could not parse SSIM output:\n${stderr}`)
+		throw `Could not parse SSIM output:\n${stderr}`
 	return parseFloat(match[1])
 }

@@ -27,21 +27,17 @@ export default async function main() {
 		return
 	}
 
-	if (!files.length) throw new Error('Missing input file(s)')
+	if (!files.length) throw 'Missing input file(s)'
 
-	for (const file of files)
-		try {
-			await hev1tohvc1(file)
-			console.log(file)
-		}
-		catch (err) {
-			console.error(err?.message || err)
-		}
+	for (const file of files) {
+		await hev1tohvc1(file)
+		console.log(file)
+	}
 }
 
 export async function hev1tohvc1(file) {
 	const v = await videoAttrs(file)
-	if (v.codec_tag_string !== 'hev1') throw new Error(`non hev1 ${file}`)
+	if (v.codec_tag_string !== 'hev1') throw `non hev1 ${file}`
 
 	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([

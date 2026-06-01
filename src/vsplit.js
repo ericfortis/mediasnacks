@@ -47,13 +47,13 @@ export default async function main() {
 	}
 
 	if (files.length !== 2)
-		throw new Error('Expected 2 arguments: CSV file and video file. See mediasnacks vsplit --help')
+		throw 'Expected 2 arguments: CSV file and video file.'
 
 	const [csvPath, videoPath] = files.map(f => resolve(f))
 
 	const clips = parseCSV(csvPath)
 	if (!clips.length)
-		throw new Error('CSV file contains no clips')
+		throw 'CSV file contains no clips'
 
 	console.log(`Splitting video into ${clips.length} clip${clips.length === 1 ? '' : 's'}…`)
 	await vsplit(videoPath, clips)
@@ -64,14 +64,14 @@ function parseCSV(csvPath) {
 	const lines = content.split('\n').filter(line => line.trim())
 
 	if (!lines.length)
-		throw new Error('CSV file is empty')
+		throw 'CSV file is empty'
 
 	const clips = []
 	for (let i = 1; i < lines.length; i++) { // unconditionally skips header 
 		const parts = lines[i].split(',').map(s => s.trim())
 
 		if (parts.length !== 2)
-			throw new Error(`Invalid CSV format at line ${i + 1}: expected 2 columns, got ${parts.length}`)
+			throw `Invalid CSV format at line ${i + 1}: expected 2 columns, got ${parts.length}`
 
 		clips.push(parts)
 	}

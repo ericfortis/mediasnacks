@@ -41,7 +41,7 @@ export default async function main() {
 	const dir = positionals[0] || process.cwd()
 	const err = await qdir(dir)
 	if (err)
-		throw new Error(err)
+		throw err
 }
 
 

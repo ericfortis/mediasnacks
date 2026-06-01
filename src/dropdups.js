@@ -40,14 +40,12 @@ export default async function main() {
 		return
 	}
 
-	if (!files.length)
-		throw new Error('No video specified. See mediasnacks dropdups --help')
+	if (!files.length) throw 'No video specified.'
 
 	let dupFrameNum = values['dup-frame-num']
 	if (dupFrameNum && !Number.isInteger(+dupFrameNum))
-		throw new Error('Invalid -n. It must be a positive integer.')
+		throw 'Invalid -n. It must be a positive integer.'
 
-	console.log('Dropping Duplicate Frames…')
 	for (const file of files)
 		await dropdups(resolve(file), dupFrameNum)
 }

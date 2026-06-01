@@ -41,7 +41,7 @@ export default async function main() {
 		return
 	}
 
-	if (positionals.length !== 1) throw new Error('Only one dir is accepted')
+	if (positionals.length !== 1) throw 'Must pass only one dir'
 
 	const files = findFiles({
 		dir: positionals[0],
@@ -72,7 +72,7 @@ export async function unemoji(file) {
 		return null
 
 	const newpath = join(dir, newbase)
-	if (existsSync(newpath)) throw new Error(`Skipping (exists): ${file} -> ${newpath}`)
+	if (existsSync(newpath)) throw `Skipping (exists): ${file} -> ${newpath}`
 
 	await rename(file, newpath)
 	return newpath

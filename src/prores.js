@@ -65,10 +65,10 @@ export default async function main() {
 	}
 
 	if (!ProresProfiles.isValid(Number(values.profile)))
-		throw new Error('Invalid profile. Must be one of: ' + ProresProfiles.list().join(','))
+		throw 'Invalid profile. Must be one of: ' + ProresProfiles.list().join(',')
 
 	if (files.length !== 1)
-		throw new Error('Expected 1 argument: video file. See mediasnacks prores --help')
+		throw 'Expected 1 argument: video file.'
 
 	const video = resolve(files[0])
 	const { name, dir } = parse(video)

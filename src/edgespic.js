@@ -36,13 +36,12 @@ export default async function main() {
 	}
 
 	const width = Number(values['width'])
-	if (width <= 0 || !Number.isInteger(width)) throw new Error('--width must be a positive number')
-	if (!files.length) throw new Error('No video files specified')
+	if (width <= 0 || !Number.isInteger(width)) throw '--width must be a positive number'
+	if (!files.length) throw 'No video files specified'
 
 	const outDir = join(parse(files[0]).dir, 'edgespic')
 	await mkDir(outDir)
 
-	console.log('Extracting edge frames…')
 	for (const file of files)
 		await edgespic(file, width, outDir)
 }

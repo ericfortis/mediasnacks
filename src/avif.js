@@ -32,27 +32,24 @@ export default async function main() {
 	}
 
 	if (!files.length)
-		throw new Error('No images specified. See mediasnacks avif --help')
+		throw 'Invalid input image'
 
-	console.log('AVIF…')
-	for (const file of files)
-		try {
-			await avif({
-				file,
-				outFile: join(values.outdir || dirname(file), replaceExt(basename(file), 'avif')),
-				overwrite: values.overwrite
-			})
-			console.log(file)
-		}
-		catch (err) {
-			console.error(err?.message || err)
-		}
+	for (const file of files) {
+		await avif({
+			file,
+			outFile: join(values.outdir || dirname(file), replaceExt(basename(file), 'avif')),
+			overwrite: values.overwrite
+		})
+		console.log(file)
+	}
 }
 
 export async function avif({ file, outFile, overwrite = false }) {
 	const stAvif = lstat(outFile)
-	if (!overwrite && stAvif?.isFile()) throw new Error(`output file exists but --overwrite=false. ${file}`)
-	if (stAvif?.mtimeMs > lstat(file)?.mtimeMs) throw new Error(`avif is newer. ${file}`)
+	if (!overwrite) {
+		if (stAvif?.isFile()) throw `output file exists: ${file}`
+		if (stAvif?.mtimeMs > lstat(file)?.mtimeMs) throw `avif is newer: ${file}`
+	}
 
 	await ffmpeg([
 		'-y',

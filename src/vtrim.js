@@ -34,7 +34,7 @@ export default async function main() {
 	}
 
 	if (!files.length)
-		throw new Error('No video specified. See mediasnacks vtrim --help')
+		throw 'No video specified.'
 
 	for (const file of files)
 		await vtrim({

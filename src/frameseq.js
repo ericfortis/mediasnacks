@@ -45,10 +45,10 @@ export default async function main() {
 
 	const { fps, start, end, outdir } = values
 	const video = files[0]
-	if (!video) throw new Error('No video files specified')
-	if (fps && isNaN(parseFloat(fps))) throw new Error('Invalid --fps')
-	if (start && isNaN(parseFloat(start))) throw new Error('Invalid --start')
-	if (end && isNaN(parseFloat(end))) throw new Error('Invalid --end')
+	if (!video) throw 'No video files specified'
+	if (fps && isNaN(parseFloat(fps))) throw 'Invalid --fps'
+	if (start && isNaN(parseFloat(start))) throw 'Invalid --start'
+	if (end && isNaN(parseFloat(end))) throw 'Invalid --end'
 
 	const nFrames = await countframes({ video, fps, start, end })
 	const pad = String(nFrames).length

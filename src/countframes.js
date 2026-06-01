@@ -39,7 +39,7 @@ export default async function main() {
 
 	const { fps, start, end } = values
 	const video = files[0]
-	if (!video) throw new Error('No video file specified')
+	if (!video) throw 'No video file specified'
 
 	const n = await countframes({ video, fps, start, end })
 	console.log(String(n))

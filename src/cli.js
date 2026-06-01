@@ -80,7 +80,7 @@ async function main() {
 
 	const cmd = COMMANDS[opt][0]
 	if (cmd.endsWith('.js'))
-		(await import(cmd)).default()
+		await (await import(cmd)).default()
 	else
 		spawn(join(import.meta.dirname, cmd), args, { stdio: 'inherit' })
 			.on('exit', process.exit)

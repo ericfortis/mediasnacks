@@ -31,22 +31,18 @@ export default async function main() {
 		return
 	}
 
-	if (!files.length) throw new Error('Missing input file(s)')
+	if (!files.length)
+		throw 'Missing input file(s)'
 
-	console.log('Optimizing video for progressive download…')
-	for (const file of files)
-		try {
-			await moov2front(file)
-			console.log(file)
-		}
-		catch (err) {
-			console.error(err?.message || err)
-		}
+	for (const file of files) {
+		await moov2front(file)
+		console.log(file)
+	}
 }
 
 export async function moov2front(file) {
-	if (!/\.(mp4|mov)$/i.test(file)) throw new Error(`not mp4/mov. ${file}`)
-	if (await moovIsBeforeMdat(file)) throw new Error(`no changes needed. ${file}`)
+	if (!/\.(mp4|mov)$/i.test(file)) throw `not mp4/mov. ${file}`
+	if (await moovIsBeforeMdat(file)) throw `no changes needed. ${file}`
 
 	const tmp = uniqueFilenameFor(file)
 	await ffmpeg([
