@@ -26,7 +26,7 @@ OPTIONS
   
 SEE ALSO
   mediasnacks framediff
-`.trim()
+`
 
 
 export default async function main() {

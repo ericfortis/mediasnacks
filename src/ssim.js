@@ -8,7 +8,7 @@ SYNOPSIS
 
 DESCRIPTION
   Computes the Structural Similarity Index (SSIM) between two images using FFmpeg.
-`.trim()
+`
 
 
 export default async function main() {

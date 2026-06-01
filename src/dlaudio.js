@@ -9,7 +9,7 @@ SYNOPSIS
 
 DESCRIPTION
   yt-dlp best m4a
-`.trim()
+`
 
 export default async function main() {
 	const { values, positionals } = await parseOptions(HELP)

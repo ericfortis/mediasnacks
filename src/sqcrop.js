@@ -12,7 +12,7 @@ SYNOPSIS
 
 DESCRIPTION
   Square crops images
-`.trim()
+`
 
 
 export default async function main() {

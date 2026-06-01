@@ -25,7 +25,7 @@ OPTIONS
 	--width and --height are -2 by default:
 		-1 = auto-compute while preserving the aspect ratio (may result in an odd number)
 		-2 = same as -1 but rounds to the nearest even number
-`.trim()
+`
 
 
 export default async function main() {

@@ -8,7 +8,7 @@ SYNOPSIS
 
 DESCRIPTION
   yt-dlp best mp4
-`.trim()
+`
 
 export default async function main() {
 	const { values, positionals } = await parseOptions(HELP)

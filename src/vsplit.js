@@ -31,7 +31,7 @@ EXAMPLE
  
 SEE ALSO
 	mediasnacks vtrim
-`.trim()
+`
 
 
 export default async function main() {

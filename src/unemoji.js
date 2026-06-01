@@ -4,6 +4,18 @@ import { dirname, basename, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { findFiles } from './utils/fs-utils.js'
 
+const HELP = `
+SYNOPSIS
+  mediasnacks unemoji [-r | --recursive] <dir>
+
+DESCRIPTION
+  Removes emoji from filenames in the current directory.
+  Does not overwrite files.
+  
+OPTIONS
+	-r, --recursive
+`
+
 const EMOJI_RE = new RegExp(
 	'[' +
 	'\u{1F600}-\u{1F64F}' +   // Emoticons
@@ -18,24 +30,13 @@ const EMOJI_RE = new RegExp(
 	'gu'
 )
 
-const HELP = `
-SYNOPSIS
-  mediasnacks unemoji [-r | --recursive] <dir>
-
-DESCRIPTION
-  Removes emoji from filenames in the current directory.
-  Does not overwrite files.
-  
-OPTIONS
-	-r, --recursive
-`.trim()
-
 export default async function main() {
 	const { values, positionals } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean' }
 	})
 
-	if (positionals.length !== 1) throw 'Must pass only one dir'
+	if (positionals.length !== 1)
+		throw 'Must pass only one dir'
 
 	const files = findFiles({
 		dir: positionals[0],
@@ -43,15 +44,11 @@ export default async function main() {
 		recursive: values.recursive,
 	})
 
-	for (const file of files)
-		try {
-			const newpath = await unemoji(file)
-			if (newpath)
-				console.log(`Renaming: ${file} -> ${newpath}`)
-		}
-		catch (err) {
-			console.error(err?.message || err)
-		}
+	for (const file of files) {
+		const newpath = await unemoji(file)
+		if (newpath)
+			console.log(`Renaming: ${file} -> ${newpath}`)
+	}
 }
 
 export async function unemoji(file) {
@@ -66,7 +63,8 @@ export async function unemoji(file) {
 		return null
 
 	const newpath = join(dir, newbase)
-	if (existsSync(newpath)) throw `Skipping (exists): ${file} -> ${newpath}`
+	if (existsSync(newpath))
+		throw `Skipping (exists): ${file} -> ${newpath}`
 
 	await rename(file, newpath)
 	return newpath

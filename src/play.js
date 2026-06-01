@@ -13,7 +13,7 @@ DESCRIPTION
 EXAMPLE
   cd Music
   mediasnacks play artistX artistY
-`.trim()
+`
 
 
 export default async function main() {

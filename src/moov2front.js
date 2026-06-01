@@ -16,7 +16,7 @@ DESCRIPTION
  
 NOTES
   Files are overwritten.
-`.trim()
+`
 
 
 export default async function main() {

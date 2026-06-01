@@ -10,7 +10,7 @@ SYNOPSIS
 
 DESCRIPTION
   Opens a random file in the current working directory
-`.trim()
+`
 
 export default async function main() {
 	const { values } = await parseOptions(HELP, {

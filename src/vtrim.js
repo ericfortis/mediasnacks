@@ -16,7 +16,7 @@ OPTIONS
   
 SEE ALSO
 	mediasnacks vsplit
-`.trim()
+`
 
 
 export default async function main() {

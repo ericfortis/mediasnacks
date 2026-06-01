@@ -15,7 +15,7 @@ OPTIONS
   -ld, --left-delimiter <str>   Delimiter before the number (default: "${LEFT_DELIM}")
   -rd, --right-delimiter <str>  Delimiter after the number (default: "${RIGHT_DELIM}")
   -h,  --help
-`.trim()
+`
 
 
 export default async function main() {

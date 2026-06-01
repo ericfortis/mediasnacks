@@ -12,7 +12,7 @@ DESCRIPTION
   This program fixes video thumbnails not rendering in macOS
   Finder, and fixes video not importable in Final Cut Pro. That’s done 
   by changing the container’s sample entry code from HEV1 to HVC1.
-`.trim()
+`
 
 
 export default async function main() {

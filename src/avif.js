@@ -14,8 +14,7 @@ DESCRIPTION
 EXAMPLES
   mediasnacks avif -y '*.png'
   mediasnacks avif --outdir=foo/ 'a/**/*.png'
-`.trim()
-
+`
 
 export default async function main() {
 	const { values, files } = await parseOptions(HELP, {

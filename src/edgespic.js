@@ -19,7 +19,7 @@ OPTIONS
 EXAMPLES
   mediasnacks edgespic -w 800 *.mov
   mediasnacks edgespic -w 600 'videos/**/*.mp4'
-`.trim()
+`
 
 
 export default async function main() {

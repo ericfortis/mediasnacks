@@ -21,7 +21,7 @@ export async function parseOptions(helpText, options = {}, config = {}) {
 	})
 
 	if (values.help) {
-		console.log(helpText)
+		console.log(helpText.trim())
 		process.exit(0)
 	}
 

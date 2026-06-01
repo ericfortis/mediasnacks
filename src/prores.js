@@ -46,7 +46,7 @@ TIME FORMAT
 EXAMPLES
   mediasnacks prores --end=60 video.mov   // outputs video.prores.mov
   mediasnacks prores -p2 *.mov
-`.trim()
+`
 
 
 export default async function main() {

@@ -18,7 +18,7 @@ OPTIONS
 EXAMPLES
   mediasnacks countframes --start=1:30.16 --end=60 video.mov
   mediasnacks countframes --fps=12 video.mov
-`.trim()
+`
 
 
 export default async function main() {

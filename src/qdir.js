@@ -14,7 +14,7 @@ DESCRIPTION
   Sequentially runs all *.sh files in a folder (cwd by default). 
   Completed scripts get renamed with a ".done" extension,
   or to ".failed.$exitCode"
-`.trim()
+`
 
 
 function filter(f) {

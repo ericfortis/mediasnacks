@@ -23,7 +23,7 @@ EXAMPLES
   
 	Use n=6 if e.g., a 25 fps got upped to 30 fps without interpolation.
   mediasnacks dropdups -n6 vid.mov
-`.trim()
+`
 
 
 export default async function main() {

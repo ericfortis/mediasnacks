@@ -24,7 +24,7 @@ EXAMPLES
   
   Custom framerate, all video duration
   mediasnacks frameseq --fps=12 video.mov
-`.trim()
+`
 
 
 export default async function main() {
