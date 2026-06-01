@@ -1,7 +1,7 @@
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 
-import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/subprocess.js'
 import { lstat, uniqueFilenameFor } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 
@@ -16,8 +16,6 @@ DESCRIPTION
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		outdir: { type: 'string' },
 		overwrite: { short: 'y', type: 'boolean' },

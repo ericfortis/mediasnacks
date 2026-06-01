@@ -1,7 +1,7 @@
 import { join, basename, dirname } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { replaceExt, lstat } from './utils/fs-utils.js'
-import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/subprocess.js'
 
 
 const HELP = `
@@ -18,8 +18,6 @@ EXAMPLES
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		outdir: { type: 'string' },
 		overwrite: { short: 'y', type: 'boolean' },

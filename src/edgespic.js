@@ -3,7 +3,7 @@ import { basename, extname, join, parse } from 'node:path'
 import { mkDir } from './utils/fs-utils.js'
 import { videoAttrs } from './utils/videoAttrs.js'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/subprocess.js'
 
 
 const HELP = `
@@ -23,8 +23,6 @@ EXAMPLES
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		'width': { short: 'w', type: 'string', default: '640' }
 	})

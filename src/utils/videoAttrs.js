@@ -79,13 +79,13 @@ import { runSilently } from './subprocess.js'
  * @param {string} video Path to the video file.
  * @returns {Promise<VideoStream>} All video stream attributes.
  */
-export async function videoAttrs(v) {
+export async function videoAttrs(video) {
 	const { stdout } = await runSilently('ffprobe', [
 		'-v', 'error',
 		'-select_streams', 'v:0',
 		'-show_entries', 'stream',
 		'-of', 'json',
-		v
+		video
 	])
 	return JSON.parse(stdout).streams?.[0] || {}
 }

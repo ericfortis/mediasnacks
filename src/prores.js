@@ -1,6 +1,6 @@
 import { resolve, parse, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
-import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
+import { run } from './utils/subprocess.js'
 
 export const ProresProfiles = new class {
 	// https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
@@ -50,11 +50,9 @@ EXAMPLES
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		profile: { short: 'p', type: 'string', default: String(ProresProfiles.default) },
-		start: { short: 's', type: 'string'  },
+		start: { short: 's', type: 'string' },
 		end: { short: 'e', type: 'string' },
 	})
 

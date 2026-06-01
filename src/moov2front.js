@@ -1,4 +1,4 @@
-import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/subprocess.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 
@@ -20,8 +20,6 @@ NOTES
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP)
 
 	if (!files.length)

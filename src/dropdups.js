@@ -1,6 +1,6 @@
 import { resolve, parse, format } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, assertUserHasFFmpeg, run } from './utils/subprocess.js'
+import { ffmpeg, run } from './utils/subprocess.js'
 import { ProresProfiles } from './prores.js'
 
 
@@ -27,13 +27,12 @@ EXAMPLES
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		'dup-frame-num': { short: 'n', type: 'string' },
 	})
 
-	if (!files.length) throw 'No video specified.'
+	if (!files.length)
+		throw 'No video specified.'
 
 	let dupFrameNum = values['dup-frame-num']
 	if (dupFrameNum && !Number.isInteger(+dupFrameNum))

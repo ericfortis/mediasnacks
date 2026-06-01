@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process'
 
 
-export async function assertUserHasFFmpeg() {
+async function assertUserHasFFmpeg() {
 	try {
 		await runSilently('ffmpeg', ['-version'])
 		await runSilently('ffprobe', ['-version'])
@@ -12,6 +12,7 @@ export async function assertUserHasFFmpeg() {
 }
 
 export async function ffmpeg(args) {
+	await assertUserHasFFmpeg()
 	return runSilently('ffmpeg', args)
 }
 

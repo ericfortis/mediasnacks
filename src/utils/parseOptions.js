@@ -1,12 +1,16 @@
 import { promisify, parseArgs } from 'node:util'
 import { glob as _glob } from 'node:fs'
 
-
 const glob = promisify(_glob)
 
-export async function parseOptions(helpText = '', options = {}, config = {}) {
-	if (helpText)
-		options.help = { short: 'h', type: 'boolean' }
+
+/**
+ * @param {string} helpText
+ * @param {import('node:util').ParseArgsOptionsConfig} [options]
+ * @param {Partial<import('node:util').ParseArgsConfig>} [config]
+ */
+export async function parseOptions(helpText, options = {}, config = {}) {
+	options.help = { short: 'h', type: 'boolean' }
 
 	const { values, positionals, tokens } = parseArgs({
 		args: process.argv.slice(3),

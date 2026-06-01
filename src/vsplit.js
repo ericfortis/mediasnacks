@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { resolve, parse, join } from 'node:path'
 
 import { parseOptions } from './utils/parseOptions.js'
-import { assertUserHasFFmpeg, run } from './utils/subprocess.js'
+import { run } from './utils/subprocess.js'
 
 
 // TODO looks like it's missing a frame (perhaps becaue of -c copy)
@@ -35,8 +35,6 @@ SEE ALSO
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP)
 
 	if (files.length !== 2)

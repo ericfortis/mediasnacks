@@ -1,6 +1,6 @@
 import { resolve, parse } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/subprocess.js'
 
 
 const HELP = `
@@ -20,8 +20,6 @@ SEE ALSO
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		start: { short: 's', type: 'string' },
 		end: { short: 'e', type: 'string' },

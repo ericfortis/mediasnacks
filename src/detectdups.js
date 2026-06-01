@@ -1,5 +1,5 @@
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/subprocess.js'
 import { videoAttrs } from './utils/videoAttrs.js'
 
 const STDEV_THRESHOLD = 0.2
@@ -30,18 +30,18 @@ SEE ALSO
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		seek: { short: 's', type: 'string', },
 		duration: { short: 'd', type: 'string' },
 	})
 
-	if (files.length !== 1) throw 'Invalid input file. One video file must be specified.'
+	if (files.length !== 1)
+		throw 'Invalid input file. One video file must be specified.'
 
 	const video = files[0]
 	const v = await videoAttrs(video)
-	if (v.codec_type !== 'video') throw 'Invalid input file. Must be a video.'
+	if (v.codec_type !== 'video')
+		throw 'Invalid input file. Must be a video.'
 
 	const vDur = Number(v.duration)
 

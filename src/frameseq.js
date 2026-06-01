@@ -2,7 +2,7 @@ import { basename, extname, join, parse } from 'node:path'
 
 import { mkDir } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, assertUserHasFFmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/subprocess.js'
 import { countframes } from './countframes.js'
 
 
@@ -28,8 +28,6 @@ EXAMPLES
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		fps: { short: 'f', type: 'string' },
 		start: { short: 's', type: 'string' },

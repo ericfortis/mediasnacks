@@ -1,5 +1,4 @@
 import { parseOptions } from './utils/parseOptions.js'
-import { assertUserHasFFmpeg } from './utils/subprocess.js'
 import { videoAttrs } from './utils/videoAttrs.js'
 import { parseTimecode } from './utils/parseTimecode.js'
 
@@ -23,8 +22,6 @@ EXAMPLES
 
 
 export default async function main() {
-	await assertUserHasFFmpeg()
-
 	const { values, files } = await parseOptions(HELP, {
 		fps: { type: 'string' },
 		start: { short: 's', type: 'string' },
@@ -33,7 +30,8 @@ export default async function main() {
 
 	const { fps, start, end } = values
 	const video = files[0]
-	if (!video) throw 'No video file specified'
+	if (!video)
+		throw 'No video file specified'
 
 	const n = await countframes({ video, fps, start, end })
 	console.log(String(n))
