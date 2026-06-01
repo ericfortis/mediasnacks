@@ -18,7 +18,6 @@ NOTES
   Files are overwritten.
 `
 
-
 export default async function main() {
 	const { values, files } = await parseOptions(HELP)
 

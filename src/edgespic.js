@@ -6,28 +6,29 @@ import { parseOptions } from './utils/parseOptions.js'
 import { ffmpeg } from './utils/subprocess.js'
 
 
+const WIDTH = 640
+
 const HELP = `
 SYNOPSIS
-  mediasnacks edgespic [--width=<num>] <files>
+  mediasnacks edgespic [-w | --width=<num>] <files>
 
 DESCRIPTION
   Extracts the first and last frames from each video and saves them to the 'edgepics/' subfolder.
   
 OPTIONS
-  -w, --width    Default:640 The aspect ratio is preserved.
+  -w, --width    Default: ${WIDTH} The aspect ratio is preserved.
 
 EXAMPLES
   mediasnacks edgespic -w 800 *.mov
   mediasnacks edgespic -w 600 'videos/**/*.mp4'
 `
 
-
 export default async function main() {
 	const { values, files } = await parseOptions(HELP, {
-		'width': { short: 'w', type: 'string', default: '640' }
+		width: { short: 'w', type: 'string', default: String(WIDTH) }
 	})
 
-	const width = Number(values['width'])
+	const width = Number(values.width)
 	if (width <= 0 || !Number.isInteger(width)) throw '--width must be a positive number'
 	if (!files.length) throw 'No video files specified'
 

@@ -10,7 +10,6 @@ DESCRIPTION
   Computes the Structural Similarity Index (SSIM) between two images using FFmpeg.
 `
 
-
 export default async function main() {
 	const { values, positionals } = await parseOptions(HELP)
 

@@ -22,7 +22,6 @@ OPTIONS
   -s, --seek <sec>      Video start time for detection
   -d, --duration <sec>  Analyze this many seconds of video
   -v, --verbose
-  -h, --help
   
 SEE ALSO
   mediasnacks framediff

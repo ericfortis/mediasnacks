@@ -4,6 +4,7 @@ import { dirname, basename, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { findFiles } from './utils/fs-utils.js'
 
+
 const HELP = `
 SYNOPSIS
   mediasnacks unemoji [-r | --recursive] <dir>
@@ -11,9 +12,6 @@ SYNOPSIS
 DESCRIPTION
   Removes emoji from filenames in the current directory.
   Does not overwrite files.
-  
-OPTIONS
-	-r, --recursive
 `
 
 const EMOJI_RE = new RegExp(

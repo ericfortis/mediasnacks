@@ -5,7 +5,7 @@ import { ffmpeg } from './utils/subprocess.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks vtrim [--start <time>] [--end <time>] <videos>
+  mediasnacks vtrim [options] <videos>
 
 DESCRIPTION
   Trims a video without re-encoding (fast, but approximate cuts).

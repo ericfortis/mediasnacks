@@ -16,7 +16,6 @@ DESCRIPTION
   or to ".failed.$exitCode"
 `
 
-
 function filter(f) {
 	return f.endsWith('.sh')
 }

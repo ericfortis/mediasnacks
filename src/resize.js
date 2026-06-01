@@ -9,24 +9,27 @@ import { videoAttrs } from './utils/videoAttrs.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks resize [--width=<num>] [--height=<num>] [-y | --overwrite] [--outdir=<dir>] <files>
+  mediasnacks resize [options] <files>
 
 DESCRIPTION
   Resizes videos and images. The aspect ratio is preserved when only one dimension is specified.
 
+OPTIONS
+  --width <num>
+  --height <num>
+		Only one is needed. They are -2 by default:
+			-1 = auto-compute while preserving the aspect ratio (may result in an odd number)
+			-2 = same as -1 but rounds to the nearest even number
+	--outdir <dir>  Defaults to same dir of input file
+	-y, --overwrite
+		
 EXAMPLES
   Overwrites the input file (-y)
     mediasnacks resize -y --width 480 'dir-a/**/*.png' 'dir-b/**/*.mp4'
 
-  Output directory (-o)
+  Output directory
     mediasnacks resize --height 240 --outdir /tmp/out video.mov
-   
-OPTIONS
-	--width and --height are -2 by default:
-		-1 = auto-compute while preserving the aspect ratio (may result in an odd number)
-		-2 = same as -1 but rounds to the nearest even number
 `
-
 
 export default async function main() {
 	const { values, files } = await parseOptions(HELP, {

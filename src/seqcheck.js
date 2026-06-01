@@ -1,6 +1,7 @@
 import { readdirSync } from 'node:fs'
 import { parseOptions } from './utils/parseOptions.js'
 
+
 const LEFT_DELIM = '_'
 const RIGHT_DELIM = '.'
 
@@ -14,9 +15,7 @@ DESCRIPTION
 OPTIONS
   -ld, --left-delimiter <str>   Delimiter before the number (default: "${LEFT_DELIM}")
   -rd, --right-delimiter <str>  Delimiter after the number (default: "${RIGHT_DELIM}")
-  -h,  --help
 `
-
 
 export default async function main() {
 	const { values, positionals } = await parseOptions(HELP, {

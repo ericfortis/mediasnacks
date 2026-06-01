@@ -40,10 +40,9 @@ export default async function main() {
 
 export async function countframes({ video, fps, start, end }) {
 	const v = await videoAttrs(video)
-	const videoDuration = parseFloat(v.duration || 0)
+	const duration = parseFloat(v.duration || 0)
 	const startSecs = start ? parseTimecode(start) : 0
-	const endSecs = end ? parseTimecode(end) : videoDuration
-	const durationLimit = Math.max(0, endSecs - startSecs)
+	const endSecs = end ? parseTimecode(end) : duration
 	const actualFps = fps ? Number(fps) : eval(v.r_frame_rate)
-	return Math.ceil(durationLimit * actualFps)
+	return Math.ceil(Math.max(0, endSecs - startSecs) * actualFps)
 }

@@ -49,13 +49,13 @@ export default async function main() {
 
 export async function frameseq({ video, fps, start, end, pad, outdir }) {
 	const name = basename(video, extname(video))
-	const outDir = outdir || join(parse(video).dir, name)
-	await mkDir(outDir)
+	const dir = outdir || join(parse(video).dir, name)
+	await mkDir(dir)
 	await ffmpeg([
 		start ? ['-ss', start] : [],
 		end ? ['-to', end] : [],
 		'-i', video,
 		fps ? ['-vf', `fps=${fps}`] : [],
-		join(outDir, `${name}_%0${pad}d.png`)
+		join(dir, `${name}_%0${pad}d.png`)
 	].flat())
 }

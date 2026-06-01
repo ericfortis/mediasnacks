@@ -2,8 +2,9 @@ import { resolve, parse, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { run } from './utils/subprocess.js'
 
+
+// https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
 export const ProresProfiles = new class {
-	// https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
 	profiles = {
 		// 10-bit color depth
 		0: '422 Proxy',
@@ -22,6 +23,7 @@ export const ProresProfiles = new class {
 	table = () => Object.entries(this.profiles)
 }
 
+
 const HELP = `
 SYNOPSIS
   mediasnacks prores [options] <video>
@@ -33,7 +35,6 @@ OPTIONS
   -p, --profile <n>    Default: ${ProresProfiles.default}
   -s, --start <time>   In time. Unset means beginning
   -e, --end <time>     Out time. Unset means end
-  -h, --help
   
 PROFILES
 ${ProresProfiles.table().map(([num, name]) =>

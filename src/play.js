@@ -8,7 +8,7 @@ SYNOPSIS
   mediasnacks play [--no-recursive] [query ...]
 
 DESCRIPTION
-  Plays a filtered playlist with mpv.
+  Plays a filtered playlist with mpv
  
 EXAMPLE
   cd Music
