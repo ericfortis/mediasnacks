@@ -1,5 +1,5 @@
-import { parseArgs } from 'node:util'
 import { readdirSync } from 'node:fs'
+import { parseOptions } from './utils/parseOptions.js'
 
 const LEFT_DELIM = '_'
 const RIGHT_DELIM = '.'
@@ -18,20 +18,11 @@ OPTIONS
 `.trim()
 
 
-export default function main() {
-	const { values, positionals } = parseArgs({
-		options: {
-			'left-delimiter': { type: 'string', default: LEFT_DELIM },
-			'right-delimiter': { type: 'string', default: RIGHT_DELIM },
-			help: { short: 'h', type: 'boolean' },
-		},
-		allowPositionals: true,
+export default async function main() {
+	const { values, positionals } = await parseOptions(HELP, {
+		'left-delimiter': { type: 'string', default: LEFT_DELIM },
+		'right-delimiter': { type: 'string', default: RIGHT_DELIM },
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	const dir = positionals[0] || process.cwd()
 	const missing = seqcheck(dir, values['left-delimiter'], values['right-delimiter'])

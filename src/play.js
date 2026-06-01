@@ -17,15 +17,9 @@ EXAMPLE
 
 
 export default async function main() {
-	const { values, positionals } = await parseOptions({
+	const { values, positionals } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean', default: true },
-		help: { short: 'h', type: 'boolean' }
 	}, { allowNegative: true })
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	const files = findFiles({
 		dir: '.',

@@ -37,14 +37,7 @@ SEE ALSO
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
-		help: { short: 'h', type: 'boolean' },
-	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
+	const { values, files } = await parseOptions(HELP)
 
 	if (files.length !== 2)
 		throw 'Expected 2 arguments: CSV file and video file.'

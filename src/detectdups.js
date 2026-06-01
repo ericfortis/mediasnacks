@@ -32,16 +32,10 @@ SEE ALSO
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
+	const { values, files } = await parseOptions(HELP, {
 		seek: { short: 's', type: 'string', },
 		duration: { short: 'd', type: 'string' },
-		help: { short: 'h', type: 'boolean' }
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	if (files.length !== 1) throw 'Invalid input file. One video file must be specified.'
 

@@ -22,14 +22,7 @@ NOTES
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
-		help: { short: 'h', type: 'boolean' }
-	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
+	const { values, files } = await parseOptions(HELP)
 
 	if (!files.length)
 		throw 'Missing input file(s)'

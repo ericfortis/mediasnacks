@@ -31,18 +31,12 @@ OPTIONS
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
+	const { values, files } = await parseOptions(HELP, {
 		width: { type: 'string', default: '-2' },
 		height: { type: 'string', default: '-2' },
-		outdir: { type: 'string', default: '' },
+		outdir: { type: 'string' },
 		overwrite: { short: 'y', type: 'boolean' },
-		help: { short: 'h', type: 'boolean' },
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	const width = Number(values.width)
 	const height = Number(values.height)

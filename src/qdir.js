@@ -29,14 +29,7 @@ function newExt(exitCode) {
 
 
 export default async function main() {
-	const { values, positionals } = await parseOptions({
-		help: { short: 'h', type: 'boolean' }
-	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
+	const { values, positionals } = await parseOptions(HELP)
 
 	const dir = positionals[0] || process.cwd()
 	const err = await qdir(dir)

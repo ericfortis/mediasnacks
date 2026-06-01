@@ -25,17 +25,11 @@ EXAMPLES
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
-		fps: { type: 'string', default: '' },
-		start: { short: 's', type: 'string', default: '' },
-		end: { short: 'e', type: 'string', default: '' },
-		help: { short: 'h', type: 'boolean' }
+	const { values, files } = await parseOptions(HELP, {
+		fps: { type: 'string' },
+		start: { short: 's', type: 'string' },
+		end: { short: 'e', type: 'string' },
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	const { fps, start, end } = values
 	const video = files[0]

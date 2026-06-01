@@ -16,7 +16,6 @@ DESCRIPTION
 OPTIONS
   -n, --dup-frame-num <n>  Known frame interval to drop.
 		                       Default: n=0, which auto-detects repeated frames (slower)
-  -h, --help
 
 EXAMPLES
   Use n=2 when every other frame is repeated:
@@ -30,15 +29,9 @@ EXAMPLES
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
-		'dup-frame-num': { short: 'n', type: 'string', default: '' },
-		help: { short: 'h', type: 'boolean' },
+	const { values, files } = await parseOptions(HELP, {
+		'dup-frame-num': { short: 'n', type: 'string' },
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	if (!files.length) throw 'No video specified.'
 

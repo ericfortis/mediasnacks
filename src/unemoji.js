@@ -31,15 +31,9 @@ OPTIONS
 `.trim()
 
 export default async function main() {
-	const { values, positionals } = await parseOptions({
-		help: { short: 'h', type: 'boolean' },
+	const { values, positionals } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean' }
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	if (positionals.length !== 1) throw 'Must pass only one dir'
 

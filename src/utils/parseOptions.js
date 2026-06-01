@@ -4,7 +4,10 @@ import { glob as _glob } from 'node:fs'
 
 const glob = promisify(_glob)
 
-export async function parseOptions(options = {}, config = {}) {
+export async function parseOptions(helpText = '', options = {}, config = {}) {
+	if (helpText)
+		options.help = { short: 'h', type: 'boolean' }
+
 	const { values, positionals, tokens } = parseArgs({
 		args: process.argv.slice(3),
 		allowPositionals: true,
@@ -12,6 +15,12 @@ export async function parseOptions(options = {}, config = {}) {
 		...config,
 		tokens: true
 	})
+
+	if (values.help) {
+		console.log(helpText)
+		process.exit(0)
+	}
+
 	return {
 		values,
 		positionals,

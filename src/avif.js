@@ -20,16 +20,10 @@ EXAMPLES
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
-		outdir: { type: 'string', default: '' },
+	const { values, files } = await parseOptions(HELP, {
+		outdir: { type: 'string' },
 		overwrite: { short: 'y', type: 'boolean' },
-		help: { short: 'h', type: 'boolean' },
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	if (!files.length)
 		throw 'Invalid input image'

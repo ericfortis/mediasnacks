@@ -14,14 +14,10 @@ EXAMPLE
 `.trim()
 
 export default async function main() {
-	const { values, positionals } = await parseOptions({
-		help: { short: 'h', type: 'boolean' }
-	})
+	const { values, positionals } = await parseOptions(HELP)
 
-	if (values.help || !positionals[0]) {
-		console.log(HELP)
-		return
-	}
+	if (!positionals[0])
+		throw 'Missing input image(s)'
 
 	await png(...positionals)
 }

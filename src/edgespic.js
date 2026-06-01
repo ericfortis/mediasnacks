@@ -25,15 +25,9 @@ EXAMPLES
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
-		'width': { short: 'w', type: 'string', default: '640' },
-		help: { short: 'h', type: 'boolean' },
+	const { values, files } = await parseOptions(HELP, {
+		'width': { short: 'w', type: 'string', default: '640' }
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	const width = Number(values['width'])
 	if (width <= 0 || !Number.isInteger(width)) throw '--width must be a positive number'

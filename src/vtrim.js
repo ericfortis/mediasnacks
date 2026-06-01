@@ -22,16 +22,10 @@ SEE ALSO
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
-		start: { short: 's', type: 'string', default: '' },
-		end: { short: 'e', type: 'string', default: '' },
-		help: { short: 'h', type: 'boolean' }
+	const { values, files } = await parseOptions(HELP, {
+		start: { short: 's', type: 'string' },
+		end: { short: 'e', type: 'string' },
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	if (!files.length)
 		throw 'No video specified.'

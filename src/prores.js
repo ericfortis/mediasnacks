@@ -52,17 +52,11 @@ EXAMPLES
 export default async function main() {
 	await assertUserHasFFmpeg()
 
-	const { values, files } = await parseOptions({
+	const { values, files } = await parseOptions(HELP, {
 		profile: { short: 'p', type: 'string', default: String(ProresProfiles.default) },
-		start: { short: 's', type: 'string', default: '' },
-		end: { short: 'e', type: 'string', default: '' },
-		help: { short: 'h', type: 'boolean' }
+		start: { short: 's', type: 'string'  },
+		end: { short: 'e', type: 'string' },
 	})
-
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
 
 	if (!ProresProfiles.isValid(Number(values.profile)))
 		throw 'Invalid profile. Must be one of: ' + ProresProfiles.list().join(',')

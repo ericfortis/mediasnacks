@@ -13,18 +13,12 @@ DESCRIPTION
 `.trim()
 
 export default async function main() {
-	if (process.platform !== 'darwin')
-		throw 'This command is only supported on macOS.'
-
-	const { values } = await parseOptions({
+	const { values } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean' },
-		help: { short: 'h', type: 'boolean' }
 	})
 
-	if (values.help) {
-		console.log(HELP)
-		return
-	}
+	if (process.platform !== 'darwin')
+		throw 'This command is only supported on macOS.'
 
 	openrand('.', values.recursive)
 }
