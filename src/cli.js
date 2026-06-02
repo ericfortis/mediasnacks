@@ -16,7 +16,7 @@ const COMMANDS = {
 	frameseq: ['./frameseq.js', 'Converts video to sequence of PNGs'],
 	countframes: ['./countframes.js', 'Counts frames in a video'],
 	ssim: ['./ssim.js', 'Computes SSIM between two images'],
-	gif: ['./gif.sh', 'Video to GIF\n'],
+	gif: ['./gif.js', 'Video to GIF\n'],
 
 	detectdups: ['./detectdups.js', 'Detects duplicate frames in a video'],
 	dropdups: ['./dropdups.js', 'Removes duplicate frames in a video'],
