@@ -22,7 +22,7 @@ describe('parseOptions', () => {
 
 	test('parses args and globs files', async () => {
 		const { values, positionals, files } = await parseOptions('HELP', {
-			outdir: { type: 'string' }
+			outdir: { type: 'string', default: '' }
 		}, {
 			args: ['--outdir', '/tmp', inTmpDir('file[12].png')],
 		})

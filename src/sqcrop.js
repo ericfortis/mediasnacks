@@ -17,7 +17,7 @@ DESCRIPTION
 
 export default async function main() {
 	const { values, files } = await parseOptions(HELP, {
-		outdir: { type: 'string' },
+		outdir: { type: 'string', default: '' },
 		overwrite: { short: 'y', type: 'boolean' },
 	})
 

@@ -32,7 +32,7 @@ export default async function main() {
 		fps: { short: 'f', type: 'string' },
 		start: { short: 's', type: 'string' },
 		end: { short: 'e', type: 'string' },
-		outdir: { type: 'string' },
+		outdir: { type: 'string', default: '' },
 	})
 
 	const { fps, start, end, outdir } = values

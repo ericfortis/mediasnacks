@@ -35,20 +35,20 @@ export default async function main() {
 	const { values, files } = await parseOptions(HELP, {
 		width: { type: 'string', default: '-2' },
 		height: { type: 'string', default: '-2' },
-		outdir: { type: 'string' },
+		outdir: { type: 'string', default: '' },
 		overwrite: { short: 'y', type: 'boolean' },
 	})
 
 	const width = Number(values.width)
 	const height = Number(values.height)
 
-	if (width <= 0 && height <= 0) throw '--width or --height must be > 0'
 	if (!files.length) throw 'No video files specified'
+	if (width <= 0 && height <= 0) throw '--width or --height must be > 0'
 
 	for (const file of files) {
 		await resize({
 			file,
-			outFile: join(values.outdir, file), // TODO basename ?
+			outFile: join(values.outdir, file),
 			overwrite: values.overwrite,
 			width,
 			height,
