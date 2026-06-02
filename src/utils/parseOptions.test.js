@@ -57,4 +57,18 @@ describe('parseOptions', () => {
 		equal(values.foo, true)
 		deepEqual(files, [])
 	})
+
+	test('prints help and exits when --help is provided', async () => {
+		const originalExit = process.exit
+		const originalLog = console.log
+		let exitCode
+		let loggedText
+		process.exit = code => { exitCode = code }
+		console.log = text => { loggedText = text }
+		await parseOptions('HELP TEXT', {}, { args: ['--help'], })
+		process.exit = originalExit
+		console.log = originalLog
+		equal(exitCode, 0)
+		equal(loggedText, 'HELP TEXT')
+	})
 })
