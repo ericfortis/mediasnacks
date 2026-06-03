@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # mpv with a filtered playlist with recursive search
-# usage: cd Music && play omar yankee
+# usage: cd Music && play artistA artistB
 
 regex=$(printf '%s|' "$@")
 regex=${regex%|}
