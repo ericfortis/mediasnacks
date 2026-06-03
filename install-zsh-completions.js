@@ -25,7 +25,7 @@ function makeScript() {
 	return `#compdef mediasnacks
 
 _mediasnacks_commands=(
-${commandsSummary().map(([cmd, desc]) => `'${cmd}:${desc}'`).join('\n')}
+${commandsSummary().map(([cmd, desc]) => `'${cmd}:${desc.trim()}'`).join('\n')}
 )
 
 if (( CURRENT == 2 )); then
@@ -35,8 +35,8 @@ fi
 
 local cmd="$words[2]"
 case "$cmd" in
-	qdir)
-		_files -/
+	qdir|openrand)
+		_path_files -/
 		;;
 	*)
 		_files
