@@ -3,9 +3,8 @@
 # mpv with a filtered playlist with recursive search
 # usage: cd Music && play artistA artistB
 
-regex=$(printf '%s|' "$@")
-regex=${regex%|}
+regex=$(IFS='|'; echo "$*")
 /usr/bin/find -E . -type f -iregex ".*(${regex}).*" \
 	-not -path "*.fcpbundle/*" \
-	-not -path "*.DS_Store*" \
+	-not -name ".DS_Store" \
 	-print | mpv --playlist=-
