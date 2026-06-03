@@ -68,8 +68,8 @@ export async function qdir(dir, pollIntervalMs = 10_000) {
 async function getNextJob(dir) {
 	const entries = await readdir(dir, { withFileTypes: true })
 	const scripts = entries
-		.filter(entry => entry.isFile() && filter(entry.name))
-		.map(entry => entry.name)
+		.filter(dirent => dirent.isFile() && filter(dirent.name))
+		.map(dirent => dirent.name)
 		.sort()
 	return scripts.length
 		? join(dir, scripts[0])
@@ -81,7 +81,7 @@ async function runShell(scriptPath) {
 	return new Promise((resolve, reject) => {
 		const p = spawn('/bin/sh', [scriptPath], { stdio: 'inherit' })
 		p.on('error', reject)
-		p.on('exit', code => resolve(code))
+		p.on('exit', resolve)
 	})
 }
 
