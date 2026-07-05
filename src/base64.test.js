@@ -11,7 +11,7 @@ test('base64', () => {
 
 	test('css', () => {
 		const { stdout } = cli('base64', '--css', input)
-		equal(stdout.toString().trim(), `background-image: url(data:image/avif;base64,${expected})`)
+		equal(stdout.toString().trim(), `background-image: url(data:image/avif;base64,${expected});`)
 	})
 
 	test('img', () => {
