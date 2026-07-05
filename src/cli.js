@@ -9,7 +9,8 @@ import pkgJSON from '../package.json' with { type: 'json' }
 const COMMANDS = {
 	avif: ['./avif.js', 'Converts images to AVIF'],
 	png: ['./png.js', 'Optimizes PNG images with oxipng'],
-	sqcrop: ['./sqcrop.js', 'Square crops images\n'],
+	sqcrop: ['./sqcrop.js', 'Square crops images'],
+	base64: ['./base64.js', 'Encodes a file to data URI\n'],
 
 	resize: ['./resize.js', 'Resizes videos or images'],
 	edgespic: ['./edgespic.js', 'Extracts first and last frames'],
