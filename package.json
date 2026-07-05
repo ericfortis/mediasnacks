@@ -1,6 +1,6 @@
 {
 	"name": "mediasnacks",
-	"version": "0.30.0",
+	"version": "0.30.1",
 	"description": "Utilities for optimizing and preparing videos and images",
 	"license": "MIT",
 	"author": "Eric Fortis",

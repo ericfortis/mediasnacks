@@ -1,19 +1,30 @@
+import { parse } from 'node:path'
 import { readFileSync } from 'node:fs'
 import { parseOptions } from './utils/parseOptions.js'
-import { mimeFor } from './utils/mimeFor.js'
+
 
 const HELP = `
 SYNOPSIS
-  mediasnacks base64 [--css | --img] file
+  mediasnacks base64 [--css | --img] img
 
 DESCRIPTION
-  Encodes a file to data URI.
+  Encodes image to data URI
   
 EXAMPLES
-  mediasnacks base64 file
-  mediasnacks base64 --img file
-  mediasnacks base64 --css file
+  mediasnacks base64 img
+  mediasnacks base64 --img img
+  mediasnacks base64 --css img
 `
+
+const MIMES = {
+	avif: 'image/avif',
+	gif: 'image/gif',
+	jpg: 'image/jpeg',
+	jpeg: 'image/jpeg',
+	png: 'image/png',
+	svg: 'image/svg+xml',
+	webp: 'image/webp',
+}
 
 export default async function main() {
 	const { values, files } = await parseOptions(HELP, {
@@ -34,9 +45,9 @@ export default async function main() {
 		console.log(data)
 }
 
-export async function base64(filePath) {
+export async function base64(file) {
 	return {
-		data: readFileSync(filePath).toString('base64'),
-		mime: await mimeFor(filePath)
+		data: readFileSync(file).toString('base64'),
+		mime: MIMES[parse(file).ext.toLowerCase().replace('.', '')] || 'application/octect'
 	}
 }
