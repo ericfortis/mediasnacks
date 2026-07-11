@@ -35,10 +35,10 @@ SEE ALSO
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP)
+	const { values, files, usage } = await parseOptions(HELP)
 
 	if (files.length !== 2)
-		throw 'Expected 2 arguments: CSV file and video file.'
+		throw usage('Expected 2 arguments: CSV file and video file.')
 
 	const [csvPath, videoPath] = files.map(f => resolve(f))
 

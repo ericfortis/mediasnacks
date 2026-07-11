@@ -14,12 +14,12 @@ DESCRIPTION
 `
 
 export default async function main() {
-	const { values, positionals } = await parseOptions(HELP, {
+	const { values, positionals, usage } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean' },
 	})
 
 	if (process.platform !== 'darwin')
-		throw 'This command is only supported on macOS.'
+		throw usage('This command is only supported on macOS.')
 
 	const dir = positionals[0] || '.'
 	openrand(dir, values.recursive)

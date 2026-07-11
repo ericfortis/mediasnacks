@@ -29,12 +29,12 @@ const EMOJI_RE = new RegExp(
 )
 
 export default async function main() {
-	const { values, positionals } = await parseOptions(HELP, {
+	const { values, positionals, usage } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean' }
 	})
 
 	if (positionals.length !== 1)
-		throw 'Must pass only one dir'
+		throw usage('Must pass only one dir')
 
 	const files = findFiles({
 		dir: positionals[0],

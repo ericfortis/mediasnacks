@@ -14,10 +14,10 @@ EXAMPLE
 `
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP)
+	const { values, files, usage } = await parseOptions(HELP)
 
 	if (!files.length)
-		throw 'Missing input image(s)'
+		throw usage('Missing input image(s)')
 
 	await png(...files)
 }

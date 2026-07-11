@@ -16,13 +16,13 @@ DESCRIPTION
 `
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		outdir: { type: 'string', default: '' },
 		overwrite: { short: 'y', type: 'boolean' },
 	})
 
 	if (!files.length)
-		throw 'No images specified'
+		throw usage('No images specified')
 
 	for (const file of files) {
 		await sqcrop({

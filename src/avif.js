@@ -17,13 +17,13 @@ EXAMPLES
 `
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		outdir: { type: 'string', default: '' },
 		overwrite: { short: 'y', type: 'boolean' },
 	})
 
 	if (!files.length)
-		throw 'Invalid input image'
+		throw usage('Invalid input image')
 
 	for (const file of files) {
 		await avif({

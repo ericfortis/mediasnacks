@@ -51,17 +51,17 @@ EXAMPLES
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		profile: { short: 'p', type: 'string', default: String(ProresProfiles.default) },
 		start: { short: 's', type: 'string' },
 		end: { short: 'e', type: 'string' },
 	})
 
 	if (!ProresProfiles.isValid(Number(values.profile)))
-		throw 'Invalid profile. Must be one of: ' + ProresProfiles.list().join(',')
+		throw usage('Invalid profile. Must be one of: ' + ProresProfiles.list().join(','))
 
 	if (files.length !== 1)
-		throw 'Expected 1 argument: video file.'
+		throw usage('Expected 1 argument: video file.')
 
 	const video = resolve(files[0])
 	const { name, dir } = parse(video)

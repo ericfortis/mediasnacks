@@ -17,7 +17,7 @@ EXAMPLE
 
 
 export default async function main() {
-	const { values, positionals } = await parseOptions(HELP, {
+	const { values, positionals, usage } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean', default: true },
 	}, { allowNegative: true })
 
@@ -29,7 +29,7 @@ export default async function main() {
 	})
 
 	if (!files.length)
-		throw 'No matching files found.'
+		throw usage('No matching files found.')
 
 	play(files)
 }

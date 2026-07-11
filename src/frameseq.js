@@ -28,7 +28,7 @@ EXAMPLES
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		fps: { short: 'f', type: 'string' },
 		start: { short: 's', type: 'string' },
 		end: { short: 'e', type: 'string' },
@@ -37,10 +37,10 @@ export default async function main() {
 
 	const { fps, start, end, outdir } = values
 	const video = files[0]
-	if (!video) throw 'No video files specified'
-	if (fps && isNaN(parseFloat(fps))) throw 'Invalid --fps'
-	if (start && isNaN(parseFloat(start))) throw 'Invalid --start'
-	if (end && isNaN(parseFloat(end))) throw 'Invalid --end'
+	if (!video) throw usage('No video files specified')
+	if (fps && isNaN(parseFloat(fps))) throw usage('Invalid --fps')
+	if (start && isNaN(parseFloat(start))) throw usage('Invalid --start')
+	if (end && isNaN(parseFloat(end))) throw usage('Invalid --end')
 
 	const nFrames = await countframes({ video, fps, start, end })
 	const pad = String(nFrames).length

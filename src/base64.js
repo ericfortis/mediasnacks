@@ -45,13 +45,13 @@ const mimes = new class {
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		css: { type: 'boolean' },
 		img: { type: 'boolean' },
 	})
 
-	if (files.length === 0) throw 'Missing or invalid file'
-	if (files.length !== 1) throw 'Only one file is accepted'
+	if (files.length === 0) throw usage('Missing or invalid file')
+	if (files.length !== 1) throw usage('Only one file is accepted')
 
 	const { data, mime } = base64(files[0])
 	if (values.css) console.log(`background-image: url(data:${mime};base64,${data});`)

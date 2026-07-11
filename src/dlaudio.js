@@ -12,10 +12,10 @@ DESCRIPTION
 `
 
 export default async function main() {
-	const { values, positionals } = await parseOptions(HELP)
+	const { values, positionals, usage } = await parseOptions(HELP)
 
 	if (!positionals[0])
-		throw 'Missing URL'
+		throw usage('Missing URL')
 
 	const f = await dlaudio(positionals[0])
 	console.log(f)

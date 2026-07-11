@@ -27,16 +27,16 @@ EXAMPLES
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		'dup-frame-num': { short: 'n', type: 'string' },
 	})
 
 	if (!files.length)
-		throw 'No video specified.'
+		throw usage('No video specified.')
 
 	let dupFrameNum = values['dup-frame-num']
 	if (dupFrameNum && !Number.isInteger(+dupFrameNum))
-		throw 'Invalid -n. It must be a positive integer.'
+		throw usage('Invalid -n. It must be a positive integer.')
 
 	for (const file of files)
 		await dropdups(resolve(file), dupFrameNum)

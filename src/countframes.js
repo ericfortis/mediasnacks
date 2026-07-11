@@ -22,7 +22,7 @@ EXAMPLES
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		fps: { type: 'string' },
 		start: { short: 's', type: 'string' },
 		end: { short: 'e', type: 'string' },
@@ -31,7 +31,7 @@ export default async function main() {
 	const { fps, start, end } = values
 	const video = files[0]
 	if (!video)
-		throw 'No video file specified'
+		throw usage('No video file specified')
 
 	const n = await countframes({ video, fps, start, end })
 	console.log(String(n))

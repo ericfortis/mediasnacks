@@ -24,13 +24,13 @@ EXAMPLES
 `
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		width: { short: 'w', type: 'string', default: String(WIDTH) }
 	})
 
 	const width = Number(values.width)
-	if (width <= 0 || !Number.isInteger(width)) throw '--width must be a positive number'
-	if (!files.length) throw 'No video files specified'
+	if (width <= 0 || !Number.isInteger(width)) throw usage('--width must be a positive number')
+	if (!files.length) throw usage('No video files specified')
 
 	const outDir = join(parse(files[0]).dir, 'edgespic')
 	await mkDir(outDir)

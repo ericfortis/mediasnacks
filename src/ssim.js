@@ -11,10 +11,10 @@ DESCRIPTION
 `
 
 export default async function main() {
-	const { values, positionals } = await parseOptions(HELP)
+	const { values, positionals, usage } = await parseOptions(HELP)
 
 	if (positionals.length !== 2)
-		throw 'Expected two images'
+		throw usage('Expected two images')
 
 	const score = await ssim(...positionals)
 	console.log(score.toString())

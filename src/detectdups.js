@@ -29,18 +29,18 @@ SEE ALSO
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		seek: { short: 's', type: 'string', },
 		duration: { short: 'd', type: 'string' },
 	})
 
 	if (files.length !== 1)
-		throw 'Invalid input file. One video file must be specified.'
+		throw usage('Invalid input file. One video file must be specified.')
 
 	const video = files[0]
 	const v = await videoAttrs(video)
 	if (v.codec_type !== 'video')
-		throw 'Invalid input file. Must be a video.'
+		throw usage('Invalid input file. Must be a video.')
 
 	const vDur = Number(v.duration)
 
@@ -52,9 +52,9 @@ export default async function main() {
 		? Number(values.duration)
 		: vDur > 60 ? 20 : vDur
 
-	if (isNaN(seek) || seek < 0) throw `Invalid --seek value: ${values.seek}`
-	if (isNaN(duration) || duration < 1) throw `Invalid --duration value: ${values.duration}`
-	if ((seek + duration) > vDur) throw `Invalid analysis range. Exceeds video duration: ${vDur}`
+	if (isNaN(seek) || seek < 0) throw usage(`Invalid --seek value: ${values.seek}`)
+	if (isNaN(duration) || duration < 1) throw usage(`Invalid --duration value: ${values.duration}`)
+	if ((seek + duration) > vDur) throw usage(`Invalid analysis range. Exceeds video duration: ${vDur}`)
 
 	const dups = await detectdups({ video: files[0], seek, duration })
 	const h = deltaHistogram(dups)

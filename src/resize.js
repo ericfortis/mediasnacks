@@ -32,7 +32,7 @@ EXAMPLES
 `
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		width: { type: 'string', default: '-2' },
 		height: { type: 'string', default: '-2' },
 		outdir: { type: 'string', default: '' },
@@ -42,8 +42,8 @@ export default async function main() {
 	const width = Number(values.width)
 	const height = Number(values.height)
 
-	if (!files.length) throw 'No video files specified'
-	if (width <= 0 && height <= 0) throw '--width or --height must be > 0'
+	if (!files.length) throw usage('No video files specified')
+	if (width <= 0 && height <= 0) throw usage('--width or --height must be > 0')
 
 	for (const file of files) {
 		await resize({

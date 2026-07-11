@@ -19,13 +19,13 @@ OPTIONS
 `
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		fps: { short: 'f', type: 'string', default: String(FPS) },
 		width: { short: 'w', type: 'string', default: String(WIDTH) },
 	})
 
 	if (!files.length)
-		throw 'Missing input file'
+		throw usage('Missing input file')
 
 	await gif(files[0], values.fps, values.width)
 }

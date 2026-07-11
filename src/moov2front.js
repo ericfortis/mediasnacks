@@ -17,10 +17,10 @@ SEE ALSO
 `
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP)
+	const { values, files, usage } = await parseOptions(HELP)
 
 	if (!files.length)
-		throw 'Missing input file(s)'
+		throw usage('Missing input file(s)')
 
 	for (const file of files) {
 		await moov2front(file)

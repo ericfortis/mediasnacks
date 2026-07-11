@@ -1,4 +1,4 @@
-import { promisify, parseArgs } from 'node:util'
+import { promisify, parseArgs, styleText } from 'node:util'
 import { glob as _glob } from 'node:fs'
 
 const glob = promisify(_glob)
@@ -28,7 +28,10 @@ export async function parseOptions(helpText, options = {}, config = {}) {
 	return {
 		values,
 		positionals,
-		files: await resolveGlobs(positionals, tokens)
+		files: await resolveGlobs(positionals, tokens),
+		usage: err => err
+			? styleText('redBright', '' + err + '\n') + helpText
+			: helpText
 	}
 }
 

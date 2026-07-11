@@ -20,13 +20,13 @@ SEE ALSO
 
 
 export default async function main() {
-	const { values, files } = await parseOptions(HELP, {
+	const { values, files, usage } = await parseOptions(HELP, {
 		start: { short: 's', type: 'string' },
 		end: { short: 'e', type: 'string' },
 	})
 
 	if (!files.length)
-		throw 'No video specified.'
+		throw usage('No video specified.')
 
 	for (const file of files)
 		await vtrim({
