@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process'
+import { videoAttrs } from './videoAttrs.js'
 
 
 async function assertUserHasFFmpeg() {
@@ -11,10 +12,42 @@ async function assertUserHasFFmpeg() {
 	}
 }
 
+
 export async function ffmpeg(args) {
 	await assertUserHasFFmpeg()
 	return runSilently('ffmpeg', args)
 }
+
+
+export async function ffmpegWithProgress(input, args) {
+	await assertUserHasFFmpeg()
+	const usDuration = (await videoAttrs(input)).duration * 1_000_000
+
+	const p = spawn('ffmpeg',
+		['-v', 'error', '-nostats', '-progress', 'pipe:1', ...args],
+		{ stdio: ['inherit', 'pipe', 'pipe'] })
+
+	p.stderr.pipe(process.stderr)
+	p.stdout.on('data', chunk => {
+		const m = chunk.toString().match(/out_time_us=(\d+)/)
+		if (m)
+			printProgress(Number(m[1]) / usDuration)
+	})
+
+	await new Promise((resolve, reject) => {
+		p.on('error', reject)
+		p.on('close', code => {
+			printProgress(1)
+			if (code === 0) resolve()
+			else reject(Error(`ffmpeg failed with code ${code}`))
+		})
+	})
+
+	function printProgress(progress) {
+		process.stdout.write(`\r${(Number(progress) * 100).toFixed(1)}%`)
+	}
+}
+
 
 export async function runSilently(program, args) {
 	return new Promise((resolve, reject) => {
@@ -37,6 +70,7 @@ export async function runSilently(program, args) {
 		})
 	})
 }
+
 
 export async function run(program, args) {
 	return new Promise((resolve, reject) => {

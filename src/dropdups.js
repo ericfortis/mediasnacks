@@ -1,6 +1,6 @@
 import { resolve, parse, format } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg, run } from './utils/subprocess.js'
+import { ffmpegWithProgress } from './utils/subprocess.js'
 import { ProresProfiles } from './prores.js'
 
 
@@ -15,7 +15,7 @@ DESCRIPTION
 
 OPTIONS
   -n, --dup-frame-num <n>  Known frame interval to drop.
-		                       Default: n=0, which auto-detects repeated frames (slower)
+ 		                       Default: n=0, which auto-detects repeated frames (slower)
 
 EXAMPLES
   Use n=2 when every other frame is repeated:
@@ -43,9 +43,7 @@ export default async function main() {
 }
 
 export async function dropdups(video, dupFrameNum) {
-	await run('ffmpeg', [
-		'-v', 'error',
-		'-stats',
+	await ffmpegWithProgress(video, [
 		'-an',
 		'-i', video,
 		'-vf', dupFrameNum
