@@ -21,7 +21,7 @@ export async function ffmpeg(args) {
 
 export async function ffmpegWithProgress(input, args, onProgress) {
 	await assertUserHasFFmpeg()
-	const µsDuration = (await videoAttrs(input)).duration * 1_000_000
+	const µsVideoDuration = 1e6 * (await videoAttrs(input)).duration
 
 	const p = spawn('ffmpeg',
 		['-v', 'error', '-nostats', '-progress', 'pipe:1', ...args],
@@ -34,7 +34,7 @@ export async function ffmpegWithProgress(input, args, onProgress) {
 			onProgress(1)
 		else {
 			const m = text.match(/out_time_us=(\d+)/)
-			onProgress(Number(m[1]) / µsDuration)
+			onProgress(Number(m[1]) / µsVideoDuration)
 		}
 	})
 

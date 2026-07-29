@@ -1,7 +1,7 @@
 import { resolve, parse, format } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpegWithProgress } from './utils/subprocess.js'
-import { printProgress } from './utils/progressBar.js'
+import { printProgress } from './utils/printProgress.js'
 import { ProresProfiles } from './prores.js'
 
 
