@@ -1,4 +1,10 @@
-export function progressBar(progress, width = 42) {
+export function printProgress(progress) {
+	process.stdout.write(`\r${progressBar(progress)} ${(progress * 100).toFixed(1)}%`)
+	if (progress === 1)
+		process.stdout.write('\n')
+}
+
+function progressBar(progress, width = 42) {
 	const nFull = (width * progress) | 0
 	const fPartial = (width * progress) - nFull
 	const nRemaining = width - nFull

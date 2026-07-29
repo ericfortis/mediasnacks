@@ -1,7 +1,7 @@
 import { resolve, parse, format } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpegWithProgress } from './utils/subprocess.js'
-import { progressBar } from './utils/progressBar.js'
+import { printProgress } from './utils/progressBar.js'
 import { ProresProfiles } from './prores.js'
 
 
@@ -54,12 +54,6 @@ export async function dropdups(video, dupFrameNum) {
 		'-c:v', 'prores_ks', '-profile:v', PROFILE,
 		makeOutputPath(video)
 	], printProgress)
-}
-
-function printProgress(progress) {
-	process.stdout.write(`\r${progressBar(progress)} ${(progress * 100).toFixed(1)}%`)
-	if (progress === 1)
-		process.stdout.write('\n')
 }
 
 function makeOutputPath(video) {
