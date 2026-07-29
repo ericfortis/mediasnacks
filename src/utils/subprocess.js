@@ -19,9 +19,9 @@ export async function ffmpeg(args) {
 }
 
 
-export async function ffmpegWithProgress(input, args) {
+export async function ffmpegWithProgress(input, args, onProgress) {
 	await assertUserHasFFmpeg()
-	const usDuration = (await videoAttrs(input)).duration * 1_000_000
+	const µsDuration = (await videoAttrs(input)).duration * 1_000_000
 
 	const p = spawn('ffmpeg',
 		['-v', 'error', '-nostats', '-progress', 'pipe:1', ...args],
@@ -29,23 +29,22 @@ export async function ffmpegWithProgress(input, args) {
 
 	p.stderr.pipe(process.stderr)
 	p.stdout.on('data', chunk => {
-		const m = chunk.toString().match(/out_time_us=(\d+)/)
-		if (m)
-			printProgress(Number(m[1]) / usDuration)
+		const text = chunk.toString()
+		if (text.includes('progress=end'))
+			onProgress(1)
+		else {
+			const m = text.match(/out_time_us=(\d+)/)
+			onProgress(Number(m[1]) / µsDuration)
+		}
 	})
 
 	await new Promise((resolve, reject) => {
 		p.on('error', reject)
 		p.on('close', code => {
-			printProgress(1)
 			if (code === 0) resolve()
 			else reject(Error(`ffmpeg failed with code ${code}`))
 		})
 	})
-
-	function printProgress(progress) {
-		process.stdout.write(`\r${(Number(progress) * 100).toFixed(1)}%`)
-	}
 }
 
 
