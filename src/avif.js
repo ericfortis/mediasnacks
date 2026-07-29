@@ -1,7 +1,7 @@
 import { join, basename, dirname } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { replaceExt, lstat } from './utils/fs-utils.js'
-import { ffmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/ffmpeg.js'
 
 
 const HELP = `

@@ -1,8 +1,7 @@
 import { resolve, parse, format } from 'node:path'
-import { parseOptions } from './utils/parseOptions.js'
-import { ffmpegWithProgress } from './utils/subprocess.js'
-import { printProgress } from './utils/printProgress.js'
 import { ProresProfiles } from './prores.js'
+import { parseOptions } from './utils/parseOptions.js'
+import { ffmpegWithProgress } from './utils/ffmpeg.js'
 
 
 const PROFILE = ProresProfiles.default
@@ -53,7 +52,7 @@ export async function dropdups(video, dupFrameNum) {
 		'-fps_mode', 'cfr',
 		'-c:v', 'prores_ks', '-profile:v', PROFILE,
 		makeOutputPath(video)
-	], printProgress)
+	])
 }
 
 function makeOutputPath(video) {

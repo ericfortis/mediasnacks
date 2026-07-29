@@ -1,6 +1,6 @@
-import { ffmpeg } from './utils/subprocess.js'
 import { uniqueFilenameFor, overwrite } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
+import { ffmpeg } from './utils/ffmpeg.js'
 
 
 const HELP = `

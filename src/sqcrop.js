@@ -1,10 +1,10 @@
 import { join } from 'node:path'
 import { rename } from 'node:fs/promises'
 
-import { ffmpeg } from './utils/subprocess.js'
 import { lstat, uniqueFilenameFor } from './utils/fs-utils.js'
 import { parseOptions } from './utils/parseOptions.js'
 import { videoAttrs } from './utils/videoAttrs.js'
+import { ffmpeg } from './utils/ffmpeg.js'
 
 
 const HELP = `

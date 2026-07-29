@@ -1,6 +1,6 @@
 import { resolve, parse, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
-import { run } from './utils/subprocess.js'
+import { ffmpegWithProgress } from './utils/ffmpeg.js'
 
 
 // https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
@@ -72,9 +72,7 @@ export default async function main() {
 }
 
 export async function prores({ video, profile, start, end, output }) {
-	await run('ffmpeg', [
-		'-v', 'error',
-		'-stats',
+	await ffmpegWithProgress(video, [
 		start ? ['-ss', start] : [],
 		end ? ['-to', end] : [],
 		'-i', video,

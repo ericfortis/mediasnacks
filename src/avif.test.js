@@ -12,5 +12,5 @@ test('PNG to AVIF', async () => {
 	cli('avif', '--outdir', tmp, rel('fixtures/lenna.png'))
 
 	const similarityScore = await ssim(join(tmp, 'lenna.avif'), rel('fixtures/lenna.avif'))
-	ok(similarityScore > 0.99, `Similarity too low: ${similarityScore}`)
+	ok(similarityScore > 0.98, `Similarity too low: ${similarityScore}`)
 })

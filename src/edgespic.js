@@ -3,7 +3,7 @@ import { basename, extname, join, parse } from 'node:path'
 import { mkDir } from './utils/fs-utils.js'
 import { videoAttrs } from './utils/videoAttrs.js'
 import { parseOptions } from './utils/parseOptions.js'
-import { ffmpeg } from './utils/subprocess.js'
+import { ffmpeg } from './utils/ffmpeg.js'
 
 
 const WIDTH = 640

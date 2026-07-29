@@ -3,8 +3,8 @@ import { rename } from 'node:fs/promises'
 
 import { parseOptions } from './utils/parseOptions.js'
 import { isFile, uniqueFilenameFor } from './utils/fs-utils.js'
-import { ffmpeg } from './utils/subprocess.js'
 import { videoAttrs } from './utils/videoAttrs.js'
+import { ffmpeg } from './utils/ffmpeg.js'
 
 
 const HELP = `
