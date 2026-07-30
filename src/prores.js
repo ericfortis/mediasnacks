@@ -1,6 +1,7 @@
 import { resolve, parse, join } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpegWithProgress } from './utils/ffmpeg.js'
+import { infoSummary } from './info.js'
 
 
 // https://github.com/oyvindln/vhs-decode/wiki/ProRes-The-Definitive-FFmpeg-Guide#profiles-can-be-the-following
@@ -68,6 +69,7 @@ export default async function main() {
 	const output = join(dir, `${name}.prores.mov`)
 
 	const { profile, start, end } = values
+	console.log(await infoSummary(video))
 	await prores({ video, profile, start, end, output })
 }
 

@@ -31,6 +31,7 @@ mediasnacks <command> <args>
 - `countframes` Counts frames in a video
 - `ssim` Computes similarity of two images
 - `gif`: Video to GIF
+- `info`: Prints video attributes
 
 
 - `detectdups` Detects sequentially duplicate frames in a video

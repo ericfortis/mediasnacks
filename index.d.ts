@@ -112,3 +112,5 @@ export type VtrimOptions = VtrimBase & (
 	| { start: TimeCode; end?: TimeCode }
 	)
 export function vtrim(options: VtrimOptions): Promise<void>
+
+export function infoSummary(video: string): Promise<string>

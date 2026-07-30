@@ -2,6 +2,7 @@ import { resolve, parse, format } from 'node:path'
 import { ProresProfiles } from './prores.js'
 import { parseOptions } from './utils/parseOptions.js'
 import { ffmpegWithProgress } from './utils/ffmpeg.js'
+import { infoSummary } from './info.js'
 
 
 const PROFILE = ProresProfiles.default
@@ -38,8 +39,10 @@ export default async function main() {
 	if (dupFrameNum && !Number.isInteger(+dupFrameNum))
 		throw usage('Invalid -n. It must be a positive integer.')
 
-	for (const file of files)
+	for (const file of files) {
+		console.log(await infoSummary(file))
 		await dropdups(resolve(file), dupFrameNum)
+	}
 }
 
 export async function dropdups(video, dupFrameNum) {
