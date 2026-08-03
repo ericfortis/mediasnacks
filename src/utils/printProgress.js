@@ -20,7 +20,8 @@ export function printProgress(progress, msElapsed, msETA) {
 		process.stdout.write('\n' + SHOW_CURSOR)
 }
 
-function progressBar(progress, width = 42) {
+function progressBar(progress, width = 44) {
+	width-- // for partial char
 	const nFull = (width * progress) | 0
 	const fPartial = (width * progress) - nFull
 	const nRemaining = width - nFull

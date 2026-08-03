@@ -32,7 +32,7 @@ export default async function main() {
 export async function infoSummary(video) {
 	const v = await videoAttrs(video)
 	return [
-		`${v.width}x${v.height}`,
+		`${v.width}×${v.height}`,
 		`${fps(v.r_frame_rate)}fps`,
 		formatSeconds(v.duration),
 		prettyCodecName(v.codec_name)
