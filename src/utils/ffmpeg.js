@@ -32,16 +32,20 @@ export async function ffmpegWithProgress(input, args, onProgress = printProgress
 		...args
 	], { stdio: ['inherit', 'pipe', 'pipe'] })
 
-	p.stderr.pipe(process.stderr)
+	const startTime = performance.now()
 	p.stdout.on('data', chunk => {
 		const text = chunk.toString()
-		if (text.includes('progress=end'))
-			onProgress(1)
-		else {
+		const msElapsed = performance.now() - startTime
+		if (text.includes('progress=continue')) {
 			const m = text.match(/out_time_us=(\d+)/)
-			onProgress(Number(m[1]) / µsVideoDuration)
+			const progress = Number(m[1]) / µsVideoDuration
+			const msETA = msElapsed * (1 - progress) / progress
+			onProgress(progress, msElapsed, msETA)
 		}
+		else
+			onProgress(1, msElapsed, 0)
 	})
+	p.stderr.pipe(process.stderr)
 
 	await new Promise((resolve, reject) => {
 		p.on('error', reject)
