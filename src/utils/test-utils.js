@@ -5,19 +5,10 @@ import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs'
 
 const rel = f => join(import.meta.dirname, f)
 
-export function mkTempDir(prefix = 'test-') {
-	return mkdtempSync(join(tmpdir(), prefix))
-}
+export const cli = (...args) => spawnSync(rel('../cli.js'), args)
 
-export function cli(...args) {
-	return spawnSync(rel('../cli.js'), args)
-}
+export const dir = (...args) => mkdirSync(join(...args), { recursive: true })
+export const touch = (...args) => writeFileSync(join(...args), '')
 
-export function dir(...args) {
-	return mkdirSync(join(...args), { recursive: true })
-}
-
-export function touch(...args) {
-	return writeFileSync(join(...args), '')
-}
+export const mkTempDir = (prefix = 'test-') => mkdtempSync(join(tmpdir(), prefix))
 

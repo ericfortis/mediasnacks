@@ -1,4 +1,13 @@
 /**
+ * Removes trailing zeros and a trailing decimal point.
+ *
+ * Examples:
+ *   cleanDecimals(3.1400) -> "3.14"
+ *   cleanDecimals(5.0) -> "5"
+ */
+export const cleanDecimals = Number
+
+/**
  * Converts seconds to a string like "9h9m9s".
  *
  * Examples:
@@ -14,23 +23,8 @@ export function formatSeconds(seconds, maxDecimals = 2) {
 	const hours = intSeconds / 3600 | 0
 
 	let result = ''
-	if (hours) result += `${hours}h`
-	if (minutes) result += `${minutes}m`
-	if (partialSeconds || !result) result += `${cleanDecimals(partialSeconds.toFixed(maxDecimals))}s`
+	if (hours) result += hours + 'h'
+	if (minutes) result += minutes + 'm'
+	if (partialSeconds || !result) result += cleanDecimals(partialSeconds.toFixed(maxDecimals)) + 's'
 	return result
-}
-
-
-/**
- * Removes trailing zeros and a trailing decimal point.
- *
- * Examples:
- *   cleanDecimals(3.1400) -> "3.14"
- *   cleanDecimals(5.0) -> "5"
- */
-export function cleanDecimals(number) {
-	const str = String(number)
-	return str.includes('.')
-		? str.replace(/0+$/, '').replace(/\.$/, '')
-		: str
 }

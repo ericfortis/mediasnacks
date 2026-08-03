@@ -15,7 +15,7 @@ export function printProgress(progress, msElapsed, msETA) {
 		? '100%'
 		: `${(progress * 100).toFixed(1)}%`
 	process.stdout.write(HIDE_CURSOR)
-	process.stdout.write(`\r${progressBar(progress)}${percent}${eta}${elapsed}${ERASE_TO_END}`)
+	process.stdout.write(`\r${progressBar(progress)} ${percent}${eta}${elapsed}${ERASE_TO_END}`)
 	if (progress === 1)
 		process.stdout.write('\n' + SHOW_CURSOR)
 }
@@ -26,5 +26,5 @@ function progressBar(progress, width = 42) {
 	const nRemaining = width - nFull
 	const partials = ' ▏▎▍▌▋▊▉'
 	const partial = partials[Math.min(partials.length * fPartial | 0, partials.length - 1)]
-	return '█'.repeat(nFull) + partial + '⠂'.repeat(nRemaining)
+	return '█'.repeat(nFull) + partial + '•'.repeat(nRemaining)
 }
