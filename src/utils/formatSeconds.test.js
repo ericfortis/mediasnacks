@@ -10,6 +10,7 @@ describe('formatSeconds', () => {
 		'zero (no decimals)': [0, 0, '0s'],
 		'rounds seconds (no decimals)': [4.6, 0, '5s'],
 		'zero': [0, 2, '0s'],
+		'ten seconds': [10, 0, '10s'],
 		'rounds seconds': [1.209, 2, '1.21s'],
 		'strips trailing zeroes': [1.2, 2, '1.2s'],
 		'seconds': [1, 2, '1s'],

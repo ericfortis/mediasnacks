@@ -29,5 +29,8 @@ export function formatSeconds(seconds, maxDecimals = 2) {
  *   cleanDecimals(5.0) -> "5"
  */
 export function cleanDecimals(number) {
-	return String(number).replace(/\.?0+$/, '') || '0'
+	const str = String(number)
+	return str.includes('.')
+		? str.replace(/0+$/, '').replace(/\.$/, '')
+		: str
 }
