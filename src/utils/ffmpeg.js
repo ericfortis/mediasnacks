@@ -1,5 +1,6 @@
+import os from 'node:os'
 import { spawn } from 'node:child_process'
-import { printProgress } from './printProgress.js'
+import { printProgress, showCursor } from './printProgress.js'
 import { videoAttrs } from './videoAttrs.js'
 import { runSilently } from './subprocess.js'
 
@@ -44,6 +45,12 @@ export async function ffmpegWithProgress(input, args, onProgress = printProgress
 		}
 		else
 			onProgress(1, msElapsed, 0)
+	})
+	process.on('SIGINT', () => {
+		p?.kill('SIGINT')
+		showCursor()
+		console.log('\nAborted')
+		process.exit(128 + os.constants.signals.SIGINT)
 	})
 	p.stderr.pipe(process.stderr)
 

@@ -4,6 +4,8 @@ const HIDE_CURSOR = '\x1b[?25l'
 const SHOW_CURSOR = '\x1b[?25h'
 const ERASE_TO_END = '\x1b[K'
 
+export const showCursor = () => process.stdout.write(SHOW_CURSOR)
+
 export function printProgress(progress, msElapsed, msETA) {
 	const elapsed = msElapsed
 		? ` • ${formatSeconds(msElapsed / 1000, 0)}`
