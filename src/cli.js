@@ -77,11 +77,11 @@ async function main() {
 	if (!opt) throw HELP
 	if (!Object.hasOwn(COMMANDS, opt)) throw `'${opt}' is not a command. See mediasnacks --help\n`
 
-	const cmd = COMMANDS[opt][0]
-	if (cmd.endsWith('.js'))
-		await (await import(cmd)).default()
+	const prog = COMMANDS[opt][0]
+	if (prog.endsWith('.js'))
+		await (await import(prog)).default()
 	else
-		spawn(join(import.meta.dirname, cmd), args, { stdio: 'inherit' })
+		spawn(join(import.meta.dirname, prog), args, { stdio: 'inherit' })
 			.on('exit', process.exit)
 }
 
