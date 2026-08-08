@@ -7,6 +7,7 @@ describe('formatSeconds', () => {
 	const h = 60 * m
 
 	const tests = {
+		'string 1s': ['1', 0, '1s'],
 		'zero (no decimals)': [0, 0, '0s'],
 		'rounds seconds (no decimals)': [4.6, 0, '5s'],
 		'zero': [0, 2, '0s'],
@@ -23,4 +24,9 @@ describe('formatSeconds', () => {
 
 	for (const [name, [seconds, decimals, expected]] of Object.entries(tests))
 		test(name, () => equal(formatSeconds(seconds, decimals), expected))
+
+	test('NaN returns empty string', () => {
+		equal(formatSeconds('a'), '')
+		equal(formatSeconds(undefined), '')
+	})
 })

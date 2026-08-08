@@ -5,13 +5,21 @@ import { formatSeconds, cleanDecimals } from './utils/formatSeconds.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks info [-a | --all] <file>
+  mediasnacks info [-a | --all] <files>
 
 DESCRIPTION
-  Prints all available attributes for the primary video stream from ffprobe.
+  Prints video attributes.
 
 OPTIONS
   -a, --all    Prints all attributes as JSON
+
+EXAMPLES
+  This command prints an output similar to ls, but with the 
+  width, height, fps, duration, and codec:
+    mediasnacks info *.mp4
+  
+  Sort by fps:
+    mediasnacks info *.* | sort -k3,3n
 `
 
 export default async function main() {
@@ -32,8 +40,9 @@ export default async function main() {
 export async function infoSummary(video) {
 	const v = await videoAttrs(video)
 	return [
-		`${v.width}×${v.height}`.padEnd(10),
-		`${fps(v.r_frame_rate)}fps`.padEnd(10),
+		String(v.width).padStart(4),
+		String(v.height).padStart(4),
+		`${fps(v.r_frame_rate)}fps`.padStart(10),
 		formatSeconds(v.duration).padStart(10),
 		prettyCodecName(v.codec_name).padEnd(12)
 	].join('  ')

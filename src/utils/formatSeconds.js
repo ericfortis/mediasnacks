@@ -17,6 +17,8 @@ export const cleanDecimals = Number
  *   formatSeconds(3661.25, 2) -> "1h1m1.25s"
  */
 export function formatSeconds(seconds, maxDecimals = 2) {
+	if (!Number.isFinite(+seconds))
+		return ''
 	const intSeconds = seconds | 0
 	const partialSeconds = seconds % 60
 	const minutes = (intSeconds % 3600) / 60 | 0

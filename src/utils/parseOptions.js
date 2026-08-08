@@ -10,6 +10,7 @@ const glob = promisify(_glob)
  * @param {Partial<import('node:util').ParseArgsConfig>} [config]
  */
 export async function parseOptions(helpText, options = {}, config = {}) {
+	helpText = helpText.trim()
 	options.help = { short: 'h', type: 'boolean' }
 
 	const { values, positionals } = parseArgs({
@@ -20,7 +21,7 @@ export async function parseOptions(helpText, options = {}, config = {}) {
 	})
 
 	if (values.help) {
-		console.log(helpText.trim())
+		console.log(helpText)
 		process.exit(0)
 	}
 
