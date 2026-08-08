@@ -19,23 +19,23 @@ export default async function main() {
 		all: { short: 'a', type: 'boolean' }
 	})
 
-	const video = files[0]
-	if (!video) throw usage('No video file specified')
+	if (!files[0]) throw usage('No video file specified')
 
-	if (values.all)
-		console.log(JSON.stringify(await videoAttrs(video), '', 2))
-	else
-		console.log(await infoSummary(video))
+	for (const video of files)
+		if (values.all)
+			console.log(JSON.stringify(await videoAttrs(video), '', 2))
+		else
+			console.log(await infoSummary(video), video)
 }
 
 
 export async function infoSummary(video) {
 	const v = await videoAttrs(video)
 	return [
-		`${v.width}×${v.height}`,
-		`${fps(v.r_frame_rate)}fps`,
-		formatSeconds(v.duration),
-		prettyCodecName(v.codec_name)
+		`${v.width}×${v.height}`.padEnd(10),
+		`${fps(v.r_frame_rate)}fps`.padEnd(10),
+		formatSeconds(v.duration).padStart(10),
+		prettyCodecName(v.codec_name).padEnd(12)
 	].join('  ')
 }
 

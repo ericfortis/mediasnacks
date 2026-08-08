@@ -20,32 +20,26 @@ describe('parseOptions', () => {
 
 	after(() => rm(testDir, { recursive: true }))
 
-	test('parses args and globs files', async () => {
+	test('globs pattern positionals and keeps verbatim literals', async () => {
 		const { values, positionals, files } = await parseOptions('HELP', {
 			outdir: { type: 'string', default: '' }
 		}, {
-			args: ['--outdir', '/tmp', inTmpDir('file[12].png')],
+			args: ['--outdir', '/tmp', inTmpDir('file[12].png'), inTmpDir('file4[special].png')],
 		})
 		equal(values.outdir, '/tmp')
-		deepEqual(positionals, [inTmpDir('file[12].png')])
-		deepEqual(files, [
-			inTmpDir('file1.png'),
-			inTmpDir('file2.png')
-		])
-	})
-
-	test('respects verbatim tokens', async () => {
-		const literal0 = 'literal-file[98].png'
-		const literal1 = 'literal-file[99].png'
-		const { files } = await parseOptions('HELP', {}, {
-			args: [inTmpDir('file[12].png'), '--', literal0, literal1]
-		})
+		deepEqual(positionals, [inTmpDir('file[12].png'), inTmpDir('file4[special].png')])
 		deepEqual(files, [
 			inTmpDir('file1.png'),
 			inTmpDir('file2.png'),
-			literal0,
-			literal1,
+			inTmpDir('file4[special].png')
 		])
+	})
+
+	test('falls back to the literal when the glob matches nothing', async () => {
+		const { files } = await parseOptions('HELP', {}, {
+			args: [inTmpDir('nonexistent[1].png')],
+		})
+		deepEqual(files, [inTmpDir('nonexistent[1].png')])
 	})
 
 	test('empty files array when no positionals', async () => {

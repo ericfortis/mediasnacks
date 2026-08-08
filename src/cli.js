@@ -55,7 +55,7 @@ SYNOPSIS
 
 COMMANDS
 ${commandsSummary().map(([cmd, desc]) =>
-	`  ${styleText('bold', cmd.padEnd(12, ' '))}\t${desc}`).join('\n')}
+	`  ${styleText('bold', cmd.padEnd(12))}\t${desc}`).join('\n')}
 `.trim()
 
 

@@ -12,12 +12,11 @@ const glob = promisify(_glob)
 export async function parseOptions(helpText, options = {}, config = {}) {
 	options.help = { short: 'h', type: 'boolean' }
 
-	const { values, positionals, tokens } = parseArgs({
+	const { values, positionals } = parseArgs({
 		args: process.argv.slice(3),
 		allowPositionals: true,
 		options,
-		...config,
-		tokens: true
+		...config
 	})
 
 	if (values.help) {
@@ -28,30 +27,23 @@ export async function parseOptions(helpText, options = {}, config = {}) {
 	return {
 		values,
 		positionals,
-		files: await resolveGlobs(positionals, tokens),
+		files: await resolveGlobs(positionals),
 		usage: err => err
 			? styleText('redBright', '' + err + '\n') + helpText
 			: helpText
 	}
 }
 
-async function resolveGlobs(arr, tokens = []) {
-	const terminatorIndex = tokens.find(t => t.kind === 'option-terminator')?.index ?? -1
+async function resolveGlobs(arr) {
 	const set = new Set()
-
-	const globable = terminatorIndex === -1
-		? arr
-		: arr.slice(0, terminatorIndex)
-
-	for (const g of globable)
-		for (const file of await glob(g))
-			set.add(file)
-
-
-	if (terminatorIndex !== -1)
-		for (const literal of arr.slice(terminatorIndex))
-			set.add(literal)
-
+	for (const arg of arr) {
+		const matches = await glob(arg)
+		if (matches.length)
+			for (const file of matches)
+				set.add(file)
+		else
+			set.add(arg)
+	}
 	return Array.from(set)
 }
 
