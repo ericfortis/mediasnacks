@@ -8,14 +8,14 @@ SYNOPSIS
   mediasnacks info [-a | --all] <files>
 
 DESCRIPTION
-  Prints video attributes.
+  Prints video or image attributes using ffprobe. By default, it’s similar to 
+  \`ls\` but prints the: width, height, fps, duration, codec, and filename.
 
 OPTIONS
-  -a, --all    Prints all attributes as JSON
+  -a, --all    Prints everything as JSON
 
 EXAMPLES
-  This command prints an output similar to ls, but with the 
-  width, height, fps, duration, and codec:
+  Short summary of each match:	
     mediasnacks info *.mp4
   
   Sort by fps:
@@ -43,8 +43,8 @@ export async function infoSummary(video) {
 		String(v.width).padStart(4),
 		String(v.height).padStart(4),
 		`${fps(v.r_frame_rate)}fps`.padStart(7),
-		formatSeconds(v.duration).padStart(10),
-		prettyCodecName(v.codec_name).padEnd(12)
+		formatSeconds(v.duration).padStart(11),
+		v.codec_name.padEnd(8)
 	].join(' ')
 }
 
@@ -52,21 +52,3 @@ function fps(rFrameRate) {
 	const [num, den] = rFrameRate.split('/').map(Number)
 	return cleanDecimals((num / den).toFixed(2))
 }
-
-function prettyCodecName(codec) {
-	// ffmpeg -codecs | grep '^...V'
-	return {
-		'dnxhd': 'DNxHD',
-		'dvvideo': 'DV (Digital Video)',
-		'h264': 'H.264',
-		'hevc': 'H.265',
-		'jpeg2000': 'JPEG 2000',
-		'mpeg4': 'MPEG-4 Part 2',
-		'prores': 'ProRes',
-		'qtrle': 'QuickTime RLE',
-		'rawvideo': 'Uncompressed',
-	}[codec] || codec
-}
-
-
-
