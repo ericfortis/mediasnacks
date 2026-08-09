@@ -42,10 +42,10 @@ export async function infoSummary(video) {
 	return [
 		String(v.width).padStart(4),
 		String(v.height).padStart(4),
-		`${fps(v.r_frame_rate)}fps`.padStart(10),
+		`${fps(v.r_frame_rate)}fps`.padStart(7),
 		formatSeconds(v.duration).padStart(10),
 		prettyCodecName(v.codec_name).padEnd(12)
-	].join('  ')
+	].join(' ')
 }
 
 function fps(rFrameRate) {
