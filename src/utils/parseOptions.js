@@ -30,7 +30,7 @@ export async function parseOptions(helpText, options = {}, config = {}) {
 		positionals,
 		files: await resolveGlobs(positionals),
 		usage: err => err
-			? styleText('redBright', '' + err + '\n') + helpText
+			? styleText('redBright', err + '\n') + helpText
 			: helpText
 	}
 }
