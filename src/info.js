@@ -43,7 +43,7 @@ export async function infoSummary(video) {
 		String(v.width).padStart(4),
 		String(v.height).padStart(4),
 		`${fps(v.r_frame_rate)}fps`.padStart(7),
-		formatSeconds(v.duration).padStart(11),
+		formatSeconds(v.duration, 0).padStart(8),
 		v.codec_name.padEnd(8)
 	].join(' ')
 }
