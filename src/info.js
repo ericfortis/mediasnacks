@@ -20,6 +20,17 @@ EXAMPLES
   
   Sort by fps:
     mediasnacks info *.* | sort -k3,3n
+
+  Move 60fps videos into 60fps/ subdir: 
+    FPS=60
+    DIR=\${FPS}fps
+    mkdir -p \$DIR
+    mediasnacks info *.* |
+      grep \${FPS}fps |
+      awk -F\\t '{print $NF}' |
+      while read -r f; do
+        mv -- "$f" \$DIR/
+      done  
 `
 
 export default async function main() {
@@ -33,7 +44,7 @@ export default async function main() {
 		if (values.all)
 			console.log(JSON.stringify(await videoAttrs(video), '', 2))
 		else
-			console.log(await infoSummary(video), video)
+			console.log(`${await infoSummary(video)}\t${video}`)
 }
 
 
@@ -44,8 +55,8 @@ export async function infoSummary(video) {
 		String(v.height).padStart(4),
 		`${fps(v.r_frame_rate)}fps`.padStart(7),
 		formatSeconds(v.duration, 0).padStart(8),
-		v.codec_name.padEnd(8)
-	].join(' ')
+		v.codec_name
+	].join('\t')
 }
 
 function fps(rFrameRate) {
