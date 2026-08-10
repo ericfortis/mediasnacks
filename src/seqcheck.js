@@ -35,7 +35,7 @@ export function seqcheck(dir, leftDelim = LEFT_DELIM, rightDelim = RIGHT_DELIM) 
 }
 
 export function extractSeqNums(names, leftDelim, rightDelim) {
-	const pattern = new RegExp(escapeRegex(leftDelim) + '(\\d+)' + escapeRegex(rightDelim))
+	const pattern = new RegExp(RegExp.escape(leftDelim) + '(\\d+)' + RegExp.escape(rightDelim))
 	const seq = []
 	for (const name of names) {
 		const match = name.match(pattern)
@@ -53,8 +53,4 @@ export function findMissingNumbers(seq) {
 		if (!seq.includes(i))
 			missing.push(i)
 	return missing
-}
-
-function escapeRegex(str) {
-	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
