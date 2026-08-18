@@ -44,7 +44,7 @@ export default async function main() {
 
 	for (const file of files) {
 		const newpath = await unemoji(file)
-		if (newpath)
+		if (newpath !== file)
 			console.log(`Renaming: ${file} -> ${newpath}`)
 	}
 }
@@ -57,10 +57,11 @@ export async function unemoji(file) {
 		.replace(/\s+/g, ' ')
 		.replace(/\s+\./g, '.')
 		.trim()
-	if (base === newbase)
-		return null
-
 	const newpath = join(dir, newbase)
+
+	if (base === newbase)
+		return newpath
+
 	if (existsSync(newpath))
 		throw `Skipping (exists): ${file} -> ${newpath}`
 

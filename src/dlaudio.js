@@ -22,13 +22,12 @@ export default async function main() {
 }
 
 export async function dlaudio(url) {
-	const f = (await runSilently('yt-dlp', [
+	const { stdout } = await runSilently('yt-dlp', [
 		'--print', 'filename',
 		'--no-simulate',
 		'-o', '%(title)s.%(ext)s',
 		'-f', 'bestaudio[ext=m4a]/bestaudio',
 		url
-	])).stdout.trim()
-
-	return await unemoji(f) || f
+	])
+	return await unemoji(stdout.trim())
 }
