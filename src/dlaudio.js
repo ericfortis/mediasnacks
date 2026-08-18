@@ -1,6 +1,5 @@
 import { parseOptions } from './utils/parseOptions.js'
-import { runSilently } from './utils/subprocess.js'
-import { unemoji } from './unemoji.js'
+import { run } from './utils/subprocess.js'
 
 
 const HELP = `
@@ -17,17 +16,14 @@ export default async function main() {
 	if (!positionals[0])
 		throw usage('Missing URL')
 
-	const f = await dlaudio(positionals[0])
-	console.log(f)
+	await dlaudio(positionals[0])
 }
 
 export async function dlaudio(url) {
-	const { stdout } = await runSilently('yt-dlp', [
-		'--print', 'filename',
+	await run('yt-dlp', [
 		'--no-simulate',
 		'-o', '%(title)s.%(ext)s',
 		'-f', 'bestaudio[ext=m4a]/bestaudio',
 		url
 	])
-	return await unemoji(stdout.trim())
 }
