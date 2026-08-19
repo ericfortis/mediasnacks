@@ -1,0 +1,42 @@
+#!/usr/bin/osascript
+
+property colorNames : {"none", "orange", "red", "yellow", "blue", "purple", "green", "gray"}
+
+on usage()
+    log "USAGE: mediasnacks tag <color> <file>"
+    set AppleScript's text item delimiters to " "
+    set colorList to colorNames as text
+    set AppleScript's text item delimiters to ""
+    log "COLORS: " & colorList
+end usage
+
+on labelNumForColor(theItem)
+    repeat with i from 1 to count of colorNames
+        if item i of colorNames as text is theItem as text then
+            return i - 1
+        end if
+    end repeat
+    return -1
+end labelNumForColor
+
+on run argv
+    if (count of argv) < 2 then
+        usage()
+        return
+    end if
+    set tagColor to item 1 of argv
+    set filePath to item 2 of argv
+
+    set labelNum to labelNumForColor(tagColor)
+    if labelNum is -1 then
+        log "invalid color: " & tagColor
+        usage()
+        return
+    end if
+
+    set theFile to POSIX file filePath as alias
+    tell application "Finder"
+        set label index of theFile to labelNum
+    end tell
+    return
+end run

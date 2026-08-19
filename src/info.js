@@ -26,11 +26,17 @@ EXAMPLES
     DIR=\${FPS}fps
     mkdir -p \$DIR
     mediasnacks info *.* |
-      grep \${FPS}fps |
-      awk -F\\t '{print $NF}' |
+      awk "\\$3==\\"\${FPS}fps\\" { print \\$NF }" |
       while read -r f; do
         mv -- "$f" \$DIR/
       done  
+   
+  Tag with "red" (in macOS Finder) 1080 videos:
+    COLOR=red
+    HEIGHT=1080
+    mediasnacks info *.mov |
+      awk "\\$2==\$HEIGHT { print \\$NF }" |
+    	xargs -I{} mediasnacks tag $COLOR "{}" 
 `
 
 export default async function main() {

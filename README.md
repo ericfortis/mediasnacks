@@ -32,6 +32,7 @@ mediasnacks <command> <args>
 - `ssim` Computes similarity of two images
 - `gif`: Video to GIF
 - `info`: Prints video attributes
+- `tag`: Adds color tag for Finder
 
 
 - `detectdups` Detects sequentially duplicate frames in a video

@@ -18,7 +18,8 @@ const COMMANDS = {
 	countframes: ['./countframes.js', 'Counts frames in a video'],
 	ssim: ['./ssim.js', 'Computes SSIM between two images'],
 	gif: ['./gif.js', 'Video to GIF'],
-	info: ['./info.js', 'Prints video stream attributes\n'],
+	info: ['./info.js', 'Prints video stream attributes'],
+	tag: ['./tag.osascript', 'Adds color tag for Finder\n'],
 
 	detectdups: ['./detectdups.js', 'Detects duplicate frames in a video'],
 	dropdups: ['./dropdups.js', 'Removes duplicate frames in a video'],
