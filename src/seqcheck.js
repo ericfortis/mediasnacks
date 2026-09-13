@@ -13,8 +13,8 @@ DESCRIPTION
   Find missing numbered files in a sequence.
 
 OPTIONS
-  -ld, --left-delimiter <str>   Delimiter before the number (default: "${LEFT_DELIM}")
-  -rd, --right-delimiter <str>  Delimiter after the number (default: "${RIGHT_DELIM}")
+  --left-delimiter  <str>   Char before the number (default: "${LEFT_DELIM}")
+  --right-delimiter <str>   Char after the number  (default: "${RIGHT_DELIM}")
 `
 
 export default async function main() {

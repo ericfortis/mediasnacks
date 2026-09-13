@@ -1,8 +1,8 @@
 import { formatSeconds } from './formatSeconds.js'
 
-const HIDE_CURSOR = '\x1b[?25l'
-const SHOW_CURSOR = '\x1b[?25h'
-const ERASE_TO_END = '\x1b[K'
+export const HIDE_CURSOR = '\x1b[?25l'
+export const SHOW_CURSOR = '\x1b[?25h'
+export const ERASE_TO_END = '\x1b[K'
 
 export const showCursor = () => process.stdout.write(SHOW_CURSOR)
 
@@ -30,5 +30,5 @@ function progressBar(progress, width = 44) {
 
 	const partials = ' ▏▎▍▌▋▊▉'
 	const partial = partials.at(partials.length * fPartial)
-	return '█'.repeat(nFull) + partial + '•'.repeat(nRemaining)
+	return '█'.repeat(nFull) + partial + '─'.repeat(nRemaining)
 }

@@ -15,7 +15,6 @@ EXAMPLE
   mediasnacks play artistX artistY
 `
 
-
 export default async function main() {
 	const { values, positionals, usage } = await parseOptions(HELP, {
 		recursive: { short: 'r', type: 'boolean', default: true },
