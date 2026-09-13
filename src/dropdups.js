@@ -16,14 +16,14 @@ DESCRIPTION
 
 OPTIONS
   -n, --dup-frame-num <n>  Known frame interval to drop.
- 		                       Default: n=0, which auto-detects repeated frames (slower)
+                           Default: n=0, which auto-detects repeated frames (slower)
 
 EXAMPLES
   Use n=2 when every other frame is repeated:
-  mediasnacks dropdups -n2 vid.mov
-  
-	Use n=6 if e.g., a 25 fps got upped to 30 fps without interpolation.
-  mediasnacks dropdups -n6 vid.mov
+    mediasnacks dropdups -n2 vid.mov
+
+  Use n=6 if e.g. a 25 fps got upped to 30 fps without interpolation:
+    mediasnacks dropdups -n6 vid.mov
 `
 
 
