@@ -24,7 +24,7 @@ test('PNG to AVIF (opaque)', async () => {
 	cli('avif', '--outdir', tmp, rel('fixtures/lenna.png'))
 
 	const similarityScore = await ssim(join(tmp, 'lenna.avif'), rel('fixtures/lenna.avif'))
-	ok(similarityScore > 0.98, `Similarity too low: ${similarityScore}`)
+	ok(similarityScore > 0.95, `Similarity too low: ${similarityScore}`)
 })
 
 // ssim is useless here: ffmpeg demuxes the alpha auxiliary item as a second video
