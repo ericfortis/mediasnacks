@@ -1,7 +1,7 @@
 import { join, basename, dirname } from 'node:path'
 import { parseOptions } from './utils/parseOptions.js'
 import { replaceExt, lstat } from './utils/fs-utils.js'
-import { ffmpeg } from './utils/ffmpeg.js'
+import { runSilently } from './utils/subprocess.js'
 
 
 const HELP = `
@@ -9,11 +9,14 @@ SYNOPSIS
   mediasnacks avif [-y | --overwrite] [--outdir=<dir>] <images> 
 
 DESCRIPTION
- Converts images to AVIF.
+  Converts images to AVIF.
 
 EXAMPLES
   mediasnacks avif -y '*.png'
   mediasnacks avif --outdir=foo/ 'a/**/*.png'
+  
+DEPENDENCIES
+  brew install libavif
 `
 
 export default async function main() {
@@ -42,11 +45,5 @@ export async function avif({ file, outFile, overwrite = false }) {
 		if (stAvif?.mtimeMs > lstat(file)?.mtimeMs) throw `avif is newer: ${file}`
 	}
 
-	await ffmpeg([
-		'-y',
-		'-i', file,
-		'-c:v', 'libsvtav1',
-		'-svtav1-params', 'avif=1',
-		outFile
-	])
+	await runSilently('avifenc', [file, outFile])
 }
