@@ -113,4 +113,5 @@ export type VtrimOptions = VtrimBase & (
 	)
 export function vtrim(options: VtrimOptions): Promise<void>
 
-export function infoSummary(video: string): Promise<string>
+export function infoSummaryTabular(video: string): Promise<string>
+export function infoSummaryShort(video: string): Promise<string>

@@ -12,7 +12,7 @@ DESCRIPTION
   \`ls\` but prints the: width, height, fps, duration, codec, and filename.
 
 OPTIONS
-  -a, --all    Prints everything as JSON
+  -a, --all    Prints all attributes found by FFprobe as JSON
 
 EXAMPLES
   Short summary of each match:	
@@ -50,22 +50,32 @@ export default async function main() {
 		if (values.all)
 			console.log(JSON.stringify(await videoAttrs(video), '', 2))
 		else
-			console.log(`${await infoSummary(video)}\t${video}`)
+			console.log(`${await infoSummaryTabular(video)}\t${video}`)
 }
 
 
-export async function infoSummary(video) {
+export async function infoSummaryTabular(video) {
 	const v = await videoAttrs(video)
 	return [
 		String(v.width).padStart(4),
 		String(v.height).padStart(4),
-		`${fps(v.r_frame_rate)}fps`.padStart(8),
+		fps(v.r_frame_rate).padStart(8),
 		formatSeconds(v.duration, 0).padStart(8),
 		v.codec_name
 	].join('\t')
 }
 
+export async function infoSummaryShort(video) {
+	const v = await videoAttrs(video)
+	return [
+		`${v.width}×${v.height}`,
+		fps(v.r_frame_rate),
+		formatSeconds(v.duration, 0),
+		v.codec_name
+	].join('  ')
+}
+
 function fps(rFrameRate) {
 	const [num, den] = rFrameRate.split('/').map(Number)
-	return cleanDecimals((num / den).toFixed(2))
+	return cleanDecimals((num / den).toFixed(2)) + 'fps'
 }
