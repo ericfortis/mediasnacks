@@ -6,10 +6,15 @@ import { runSilently } from './utils/subprocess.js'
 
 const HELP = `
 SYNOPSIS
-  mediasnacks avif [-y | --overwrite] [--outdir=<dir>] <images> 
+  mediasnacks avif [options] <images> 
 
 DESCRIPTION
   Converts images to AVIF.
+
+OPTIONS
+  -p, --progressive
+  -y, --overwrite
+  --outdir <dirname>
 
 EXAMPLES
   mediasnacks avif -y '*.png'
@@ -23,6 +28,7 @@ export default async function main() {
 	const { values, files, usage } = await parseOptions(HELP, {
 		outdir: { type: 'string', default: '' },
 		overwrite: { short: 'y', type: 'boolean' },
+		progressive: { short: 'p', type: 'boolean' },
 	})
 
 	if (!files.length)
@@ -32,18 +38,23 @@ export default async function main() {
 		await avif({
 			file,
 			outFile: join(values.outdir || dirname(file), replaceExt(basename(file), 'avif')),
-			overwrite: values.overwrite
+			overwrite: values.overwrite,
+			progressive: values.progressive
 		})
 		console.log(file)
 	}
 }
 
-export async function avif({ file, outFile, overwrite = false }) {
+export async function avif({ file, outFile, overwrite = false, progressive = false }) {
 	const stAvif = lstat(outFile)
 	if (!overwrite) {
 		if (stAvif?.isFile()) throw `output file exists: ${file}`
 		if (stAvif?.mtimeMs > lstat(file)?.mtimeMs) throw `avif is newer: ${file}`
 	}
 
-	await runSilently('avifenc', [file, outFile])
+	await runSilently('avifenc', [
+		file,
+		progressive ? ['--progressive'] : [],
+		outFile
+	].flat())
 }
